@@ -12,16 +12,18 @@ import { H5 } from "@components/text/Heading";
 import Image from "next/image";
 import InlineText from "@components/text/InlineText";
 import HStack from "@components/flex/Stacks";
+import { useAuthorization } from "../hooks/store/useAuthorization";
 
 function SignIn() {
   const { register, handleSubmit, control } = useForm<ILogin>();
   const { mutateAsync: login, isLoading } = useLoginMutation();
+  const { setUser } = useAuthorization();
   const [error, setError] = useState(false);
   const handleSubmitCreateJob = useCallback(async (data: ILogin) => {
     try {
       const response = await login(data);
       console.log(response);
-      setError(false);
+      setUser(response);
       router.push("./app");
     } catch (err) {
       setError(true);
@@ -43,7 +45,7 @@ function SignIn() {
         <Input
           type="password"
           label="Sua Senha"
-          placeholder="*********"
+          placeholder="Senha"
           control={control}
           register={register("password")}
         />
@@ -80,7 +82,9 @@ function SignIn() {
         </Button>
         <HStack gap="10px">
           <P1>Primeira vez no Jokio?</P1>{" "}
-          <P1 color="#7A41E0">Crie sua conta?</P1>
+          <Link href="./app">
+            <P1 color="#7A41E0">Crie sua conta</P1>
+          </Link>
         </HStack>
       </Content>
     </Container>

@@ -17,13 +17,13 @@ const inter = Inter({ subsets: ["latin"] });
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient());
   return (
-    <main className={inter.className}>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
+    <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
+      <main className={inter.className}>
         <Component {...pageProps} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </main>
+      </main>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

@@ -17,11 +17,13 @@ export const StyledInput = styled.input`
 
 const Container = styled.div<React.InputHTMLAttributes<HTMLInputElement>>`
   width: ${(props) => props.width};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  min-width: ${(props) => props.width};
+  min-height: ${(props) => props.height};
 `;
 
-export const FormLabel = styled.label``;
+export const FormLabel = styled.label`
+  padding: 15px 0;
+`;
 
 export const Label = styled.p``;
 

@@ -21,7 +21,7 @@ export const Content = styled.div`
   border: solid 2px #ffffff;
   border-radius: 4px;
   padding: 30px 60px;
-  gap: 40px;
+  gap: 30px;
   max-height: 667px;
   flex-shrink: 0;
 `;

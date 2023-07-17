@@ -21,11 +21,7 @@ export function Input({
   return (
     <Container width={width} height={height}>
       <InputGroup>
-        {label && (
-          <FormLabel>
-            <P1>{label}</P1>
-          </FormLabel>
-        )}
+        {label && <P1 marginBottom="5px">{label}</P1>}
         <Controller
           name={register.name}
           control={control}
