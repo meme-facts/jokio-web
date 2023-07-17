@@ -8,6 +8,10 @@ import { useLoginMutation } from "../hooks/requests/useMutationLogin";
 import { ILogin } from "../requests/login";
 import { Container, Content } from "./styles";
 import { P1 } from "@components/text/Paragraph";
+import { H5 } from "@components/text/Heading";
+import Image from "next/image";
+import InlineText from "@components/text/InlineText";
+import HStack from "@components/flex/Stacks";
 
 function SignIn() {
   const { register, handleSubmit, control } = useForm<ILogin>();
@@ -27,30 +31,57 @@ function SignIn() {
   return (
     <Container>
       <Content>
+        <Image src="/JOKIO.png" alt="me" width="132" height="32" />
+        <H5>Login</H5>
         {/* <h1>Login</h1> */}
         <Input
           label="Usuário"
-          placeholder="login"
+          placeholder="Usuário"
           control={control}
           register={register("login")}
         />
         <Input
           type="password"
           label="Sua Senha"
-          placeholder="password"
+          placeholder="*********"
           control={control}
           register={register("password")}
         />
-        {error && <P1>wrong user or password</P1>}
+        {error && <P1 color="red">wrong user or password</P1>}
         <Button
+          width="330px"
+          height="52px"
+          borderRadius="10px"
           disabled={isLoading}
           onClick={handleSubmit(handleSubmitCreateJob)}
         >
-          Login
+          ENTRAR
         </Button>
-        {/* <span className="text-indigo-600 italic cursor-pointer">
-        <Link href="/app">Go home</Link>
-      </span> */}
+        <InlineText>Ou</InlineText>
+        <Button
+          background="transparent"
+          width="330px"
+          height="44px"
+          borderRadius="10px"
+          borderColor="#000"
+          color="#000"
+        >
+          ENTRAR COM GOOGLE
+        </Button>
+        <Button
+          background="transparent"
+          width="330px"
+          height="44px"
+          borderRadius="10px"
+          borderColor="#000"
+          color="#000"
+        >
+          ENTRAR COM APPLE
+        </Button>
+        <HStack gap="10px">
+          <P1>Primeira vez no Jokio?</P1>{" "}
+          <P1 color="#7A41E0">Crie sua conta?</P1>
+        </HStack>
       </Content>
     </Container>
   );
