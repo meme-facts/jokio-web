@@ -15,6 +15,7 @@ export const StyledButton = styled.button<CSSProperties>`
   padding: 0;
   border: 1px solid #7a41e0;
   border-radius: 3px;
+  font-family: var(--inter-font);
   cursor: pointer;
   ${(props) =>
     Object.keys(props).map((name) => {
@@ -25,7 +26,7 @@ export const StyledButton = styled.button<CSSProperties>`
     })};
 
   &:hover {
-    filter: brightness(0.5);
+    filter: brightness(0.8);
   }
   transition: filter 0.2s;
 `;

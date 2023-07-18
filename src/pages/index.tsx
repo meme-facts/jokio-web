@@ -52,7 +52,7 @@ function SignIn() {
         {error && <P1 color="red">wrong user or password</P1>}
         <Button
           width="330px"
-          height="52px"
+          size="lg"
           borderRadius="10px"
           disabled={isLoading}
           onClick={handleSubmit(handleSubmitCreateJob)}
@@ -73,7 +73,6 @@ function SignIn() {
         <Button
           background="transparent"
           width="330px"
-          height="44px"
           borderRadius="10px"
           borderColor="#000"
           color="#000"

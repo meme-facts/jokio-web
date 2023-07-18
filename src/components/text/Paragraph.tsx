@@ -5,6 +5,7 @@ type IParagraph = CSSProperties & React.HTMLAttributes<HTMLParagraphElement>;
 
 export const PStyled = styled.p<IParagraph>`
   margin: 0;
+  font-family: var(--inter-font);
   ${(props) =>
     Object.keys(props).map((name) => {
       return {
@@ -12,6 +13,14 @@ export const PStyled = styled.p<IParagraph>`
       };
     })};
 `;
+
+export function P({ children, ...props }: PropsWithChildren<IParagraph>) {
+  return (
+    <PStyled fontSize="0.75rem" {...props}>
+      {children}
+    </PStyled>
+  );
+}
 
 export function P1({ children, ...props }: PropsWithChildren<IParagraph>) {
   return (

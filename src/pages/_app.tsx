@@ -6,24 +6,26 @@ import { Inter } from "next/font/google";
 
 import { createGlobalStyle } from "styled-components";
 
+const inter = Inter({ subsets: ["latin"], variable: "--inter-font" });
+
 const GlobalStyle = createGlobalStyle`
-  body {
+  body, html {
     margin: 0;
     padding: 0;
+    font-family: var(--inter-font);
   }
 `;
-const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient());
   return (
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <main className={inter.className}>
+    <main className={inter.className}>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
         <Component {...pageProps} />
-      </main>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </main>
   );
 }
 

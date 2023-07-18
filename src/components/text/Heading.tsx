@@ -2,7 +2,6 @@ import { PropsWithChildren } from "react";
 import { styled } from "styled-components";
 
 export const H5Styled = styled.p`
-  font-family: Inter;
   font-size: 23px;
   font-style: normal;
   font-weight: 400;
