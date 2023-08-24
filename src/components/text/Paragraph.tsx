@@ -1,12 +1,39 @@
-import { PropsWithChildren } from "react";
+import { CSSProperties, PropsWithChildren } from "react";
 import { styled } from "styled-components";
 
-export const TextSm = styled.p`
-  font-size: 1rem;
-  line-height: 1.25rem;
+type IParagraph = CSSProperties & React.HTMLAttributes<HTMLParagraphElement>;
+
+export const PStyled = styled.p<IParagraph>`
   margin: 0;
+  font-family: var(--inter-font);
+  ${(props) =>
+    Object.keys(props).map((name) => {
+      return {
+        [name]: props[name as keyof IParagraph],
+      };
+    })};
 `;
 
-export function P1({ children }: PropsWithChildren<unknown>) {
-  return <TextSm>{children}</TextSm>;
+export function P({ children, ...props }: PropsWithChildren<IParagraph>) {
+  return (
+    <PStyled fontSize="0.75rem" {...props}>
+      {children}
+    </PStyled>
+  );
+}
+
+export function P1({ children, ...props }: PropsWithChildren<IParagraph>) {
+  return (
+    <PStyled fontSize="0.875rem" {...props}>
+      {children}
+    </PStyled>
+  );
+}
+
+export function P2({ children, ...props }: PropsWithChildren<IParagraph>) {
+  return (
+    <PStyled fontSize="1rem" {...props}>
+      {children}
+    </PStyled>
+  );
 }
