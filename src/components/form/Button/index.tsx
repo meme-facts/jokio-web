@@ -59,7 +59,7 @@ export function Button({
                 icon={rightIcon}
               />
             )}
-            <P1>{children}</P1>
+            <P>{children}</P>
           </HStack>
         </StyledButton>
       );
