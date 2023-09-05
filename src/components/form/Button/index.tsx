@@ -23,8 +23,13 @@ export function Button({
     case "sm":
       return (
         <StyledButton height="38px" {...rest}>
-          <HStack gap="5px" alignItems="center" justifyContent="center">
-            {rightIcon && <Icon styles={{}} icon={rightIcon} />}
+          <HStack
+            height="0.75rem"
+            gap="5px"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {rightIcon && <Icon icon={rightIcon} />}
             <P>{children}</P>
           </HStack>
         </StyledButton>
@@ -49,16 +54,7 @@ export function Button({
             alignItems="center"
             justifyContent="center"
           >
-            {rightIcon && (
-              <Icon
-                styles={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                icon={rightIcon}
-              />
-            )}
+            {rightIcon && <Icon icon={rightIcon} />}
             <P1>{children}</P1>
           </HStack>
         </StyledButton>

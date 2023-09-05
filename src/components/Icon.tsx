@@ -10,7 +10,18 @@ interface IIconProps {
   styles?: React.CSSProperties | undefined;
 }
 function Icon({ icon, styles }: IIconProps) {
-  return <SvgIcon style={styles} component={icon} inheritViewBox />;
+  return (
+    <SvgIcon
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        ...styles,
+      }}
+      component={icon}
+      inheritViewBox
+    />
+  );
 }
 
 export default Icon;
