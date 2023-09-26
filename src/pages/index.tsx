@@ -25,7 +25,6 @@ function SignIn() {
   const [error, setError] = useState(false);
 
   const handleGoogleLogin = async () => {
-    console.log("opa");
     try {
       const userCredentials = await signInWithPopup(auth, provider);
       const response = await google(userCredentials);
@@ -36,7 +35,6 @@ function SignIn() {
     }
   };
   const handleSubmitLogin = useCallback(async (data: ILogin) => {
-    console.log("opa");
     try {
       const response = await login(data);
       setUser(response);

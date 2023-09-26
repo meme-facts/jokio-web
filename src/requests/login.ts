@@ -7,7 +7,6 @@ export interface ILogin {
 }
 
 export async function login({ login, password }: ILogin) {
-  console.log(login, password, "12");
   const { data } = await JokioBackend.post("/users/login", { login, password });
 
   return data;
