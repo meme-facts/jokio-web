@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { styled } from "styled-components";
+import styled from "@emotion/styled";
 
 export const H5Styled = styled.p`
   font-size: 23px;

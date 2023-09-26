@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Inter } from "next/font/google";
 
-import { createGlobalStyle } from "styled-components";
+import { StyleSheetManager, createGlobalStyle } from "styled-components";
 
 const inter = Inter({ subsets: ["latin"], variable: "--inter-font" });
 
@@ -20,11 +20,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient());
   return (
     <main className={inter.className}>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <StyleSheetManager shouldForwardProp={(prop) => prop !== "sx"}>
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          <Component {...pageProps} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </StyleSheetManager>
     </main>
   );
 }
