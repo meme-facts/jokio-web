@@ -1,12 +1,11 @@
 import { ButtonHTMLAttributes, CSSProperties, DetailedHTMLProps } from "react";
-import { styled } from "styled-components";
-import { Styled } from "styled-components/dist/constructors/constructWithOptions";
+import styled from "@emotion/styled";
 import { BaseObject } from "styled-components/dist/types";
 
-export type IButton = CSSProperties &
+export type IButtonType = CSSProperties &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const StyledButton = styled.button<CSSProperties>`
+export const StyledButton = styled.button<{ sx: IButtonType }>`
   background: #7a41e0;
   color: #ffffff;
   width: 100%;
@@ -18,10 +17,9 @@ export const StyledButton = styled.button<CSSProperties>`
   font-family: var(--inter-font);
   cursor: pointer;
   ${(props) =>
-    Object.keys(props).map((name) => {
+    Object.keys(props.sx).map((name) => {
       return {
-        [name]:
-          props[name as keyof React.ButtonHTMLAttributes<HTMLButtonElement>],
+        [name]: props.sx[name as keyof IButtonType],
       };
     })};
 

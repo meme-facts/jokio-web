@@ -1,24 +1,27 @@
-import { styled } from "styled-components";
+import { CSSProperties } from "react";
+import styled from "@emotion/styled";
 
-export const StyledInput = styled.input`
+export type InputType = CSSProperties &
+  React.InputHTMLAttributes<HTMLInputElement>;
+
+export const StyledInput = styled.input<{ sx: InputType }>`
   max-width: calc(100% - 15px);
   height: 100%;
   border-radius: 10px;
   border: 1px solid #384757;
   padding-left: 10px;
   ${(props) =>
-    Object.keys(props).map((name) => {
+    Object.keys(props.sx).map((name) => {
       return {
-        [name]:
-          props[name as keyof React.InputHTMLAttributes<HTMLInputElement>],
+        [name]: props.sx[name as keyof InputType],
       };
     })};
 `;
 
-const Container = styled.div<React.InputHTMLAttributes<HTMLInputElement>>`
-  width: ${(props) => props.width};
-  min-width: ${(props) => props.width};
-  min-height: ${(props) => props.height};
+const Container = styled.div<{ sx: InputType }>`
+  width: ${(props) => props.sx.width};
+  min-width: ${(props) => props.sx.width};
+  min-height: ${(props) => props.sx.height};
 `;
 
 export const FormLabel = styled.label`

@@ -16,10 +16,11 @@ export function Input({
   label,
   width = "100%",
   height = "44px",
+  type,
   ...rest
 }: IInput) {
   return (
-    <Container width={width} height={height}>
+    <Container sx={{ width, height }}>
       <InputGroup>
         {label && <P1 marginBottom="5px">{label}</P1>}
         <Controller
@@ -27,14 +28,14 @@ export function Input({
           control={control}
           render={({ field }) => (
             <StyledInput
-              {...rest}
-              width={width}
-              height={height}
               onBlur={field.onBlur}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 field.onChange(e.target.value)
               }
-              value={field.value}
+              value={field.value ?? ""}
+              placeholder={rest.placeholder}
+              type={type ?? undefined}
+              sx={{ width, height, ...rest }}
             />
           )}
         />

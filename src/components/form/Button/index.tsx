@@ -1,13 +1,11 @@
-import { PropsWithChildren } from "react";
-import { IButton, StyledButton } from "./styles";
-import { P, P1, P2 } from "@components/text/Paragraph";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-import { SvgIconTypeMap } from "@mui/material";
 import Icon, { IIcon } from "@components/Icon";
 import { HStack } from "@components/flex/Stacks";
+import { P, P1, P2 } from "@components/text/Paragraph";
+import { PropsWithChildren } from "react";
+import { IButtonType, StyledButton } from "./styles";
 
 type Size = "sm" | "md" | "lg";
-interface IButtonProps extends IButton {
+interface IButtonProps extends IButtonType {
   size?: Size;
   rightIcon?: IIcon;
 }
@@ -17,14 +15,20 @@ export function Button({
   tabSize,
   size,
   rightIcon,
+  onClick,
   ...rest
 }: PropsWithChildren<IButtonProps>) {
   switch (size) {
     case "sm":
       return (
-        <StyledButton height="38px" {...rest}>
-          <HStack gap="5px" alignItems="center" justifyContent="center">
-            {rightIcon && <Icon styles={{}} icon={rightIcon} />}
+        <StyledButton onClick={onClick} sx={{ height: "38px", ...rest }}>
+          <HStack
+            height="0.75rem"
+            gap="5px"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {rightIcon && <Icon icon={rightIcon} />}
             <P>{children}</P>
           </HStack>
         </StyledButton>
@@ -32,7 +36,7 @@ export function Button({
 
     case "lg":
       return (
-        <StyledButton height="52px" {...rest}>
+        <StyledButton onClick={onClick} sx={{ height: "52px", ...rest }}>
           <HStack gap="5px" alignItems="center" justifyContent="center">
             {rightIcon && <Icon icon={rightIcon} />}
             <P2>{children}</P2>
@@ -42,24 +46,15 @@ export function Button({
 
     default:
       return (
-        <StyledButton height="44px" {...rest}>
+        <StyledButton onClick={onClick} sx={{ height: "44px", ...rest }}>
           <HStack
             height="0.875rem"
             gap="5px"
             alignItems="center"
             justifyContent="center"
           >
-            {rightIcon && (
-              <Icon
-                styles={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                icon={rightIcon}
-              />
-            )}
-            <P>{children}</P>
+            {rightIcon && <Icon icon={rightIcon} />}
+            <P1>{children}</P1>
           </HStack>
         </StyledButton>
       );

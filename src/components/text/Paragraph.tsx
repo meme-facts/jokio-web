@@ -1,39 +1,31 @@
 import { CSSProperties, PropsWithChildren } from "react";
-import { styled } from "styled-components";
+import styled from "@emotion/styled";
 
 type IParagraph = CSSProperties & React.HTMLAttributes<HTMLParagraphElement>;
 
-export const PStyled = styled.p<IParagraph>`
+export const PStyled = styled.p<{ sx?: IParagraph }>`
   margin: 0;
   font-family: var(--inter-font);
   ${(props) =>
-    Object.keys(props).map((name) => {
+    props.sx &&
+    Object.keys(props.sx).map((name) => {
       return {
-        [name]: props[name as keyof IParagraph],
+        [name]: props.sx && props.sx[name as keyof IParagraph],
       };
     })};
 `;
 
-export function P({ children, ...props }: PropsWithChildren<IParagraph>) {
-  return (
-    <PStyled fontSize="0.75rem" {...props}>
-      {children}
-    </PStyled>
-  );
+export function P({
+  children,
+  ...props
+}: PropsWithChildren<{ sx?: IParagraph }>) {
+  return <PStyled sx={{ fontSize: "0.75rem", ...props }}>{children}</PStyled>;
 }
 
 export function P1({ children, ...props }: PropsWithChildren<IParagraph>) {
-  return (
-    <PStyled fontSize="0.875rem" {...props}>
-      {children}
-    </PStyled>
-  );
+  return <PStyled sx={{ fontSize: "0.875rem", ...props }}>{children}</PStyled>;
 }
 
 export function P2({ children, ...props }: PropsWithChildren<IParagraph>) {
-  return (
-    <PStyled fontSize="1rem" {...props}>
-      {children}
-    </PStyled>
-  );
+  return <PStyled sx={{ fontSize: "1rem", ...props }}>{children}</PStyled>;
 }
