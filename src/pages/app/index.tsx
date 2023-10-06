@@ -1,12 +1,20 @@
-import Link from "next/link";
+import { useState } from 'react';
+import { SectionContainer, Tab, DivTab } from './styles';
+import Posts from '@components/Posts';
 
-function Home() {
+export default function Index() {
+  const [activeTab, setActiveTab] = useState('Para você');
+  const handleTabClick = (tabName: string) => {
+    setActiveTab(tabName);
+  };
+
   return (
-    <div>
-      <h1>Home</h1>
-      <Link href="/">Go back</Link>
-    </div>
+    <SectionContainer>
+      <DivTab>
+        <Tab onClick={() => handleTabClick('Para você')} isActive={activeTab === 'Para você'}>Para você</Tab>
+        <Tab onClick={() => handleTabClick('Seguindo')} isActive={activeTab === 'Seguindo'}>Seguindo</Tab>
+      </DivTab>
+      <Posts />
+    </SectionContainer>
   );
 }
-
-export default Home;

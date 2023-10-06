@@ -19,7 +19,7 @@ export function Button({
   ...rest
 }: PropsWithChildren<IButtonProps>) {
   switch (size) {
-    case "sm":
+    case "sm": 
       return (
         <StyledButton onClick={onClick} sx={{ height: "38px", ...rest }}>
           <HStack
