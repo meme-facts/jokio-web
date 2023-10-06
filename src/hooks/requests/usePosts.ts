@@ -1,9 +1,8 @@
 import { useQuery, UseQueryResult } from 'react-query';
-import { getAllPosts } from '../../requests/posts';
+import { getPosts, IGetAllPostParams, Posts } from '../../requests/posts';
 
-export const useCampaigns = (): UseQueryResult<unknown> => {
-    const params = { page: 1, limit: 10 }
-    return useQuery(['posts', params], () => getAllPosts(params), {
+export const useGetAllPosts: (params: IGetAllPostParams) => UseQueryResult<{ posts: Posts[], count: number }, unknown> = (params: IGetAllPostParams) => {
+    return useQuery(['posts', params], () => getPosts(params), {
         staleTime: 1000 * 60,
     });
 };

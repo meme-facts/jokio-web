@@ -8,11 +8,11 @@ export type Posts = {
     isActive: boolean
     postDescription: string
 }
-interface IGetAllPostParams {
+export interface IGetAllPostParams {
     page: number;
     limit: number;
 }
-export async function getAllPosts(params: IGetAllPostParams) {
+export async function getPosts(params: IGetAllPostParams) {
     const { data } = await JokioBackend.get('/post', {
         params
     })

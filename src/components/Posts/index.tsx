@@ -4,13 +4,16 @@ import { BsChatLeftText } from 'react-icons/bs';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { VscSend } from 'react-icons/vsc';
 import { P } from "@components/text/Paragraph";
-import { Posts, getAllPosts } from "../../requests/posts";
+import { Posts } from "../../requests/posts";
 import { ContainerPosts, Post, ReactionsContainer, TagsPost } from "./styles";
+import { useGetAllPosts } from "../../hooks/requests/usePosts";
 
 const Posts = () => {
     const [loveReaction, setShowReaction] = useState(false);
     const [clickCount, setClickCount] = useState(1);
-    const [posts, setPosts] = useState<Posts[]>([])
+    const params = { page: 1, limit: 10 }
+    const { data, isError, isLoading } = useGetAllPosts(params);
+
     const toggleReactionPost = () => {
         setClickCount(clickCount + 1);
         console.log(clickCount)
@@ -22,25 +25,16 @@ const Posts = () => {
     const toggleReaction = () => {
         setShowReaction(!loveReaction);
     };
-    useEffect(() => {
-        const handleSubmitLogin = async () => {
-            try {
-                const params = { page: 1, limit: 10 }
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
-                const response = await getAllPosts(params);
-                setPosts(response.posts)
-            } catch (err) {
-                console.log('deu ruim');
-
-                // setError(true);
-            }
-        }
-        handleSubmitLogin()
-    }, [])
-
+    if (isError) {
+        return <div>Error loading data</div>;
+    }
     return (
         <>
-            {posts && posts.map((post, index) => {
+            {data && data.posts.map((post, index) => {
                 return (
                     <>
                         <ContainerPosts key={index}>
