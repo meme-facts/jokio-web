@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Inter } from "next/font/google";
-
 import { StyleSheetManager, createGlobalStyle } from "styled-components";
 import { useRouter } from "next/router";
 import Layout from "./app/layout";
@@ -14,7 +13,11 @@ const GlobalStyle = createGlobalStyle`
   body, html {
     margin: 0;
     padding: 0;
-    font-family: var(--inter-font); 
+    font-family: var(--inter-font);
+    &.dark {
+      background-color: #171D24;
+      color: #CCD5DE;
+    } 
   }
 `;
 const NoLayout = ({ children }) => children

@@ -23,6 +23,6 @@ padding: 10px;
 export const TagsPost = styled.div`
 display: flex;
 margin: 10px;
-color: #585858;
+color: inherit;
 gap: 10px;
 `;

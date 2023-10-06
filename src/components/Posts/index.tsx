@@ -4,7 +4,6 @@ import { BsChatLeftText } from 'react-icons/bs';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { VscSend } from 'react-icons/vsc';
 import { P } from "@components/text/Paragraph";
-import { Posts } from "../../requests/posts";
 import { ContainerPosts, Post, ReactionsContainer, TagsPost } from "./styles";
 import { useGetAllPosts } from "../../hooks/requests/usePosts";
 
@@ -47,7 +46,7 @@ const Posts = () => {
                                     <AiFillHeart color="red" onClick={toggleReaction} />
                                 )}
                                 {!loveReaction && (
-                                    <AiOutlineHeart color="black"
+                                    <AiOutlineHeart color="inherit"
                                         onClick={toggleReaction} />
                                 )}
 

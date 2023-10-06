@@ -4,7 +4,6 @@ import { Input } from "@components/form/Input";
 import { H5 } from "@components/text/Heading";
 import InlineText from "@components/text/InlineText";
 import { P1 } from "@components/text/Paragraph";
-import AppleIcon from "@mui/icons-material/Apple";
 import { signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -81,7 +80,7 @@ function SignIn() {
             height="44px"
             borderRadius="10px"
             borderColor="#000"
-            color="#000"
+            color="inherit"
             rightIcon={GoogleIcons}
             size="sm"
             onClick={handleGoogleLogin}

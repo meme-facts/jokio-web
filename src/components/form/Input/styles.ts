@@ -10,6 +10,11 @@ export const StyledInput = styled.input<{ sx: InputType }>`
   border-radius: 10px;
   border: 1px solid #384757;
   padding-left: 10px;
+  body.dark & {
+    background-color: #171D24; 
+    border: 1px solid #CCD5DE;
+    color: #ffffff;
+  }
   ${(props) =>
     Object.keys(props.sx).map((name) => {
       return {

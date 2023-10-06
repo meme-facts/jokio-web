@@ -10,25 +10,24 @@ export const StyledHeader = styled.header`
 
 export const HeaderContainer = styled.div`
   padding: 16px;
-  @media (min-width: 768px) {
-    padding-left: 7rem;
-    padding-right: 22rem;
-  }
+  display:flex;
+  padding-left: 7rem;
+  padding-right: 22rem;
+  
   @media (min-width: 1536px) {
     padding: 44px;
   }
 `;
-
 
 export const SearchForm = styled.form`
   position: relative;
   width: 100%;
   justify-content: center; 
   display: flex;
-  @media (min-width: 640px) {
-    margin-left: 16px;
-  }
+  
+ 
 `;
+
 
 export const SearchInput = styled.input`
   width: 100%;
@@ -46,11 +45,15 @@ export const SearchInput = styled.input`
   padding-right: 16px;
   font-weight: 500;
   outline: none;
+  body.dark & {
+    background-color: #27323D; 
+    border: 1px solid #CCD5DE;
+  }
   
 `;
 export const SearchIconWrapper = styled.div`
   position: absolute;
-  color:#27323d;
+  color:inherit;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
@@ -62,36 +65,48 @@ color:#27323d;
 gap: 2.4rem;    
 align-items: center; 
 `;
-// export export const StyledHeader = styled.input`
-//   max-width: calc(100% - 15px);
-//   height: 100%;
-//   border-radius: 10px;
-//   border: 1px solid #384757;
-//   padding-left: 10px;
-//   ${(props) =>
-//     Object.keys(props).map((name) => {
-//       return {
-//         [name]:
-//           props[name as keyof React.InputHTMLAttributes<HTMLInputElement>],
-//       };
-//     })};
-// `;
 
-// const Container = styled.div<React.InputHTMLAttributes<HTMLInputElement>>`
-//   width: ${(props) => props.width};
-//   min-width: ${(props) => props.width};
-//   min-height: ${(props) => props.height};
-// `;
+export const Switch = styled.input`
+  position: relative;
+  height: 1.5rem;
+  width: 3rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 9999px;
+  background-color: rgba(100, 116, 139, 0.377);
+  transition: all .3s ease;
 
-// export const FormLabel = styled.label`
-//   padding: 15px 0;
-// `;
+  &:checked {
+    background-color: rgba(236, 72, 153, 1);
+  }
 
-// export const Label = styled.p``;
+  &::before {
+    position: absolute;
+    content: "";
+    left: calc(1.5rem - 1.6rem);
+    top: calc(1.5rem - 1.6rem);
+    display: block;
+    height: 1.6rem;
+    width: 1.6rem;
+    cursor: pointer;
+    border: 1px solid rgba(100, 116, 139, 0.527);
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(100, 116, 139, 0.327);
+    transition: all .3s ease;
+  }
 
-// export const InputGroup = styled.div`
-//   width: 100%;
-//   height: 100%;
-// `;
+  &:hover::before {
+    box-shadow: 0 0 0px 8px rgba(0, 0, 0, .15)
+  }
 
-// export { Container };
+  &:checked:hover::before {
+    box-shadow: 0 0 0px 8px rgba(236, 72, 153, .15)
+  }
+
+  &:checked::before {
+    transform: translateX(100%);
+    border-color: rgba(236, 72, 153, 1);
+  }
+`;

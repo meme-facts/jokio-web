@@ -1,8 +1,17 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { HeaderContainer, SearchForm, SearchIconWrapper, SearchInput, StyledHeader, TestHeaderWrapper } from "./styles";
-
+import { HeaderContainer, SearchForm, SearchIconWrapper, SearchInput, StyledHeader, Switch, TestHeaderWrapper } from "./styles";
+import { useState } from 'react';
+import useColorMode from '../../hooks/useColorMode';
 const Header = () => {
+const [isChecked, setIsChecked] = useState(false);
+const [colorMode, setColorMode] = useColorMode();
 
+const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    if (typeof setColorMode === 'function') {
+      setColorMode(colorMode === 'light' ? 'dark' : 'light');
+  }
+}
   return (
     <StyledHeader >
       <HeaderContainer>
@@ -19,6 +28,8 @@ const Header = () => {
           </SearchIconWrapper>
         </SearchForm>
         <TestHeaderWrapper>
+        <Switch type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
+
           {/* Possível nome do user com o icone */}
         </TestHeaderWrapper>
       </HeaderContainer>
