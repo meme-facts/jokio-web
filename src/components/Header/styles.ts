@@ -62,36 +62,3 @@ color:#27323d;
 gap: 2.4rem;    
 align-items: center; 
 `;
-// export export const StyledHeader = styled.input`
-//   max-width: calc(100% - 15px);
-//   height: 100%;
-//   border-radius: 10px;
-//   border: 1px solid #384757;
-//   padding-left: 10px;
-//   ${(props) =>
-//     Object.keys(props).map((name) => {
-//       return {
-//         [name]:
-//           props[name as keyof React.InputHTMLAttributes<HTMLInputElement>],
-//       };
-//     })};
-// `;
-
-// const Container = styled.div<React.InputHTMLAttributes<HTMLInputElement>>`
-//   width: ${(props) => props.width};
-//   min-width: ${(props) => props.width};
-//   min-height: ${(props) => props.height};
-// `;
-
-// export const FormLabel = styled.label`
-//   padding: 15px 0;
-// `;
-
-// export const Label = styled.p``;
-
-// export const InputGroup = styled.div`
-//   width: 100%;
-//   height: 100%;
-// `;
-
-// export { Container };

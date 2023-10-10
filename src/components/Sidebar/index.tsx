@@ -10,13 +10,13 @@ import { useRouter } from "next/router";
 const Sidebar = () => {
     const router = useRouter()
     const [menus, setMenus] = useState([
-        { nome: 'Home', icone: <AiOutlineHome />,path: "/app" },
-        { nome: 'Criar um meme', icone: <AiOutlinePlusCircle />, path: "#" },
-        { nome: 'Explorar', icone: <PiMagnifyingGlassLight />, path: "#" },
-        { nome: 'Notificações', icone: <BsBell />, path: "#" },
-        { nome: 'Mensagens', icone: <ChatBubbleOutlineIcon />, path: "#" },
-        { nome: 'Perfil', icone: <FiUser />, path: "#" },
-        { nome: 'Configurações', icone: <AiOutlineSetting />, path: "#" }]);
+        { name: 'Home', icon: <AiOutlineHome />,path: "/app" },
+        { name: 'Criar um meme', icon: <AiOutlinePlusCircle />, path: "#" },
+        { name: 'Explorar', icon: <PiMagnifyingGlassLight />, path: "#" },
+        { name: 'Notificações', icon: <BsBell />, path: "#" },
+        { name: 'Mensagens', icon: <ChatBubbleOutlineIcon />, path: "#" },
+        { name: 'Perfil', icon: <FiUser />, path: "#" },
+        { name: 'Configurações', icon: <AiOutlineSetting />, path: "#" }]);
     return (
         <SidebarWrapper>
             <LogoLink href="">
@@ -29,9 +29,9 @@ const Sidebar = () => {
                 return (
                     <MenuGroup isActive={isActive}>
                         <Icon>
-                            {menu.icone}
+                            {menu.icon}
                         </Icon>
-                        <StyledLink href={menu.path}>{menu.nome}</StyledLink>
+                        <StyledLink href={menu.path}>{menu.name}</StyledLink>
                     </MenuGroup>
                 )
             })}

@@ -16,7 +16,6 @@ const Posts = () => {
 
     const toggleReactionPost = () => {
         setClickCount(clickCount + 1);
-        console.log(clickCount)
         if (clickCount === 2) {
             setShowReaction(true);
             setClickCount(1);
@@ -43,13 +42,10 @@ const Posts = () => {
                         </ContainerPosts>
                         <div style={{ marginLeft: '52px' }}>
                             <ReactionsContainer >
-                                {loveReaction && (
+                                {loveReaction ? (
                                     <AiFillHeart color="red" onClick={toggleReaction} />
-                                )}
-                                {!loveReaction && (
-                                    <AiOutlineHeart color="black"
-                                        onClick={toggleReaction} />
-                                )}
+                                ): <AiOutlineHeart color="black"
+                                onClick={toggleReaction} />}
 
                                 <BsChatLeftText />
                                 <VscSend />
