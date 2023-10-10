@@ -19,6 +19,7 @@ gap: 17px;
 display: flex;
 cursor: pointer;
 padding: 10px; 
+align-items: center;
 `;
 export const TagsPost = styled.div`
 display: flex;

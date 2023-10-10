@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserPhoto from "@components/UserPhoto";
 import { BsChatLeftText } from 'react-icons/bs';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -50,7 +50,7 @@ const Posts = () => {
                                         onClick={toggleReaction} />
                                 )}
 
-                                <BsChatLeftText />
+                                <BsChatLeftText height={'0.8em'} />
                                 <VscSend />
                             </ReactionsContainer>
                             <div>

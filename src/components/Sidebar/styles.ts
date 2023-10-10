@@ -1,7 +1,12 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-
-export const SidebarWrapper = styled.div`
+export const HamburgerButton = styled.button`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+export const SidebarWrapper = styled.div<{ isOpen: boolean }>`
 width: 13rem;
 
 padding: 1rem;
@@ -10,6 +15,23 @@ display:grid;
 left: 1.688rem;
 top:100px;
 height: 70%;
+@media (max-width: 768px) {
+  display: flow;
+    top: 0;
+    background-color: #cccccc;
+    width: 53%;
+    padding-top: 6rem;
+  flex-direction: column;
+  position: fixed;
+  
+  left: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
+  
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  body.dark &{
+    background-color: #1e2730;
+  }
+}
 `;
 export const MenuGroup = styled.div<{ isActive: boolean }>`
 gap: 12px;
@@ -43,13 +65,7 @@ font-size: 22px;
 align-self:center;
 
 `;
-export const Path = styled.path
-    `
-    fill: #27323D;
-    body.dark & {
-        fill: #CCD5DE; 
-      }
-`;
+
 export const LogoLink = styled(Link)`
   flex-shrink: 0;
   position:fixed;

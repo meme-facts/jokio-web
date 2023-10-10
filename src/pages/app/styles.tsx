@@ -32,6 +32,10 @@ export const Tab = styled.div<{ isActive: boolean }>`
   text-align: center;
   padding-bottom: 5px;
   font-weight: 500;
+  @media (max-width: 768px) {
+    font-size: 15px;
+    width: 30%;
+  }
   border-bottom: ${(props) => (props.isActive ? '2px solid #7a41e0' : 'none')};
 `;
 export const SectionContainer = styled.section`
