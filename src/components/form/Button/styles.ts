@@ -9,7 +9,7 @@ export const StyledButton = styled.button<{ sx: IButtonType }>`
   background: #7a41e0;
   color: #ffffff;
   width: 100%;
-  font-size: 12px;
+  font-size: 0.75rem;
   margin: 0;
   padding: 0;
   border: 1px solid #7a41e0;
