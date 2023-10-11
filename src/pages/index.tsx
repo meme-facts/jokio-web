@@ -50,7 +50,7 @@ function SignIn() {
           <Image src="/JOKIO.svg" alt="me" width="132" height="50" />
           <H5>Login</H5>
         </VStack>
-        <VStack alignItems="center" justifyContent="center" gap="30px">
+        <VStack alignItems="center" justifyContent="center" gap="20px">
           <Input
             label="Usuário"
             placeholder="Usuário"
@@ -100,7 +100,7 @@ function SignIn() {
           </Button> */}
           <HStack alignItems="center" justifyContent="center" gap="10px">
             <P1>Primeira vez no Jokio?</P1>{" "}
-            <Link href="./app">
+            <Link href={'/register'} >
               <P1 color="#7A41E0">Crie sua conta</P1>
             </Link>
           </HStack>
