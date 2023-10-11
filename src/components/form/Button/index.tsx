@@ -12,7 +12,6 @@ interface IButtonProps extends IButtonType {
 
 export function Button({
   children,
-  tabSize,
   size,
   rightIcon,
   onClick,
