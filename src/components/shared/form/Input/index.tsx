@@ -1,6 +1,6 @@
 import { Control, Controller, UseFormRegisterReturn } from "react-hook-form";
 import { Container, FormLabel, InputGroup, StyledInput } from "./styles";
-import { P1 } from "@components/text/Paragraph";
+import { P1 } from "@components/shared/text/Paragraph";
 import { CSSProperties } from "react";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {

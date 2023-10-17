@@ -1,9 +1,9 @@
-import { HStack, VStack } from "@components/flex/Stacks";
-import { Button } from "@components/form/Button";
-import { Input } from "@components/form/Input";
-import { H5 } from "@components/text/Heading";
-import InlineText from "@components/text/InlineText";
-import { P1 } from "@components/text/Paragraph";
+import { HStack, VStack } from "@components/shared/flex/Stacks";
+import { Button } from "@components/shared/form/Button";
+import { Input } from "@components/shared/form/Input";
+import { H5 } from "@components/shared/text/Heading";
+import InlineText from "@components/shared/text/InlineText";
+import { P1 } from "@components/shared/text/Paragraph";
 import AppleIcon from "@mui/icons-material/Apple";
 import { signInWithPopup } from "firebase/auth";
 import Image from "next/image";
@@ -100,7 +100,7 @@ function SignIn() {
           </Button> */}
           <HStack alignItems="center" justifyContent="center" gap="10px">
             <P1>Primeira vez no Jokio?</P1>{" "}
-            <Link href={'/register'} >
+            <Link href={"/register"}>
               <P1 color="#7A41E0">Crie sua conta</P1>
             </Link>
           </HStack>
