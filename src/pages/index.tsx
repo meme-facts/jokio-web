@@ -4,8 +4,7 @@ import { Input } from "@components/form/Input";
 import { H5 } from "@components/text/Heading";
 import InlineText from "@components/text/InlineText";
 import { P1 } from "@components/text/Paragraph";
-import { signInWithPopup } from "firebase/auth";
-import Image from "next/image";
+import { signInWithPopup } from "firebase/auth";;
 import Link from "next/link";
 import router from "next/router";
 import { useCallback, useState } from "react";
@@ -16,6 +15,7 @@ import { useAuthorization } from "../hooks/store/useAuthorization";
 import { ILogin, google } from "../requests/login";
 import { auth, provider } from "../services/firebase";
 import { Container, Content } from "./styles";
+import Logo from "@components/utils/Logo/Logo";
 
 function SignIn() {
   const { register, handleSubmit, control } = useForm<ILogin>();
@@ -46,10 +46,11 @@ function SignIn() {
     <Container>
       <Content>
         <VStack alignItems="center" justifyContent="center" gap="30px">
-          <Image src="/JOKIO.svg" alt="me" width="132" height="50" />
+          {/* <Image src="/JOKIO.svg" alt="me" width="132" height="50" /> */}
+          <Logo />
           <H5>Login</H5>
         </VStack>
-        <VStack alignItems="center" justifyContent="center" gap="30px">
+        <VStack alignItems="center" justifyContent="center" gap="20px">
           <Input
             label="Usuário"
             placeholder="Usuário"
@@ -99,7 +100,7 @@ function SignIn() {
           </Button> */}
           <HStack alignItems="center" justifyContent="center" gap="10px">
             <P1>Primeira vez no Jokio?</P1>{" "}
-            <Link href="./app">
+            <Link href={'/register'} >
               <P1 color="#7A41E0">Crie sua conta</P1>
             </Link>
           </HStack>

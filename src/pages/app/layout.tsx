@@ -37,6 +37,7 @@ opacity: ${({ isDrawerOpen }) => isDrawerOpen ? 0.5 : 1};
     width: 100%;
     margin-left: 0px;
 }
+
 `;
 
 export default function Layout({

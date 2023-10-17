@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SectionContainer, Tab, DivTab } from './styles';
 import Posts from '@components/Posts';
+import { JokioBackend } from '../../services/api';
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState('Para você');

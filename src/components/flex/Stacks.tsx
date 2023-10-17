@@ -13,6 +13,7 @@ export const Div = styled.div<{ sx: IDiv }>`
         [name]: props.sx[name as keyof IDiv],
       };
     })};
+   
 `;
 
 function HStack({ children, ...props }: PropsWithChildren<IDiv>) {

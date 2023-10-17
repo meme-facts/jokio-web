@@ -18,6 +18,22 @@ const GlobalStyle = createGlobalStyle`
       background-color: #171D24;
       color: #CCD5DE;
     } 
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #11151a;
+      border-radius: 20px;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
   }
 `;
 const NoLayout = ({ children }) => children

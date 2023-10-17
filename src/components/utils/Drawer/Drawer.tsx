@@ -10,7 +10,7 @@ interface DrawerProps {
   onClosed: (state: boolean) => void;
 }
 
-const DrawerSide = ({ opened, menu, onClosed }: DrawerProps) => {
+const DrawerSidebar = ({ opened, menu, onClosed }: DrawerProps) => {
   const [state, setState] = React.useState({ left: false });
   useEffect(() => {
     setState({ ...state, ['left']: opened });
@@ -47,4 +47,4 @@ const DrawerSide = ({ opened, menu, onClosed }: DrawerProps) => {
     </div>
   );
 }
-export default DrawerSide;
+export default DrawerSidebar;
