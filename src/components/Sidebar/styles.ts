@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import Link from 'next/link';
+import styled from "@emotion/styled";
+import Link from "next/link";
 export const HamburgerButton = styled.button`
   display: none;
   @media (max-width: 768px) {
@@ -7,71 +7,73 @@ export const HamburgerButton = styled.button`
   }
 `;
 export const SidebarWrapper = styled.div<{ isOpen: boolean }>`
-width: 13rem;
+  width: 13rem;
 
-padding: 1rem;
-position: fixed;
-display:grid; 
-left: 1.688rem;
-top:100px;
-height: 70%;
-@media (max-width: 768px) {
-  display: flow;
+  padding: 1rem;
+  position: fixed;
+  display: grid;
+  left: 1.688rem;
+  top: 100px;
+  height: 70%;
+  @media (max-width: 768px) {
+    display: flow;
     top: 0;
     background-color: #cccccc;
     width: 53%;
     padding-top: 6rem;
-  flex-direction: column;
-  position: fixed;
-  
-  left: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
-  
-  height: 100%;
-  transition: all 0.3s ease-in-out;
-  body.dark &{
-    background-color: #1e2730;
+    flex-direction: column;
+    position: fixed;
+
+    left: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
+
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    body.dark & {
+      background-color: #1e2730;
+    }
   }
-}
 `;
 export const MenuGroup = styled.div<{ isActive: boolean }>`
-gap: 12px;
-align-self: center;
-text-decoration:none; 
-display: flex;
-padding:10px;
-color:inherit;
-border-radius: 10px;
-${(props) => props.isActive && "color: #7A41E0;"}
-&:hover {
-    cursor:pointer;
-    color: white;  
-    background-color: #7A41E0; 
+  gap: 12px;
+  align-self: center;
+  text-decoration: none;
+  display: flex;
+  padding: 10px;
+  color: inherit;
+  border-radius: 10px;
+  ${(props) => props.isActive && "color: #7A41E0;"}
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #7a41e0;
   }
 `;
 export const StyledLink = styled.a`
-text-decoration: none; 
-align-self:center;
-font-weight: 500;
-font-size: 16px; 
-&:visited {
+  text-decoration: none;
+  align-self: center;
+  font-weight: 500;
+  font-size: 16px;
+  &:visited {
     color: inherit;
   }
-&:hover {
-    background-color: #7A41E0; 
+  &.active {
+    text-decoration: none;
+  }
+  &:hover {
+    background-color: #7a41e0;
   }
 `;
 export const Icon = styled.div`
-font-size: 22px; 
-align-self:center;
-
+  font-size: 22px;
+  align-self: center;
 `;
 
 export const LogoLink = styled(Link)`
   flex-shrink: 0;
-  position:fixed;
-  top:43px;
+  position: fixed;
+  top: 43px;
   padding-left: 10px;
-  fill:  red;
+  fill: red;
 `;
 export const Switch = styled.input`
   position: relative;
@@ -82,7 +84,7 @@ export const Switch = styled.input`
   -webkit-appearance: none;
   border-radius: 9999px;
   background-color: rgba(100, 116, 139, 0.377);
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 
   &:checked {
     background-color: rgba(236, 72, 153, 1);
@@ -101,15 +103,15 @@ export const Switch = styled.input`
     border-radius: 9999px;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 3px 10px rgba(100, 116, 139, 0.327);
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
 
   &:hover::before {
-    box-shadow: 0 0 0px 8px rgba(0, 0, 0, .15)
+    box-shadow: 0 0 0px 8px rgba(0, 0, 0, 0.15);
   }
 
   &:checked:hover::before {
-    box-shadow: 0 0 0px 8px rgba(236, 72, 153, .15)
+    box-shadow: 0 0 0px 8px rgba(236, 72, 153, 0.15);
   }
 
   &:checked::before {
@@ -117,4 +119,3 @@ export const Switch = styled.input`
     border-color: rgba(236, 72, 153, 1);
   }
 `;
-

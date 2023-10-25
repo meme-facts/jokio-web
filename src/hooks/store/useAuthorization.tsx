@@ -19,7 +19,9 @@ const getInitialLoggedIn = () => {
   if (typeof window !== "undefined") {
     const storedUser = localStorage.getItem(USER_LOCAL_STORAGE);
     if (storedUser) {
-      return JSON.parse(storedUser) as IUser;
+      const parsedUser = JSON.parse(storedUser) as IUser;
+      JokioBackend.defaults.headers.common.authorization = `Bearer ${parsedUser.token}`;
+      return parsedUser;
     }
     return null;
   }

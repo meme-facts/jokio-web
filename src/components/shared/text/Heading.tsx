@@ -7,7 +7,6 @@ export const H5Styled = styled.p`
   font-weight: 400;
   line-height: 150%; /* 34.5px */
   margin: 0;
-  font-family: 'Inter', sans-serif';
 `;
 export const H6Styled = styled.p`
   font-size: 18px;

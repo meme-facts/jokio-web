@@ -1,8 +1,8 @@
-import Icon, { IIcon } from "@components/Icon";
-import { HStack } from "@components/flex/Stacks";
-import { P, P1, P2 } from "@components/text/Paragraph";
+import { HStack } from "@components/shared/flex/Stacks";
+import { P, P1, P2 } from "@components/shared/text/Paragraph";
 import { PropsWithChildren } from "react";
 import { IButtonType, StyledButton } from "./styles";
+import Icon, { IIcon } from "@components/shared/Icon";
 
 type Size = "sm" | "md" | "lg";
 interface IButtonProps extends IButtonType {
@@ -12,14 +12,13 @@ interface IButtonProps extends IButtonType {
 
 export function Button({
   children,
-  tabSize,
   size,
   rightIcon,
   onClick,
   ...rest
 }: PropsWithChildren<IButtonProps>) {
   switch (size) {
-    case "sm": 
+    case "sm":
       return (
         <StyledButton onClick={onClick} sx={{ height: "38px", ...rest }}>
           <HStack
