@@ -4,12 +4,11 @@ import { Input } from "@components/shared/form/Input";
 import { H5 } from "@components/shared/text/Heading";
 import InlineText from "@components/shared/text/InlineText";
 import { P1 } from "@components/shared/text/Paragraph";
-import AppleIcon from "@mui/icons-material/Apple";
 import { signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import GoogleIcons from "../../public/googleIcon.svg";
 import { useLoginMutation } from "../hooks/requests/useMutationLogin";
@@ -17,8 +16,12 @@ import { useAuthorization } from "../hooks/store/useAuthorization";
 import { ILogin, google } from "../requests/login";
 import { auth, provider } from "../services/firebase";
 import { Container, Content } from "./styles";
+import { isTokenValid } from "../utils/functions/isTokenValid";
+import { useLoginManagement } from "../hooks/shared/useLoginManagement";
 
 function SignIn() {
+  useLoginManagement();
+
   const { register, handleSubmit, control } = useForm<ILogin>();
   const { mutateAsync: login, isLoading } = useLoginMutation();
   const { setUser } = useAuthorization();

@@ -1,29 +1,32 @@
+import { HStack, VStack } from "@components/shared/flex/Stacks";
 import { Button } from "@components/shared/form/Button";
 import { Input } from "@components/shared/form/Input";
+import { H6 } from "@components/shared/text/Heading";
+import InlineText from "@components/shared/text/InlineText";
+import { P1 } from "@components/shared/text/Paragraph";
+import { signInWithPopup } from "firebase/auth";
+import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSignupMutation } from "../../hooks/requests/useMutationSignup";
-import { ISignup } from "../../requests/signup";
-import { Container, Content } from "../styles";
-import { P1 } from "@components/shared/text/Paragraph";
-import { H5, H6 } from "@components/shared/text/Heading";
-import Image from "next/image";
-import InlineText from "@components/shared/text/InlineText";
-import { HStack, VStack } from "@components/shared/flex/Stacks";
-import { useAuthorization } from "../../hooks/store/useAuthorization";
 import GoogleIcons from "../../../public/googleIcon.svg";
+import { useSignupMutation } from "../../hooks/requests/useMutationSignup";
+import { useAuthorization } from "../../hooks/store/useAuthorization";
 import { google } from "../../requests/login";
-import { signInWithPopup } from "firebase/auth";
+import { ISignup } from "../../requests/signup";
 import { auth, provider } from "../../services/firebase";
-// import AppleIcon from "@mui/icons-material/Apple";
+import { Container, Content } from "../styles";
+import { useLoginManagement } from "../../hooks/shared/useLoginManagement";
 
 const Signup = () => {
+  useLoginManagement();
+
   const { register, handleSubmit, control } = useForm<ISignup>();
   const { mutateAsync: signup, isLoading } = useSignupMutation();
   const { setUser } = useAuthorization();
   const [error, setError] = useState(false);
+
   const handleSubmitSignup = useCallback(async (data: ISignup) => {
     try {
       const response = await signup(data);

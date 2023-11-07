@@ -1,12 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
 import UserPhoto from "@components/UserPhoto";
-import { BsChatLeftText } from "react-icons/bs";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { VscSend } from "react-icons/vsc";
 import { P } from "@components/shared/text/Paragraph";
-import { ContainerPosts, Post, ReactionsContainer, TagsPost } from "./styles";
+import { Fragment, useState } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsChatLeftText } from "react-icons/bs";
+import { VscSend } from "react-icons/vsc";
 import { useGetAllPosts } from "../../hooks/requests/usePosts";
-import { useAuthorization } from "../../hooks/store/useAuthorization";
+import { ContainerPosts, Post, ReactionsContainer, TagsPost } from "./styles";
 
 const Posts = () => {
   const [loveReaction, setShowReaction] = useState(false);

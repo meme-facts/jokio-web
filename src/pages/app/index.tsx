@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { SectionContainer, Tab, DivTab } from "./styles";
 import Posts from "@components/Posts";
+import { useState } from "react";
+import { SectionContainer } from "./styles";
+import { DivTab, Tab } from "@components/shared/Tabs";
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState(1);
@@ -10,7 +11,7 @@ export default function Index() {
 
   return (
     <SectionContainer>
-      <DivTab>
+      <DivTab sx={{ justifyContent: "space-evenly" }}>
         <Tab onClick={() => handleTabClick(1)} isActive={activeTab === 1}>
           Para você
         </Tab>
