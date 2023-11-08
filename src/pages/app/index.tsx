@@ -22,7 +22,6 @@ export default function Index() {
               Seguindo
             </Tab>
           </DivTab>
-
           <Posts />
         </VStack>
       </HStack>
