@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 
 import UserPhoto from "@components/UserPhoto";
 
 import {
+  BackdropPhoto,
   Comment,
   CommentPosts,
   CommentsContainer,
@@ -23,11 +24,13 @@ import { P } from "@components/shared/text/Paragraph";
 import { useGetAllPosts } from "../../hooks/requests/usePosts";
 import { useAuthorization } from "../../hooks/store/useAuthorization";
 import ModalPost from "@components/utils/Modal/Modal";
+import { postLiked } from "../../requests/posts";
 
 const Posts = () => {
   const [openCommentModal, setOpenCommentModal] = useState(false);
-  const [dataModal, setDataModal] = useState({});
+  const [dataModal, setDataModal] = useState<any>({});
   const [loveReaction, setShowReaction] = useState(false);
+  const [isBackdrop, setIsBackdrop] = useState<any>();
   const [clickCount, setClickCount] = useState(1);
   const params = { page: 1, limit: 10 };
   const { data, isError, isLoading } = useGetAllPosts(params);
@@ -40,7 +43,22 @@ const Posts = () => {
     setOpenCommentModal(!openCommentModal);
   };
   useEffect(() => {
-    console.log(data);
+    setIsBackdrop(window.innerWidth);
+
+    if (typeof window !== "undefined") {
+      // Access the window object here
+      const handleResize = () => {
+        const width = window.innerWidth >= 1400;
+        setIsBackdrop(width);
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      // Clean up the event listener
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, []);
 
   const toggleReactionPost = () => {
@@ -50,7 +68,20 @@ const Posts = () => {
       setClickCount(1);
     }
   };
-  const toggleReaction = () => {
+  const handleSubmitLogin = async (data: any) => {
+    console.log(data);
+    try {
+      const response = await postLiked(data);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const toggleReaction = async (idPost: any) => {
+    console.log(idPost);
+
+    handleSubmitLogin(idPost);
+
     setShowReaction(!loveReaction);
   };
   if (isLoading) {
@@ -68,21 +99,42 @@ const Posts = () => {
             <Fragment key={post.id}>
               <ContainerPosts>
                 <UserPhoto />
-                <Post
-                  key={index}
-                  alt=""
-                  onClick={toggleReactionPost}
-                  src={post.img_url}
-                />
+                {isBackdrop >= 1400 ? (
+                  <BackdropPhoto>
+                    <Post
+                      key={index}
+                      alt=""
+                      onClick={toggleReactionPost}
+                      src={post.img_url}
+                    />
+                  </BackdropPhoto>
+                ) : (
+                  <Post
+                    key={index}
+                    alt=""
+                    onClick={toggleReactionPost}
+                    src={post.img_url}
+                  />
+                )}
               </ContainerPosts>
               <div style={{ marginLeft: "52px" }}>
                 <ReactionsContainer>
-                  {loveReaction ? (
-                    <AiFillHeart color="red" onClick={toggleReaction} />
+                  {post.likedByLoggedUser ? (
+                    <AiFillHeart
+                      color="red"
+                      onClick={() => toggleReaction(post.id)}
+                    />
+                  ) : loveReaction ? (
+                    <AiFillHeart
+                      color="red"
+                      onClick={() => toggleReaction(post.id)}
+                    />
                   ) : (
-                    <AiOutlineHeart color="black" onClick={toggleReaction} />
+                    <AiOutlineHeart
+                      color="black"
+                      onClick={() => toggleReaction(post.id)}
+                    />
                   )}
-
                   <BsChatLeftText
                     onClick={() => toggleModal(post)}
                     height={"0.8em"}

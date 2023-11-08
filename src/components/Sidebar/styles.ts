@@ -10,11 +10,12 @@ export const SidebarWrapper = styled.div<{ isOpen: boolean }>`
   width: 13rem;
 
   padding: 1rem;
-  position: fixed;
-  display: grid;
+
+  display: flex;
+  flex-direction: column;
   left: 1.688rem;
-  top: 100px;
-  height: 70%;
+  /* top: 100px; */
+  gap: 7px;
   @media (max-width: 768px) {
     display: flow;
     top: 0;

@@ -14,12 +14,15 @@ const GlobalStyle = createGlobalStyle`
   body, html {
     margin: 0;
     padding: 0;
+
+    
     font-family: var(--inter-font);
     &.dark {
       background-color: #171D24;
       color: #CCD5DE;
     } 
-    &::-webkit-scrollbar {
+    
+    /* &::-webkit-scrollbar {
       width: 8px;
     }
   
@@ -34,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
   
     &::-webkit-scrollbar-thumb:hover {
       background-color: #555;
-    }
+    } */
   }
 `;
 const NoLayout = ({ children }: PropsWithChildren<unknown>) => children;

@@ -1,15 +1,34 @@
 import styled from "@emotion/styled";
 
+export const DivHeader = styled.div`
+  display: flex;
+  left: 20px;
+  position: relative;
+  justify-content: center;
+  @media screen and (min-width: 1400px) and (max-width: 1919px) {
+    left: 38px;
+  }
+  @media screen and (min-width: 1920px) and (max-width: 2150px) {
+    left: 43px;
+  }
+`;
+
 export const StyledHeader = styled.header`
   position: sticky;
-  width: 80%;
+  width: 48%;
   z-index: 100;
-  align-self: self-end;
-  padding: 16px;
-
   @media (max-width: 768px) {
     width: 100%;
     padding: 0;
+  }
+  @media screen and (min-width: 1400px) and (max-width: 1919px) {
+    width: 53%;
+  }
+  @media screen and (min-width: 1920px) and (max-width: 2150px) {
+    width: 54%;
+  }
+  &.hidden-header {
+    display: none;
   }
 `;
 
@@ -21,17 +40,11 @@ export const BorderBottom = styled.div`
 export const HeaderContainer = styled.div`
   padding: 16px;
   display: flex;
-  padding-left: 8rem;
-  padding-right: 16rem;
 
   @media (max-width: 768px) {
     justify-content: space-between;
     padding-left: 0;
     padding-right: 0;
-  }
-
-  @media (min-width: 1536px) {
-    padding: 44px;
   }
 `;
 export const HamburgerButton = styled.button<{ isOpen: boolean }>`
@@ -80,7 +93,6 @@ export const SearchInput = styled.input`
   padding-right: 16px;
   font-weight: 500;
 
-
   outline: none;
   body.dark & {
     background-color: #27323d;
@@ -95,7 +107,7 @@ export const SearchIconWrapper = styled.div`
   transform: translateY(-50%);
 `;
 export const TestHeaderWrapper = styled.div`
-  display: flex;
+  display: none;
   padding-right: 20px;
   color: #27323d;
   gap: 2.4rem;
