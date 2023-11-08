@@ -26,7 +26,6 @@ export const SectionContainer = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 34px;
 `;
 export const StyledP2 = styled(P2)`
   width: 20%;
