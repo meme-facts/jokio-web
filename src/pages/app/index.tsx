@@ -12,10 +12,10 @@ export default function Index() {
   return (
     <SectionContainer>
       <DivTab sx={{ justifyContent: "space-evenly" }}>
-        <Tab onClick={() => handleTabClick(1)} isActive={activeTab === 1}>
+        <Tab onClick={() => handleTabClick(1)} active={activeTab === 1}>
           Para você
         </Tab>
-        <Tab onClick={() => handleTabClick(2)} isActive={activeTab === 2}>
+        <Tab onClick={() => handleTabClick(2)} active={activeTab === 2}>
           Seguindo
         </Tab>
       </DivTab>

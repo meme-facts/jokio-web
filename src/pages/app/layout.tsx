@@ -21,6 +21,10 @@ const Main = styled.main`
   justify-content: center;
   overflow-y: auto;
 `;
+const MaxWidth = styled.div`
+  max-width: 1200px;
+  width: 100%;
+`;
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useAuthorization();
   useEffect(() => {
@@ -31,7 +35,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Wrapper>
       <Sidebar />
-      <Main>{children}</Main>
+      <Main>
+        <MaxWidth>{children}</MaxWidth>
+      </Main>
     </Wrapper>
   );
 }

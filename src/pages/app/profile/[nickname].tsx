@@ -5,7 +5,7 @@ import { HStack, VStack } from "@components/shared/flex/Stacks";
 
 export default function Profile() {
   return (
-    <VStack maxWidth="1200px">
+    <VStack>
       <DivTab>
         <Tab active={true}>Publicações 32</Tab>
       </DivTab>
