@@ -18,6 +18,7 @@ import { auth, provider } from "../services/firebase";
 import { Container, Content } from "./styles";
 import { isTokenValid } from "../utils/functions/isTokenValid";
 import { useLoginManagement } from "../hooks/shared/useLoginManagement";
+import Logo from "@components/utils/Logo/Logo";
 
 function SignIn() {
   useLoginManagement();
