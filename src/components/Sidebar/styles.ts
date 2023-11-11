@@ -1,64 +1,45 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-export const HamburgerButton = styled.button`
-  display: none;
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
-export const SidebarWrapper = styled.div<{ isOpen: boolean }>`
+
+export const SidebarWrapper = styled.div`
   width: 13rem;
-
-  padding: 1rem;
-
+  color: black;
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  left: 1.688rem;
-  /* top: 100px; */
-  gap: 7px;
-  @media (max-width: 768px) {
-    display: flow;
-    top: 0;
-    background-color: #cccccc;
-    width: 53%;
-    padding-top: 6rem;
-    flex-direction: column;
-    position: fixed;
-
-    left: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
-
-    height: 100%;
-    transition: all 0.3s ease-in-out;
-    body.dark & {
-      background-color: #1e2730;
-    }
-  }
+  height: 70%;
+  overflow-y: hidden;
+  gap: 45px;
 `;
-export const MenuGroup = styled.div<{ isActive: boolean }>`
-  gap: 12px;
-  align-self: center;
+export const MenuWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+export const MenuGroup = styled.div<{ active: boolean }>`
+  gap: 20px;
   text-decoration: none;
   display: flex;
+
   padding: 10px;
-  color: inherit;
+  color: black;
   border-radius: 10px;
-  ${(props) => props.isActive && "color: #7A41E0;"}
+  ${(props) => props.active && "color: #7A41E0;"}
   &:hover {
     cursor: pointer;
     color: white;
     background-color: #7a41e0;
   }
 `;
-export const StyledLink = styled.a`
+export const StyledLink = styled(Link)`
   text-decoration: none;
   align-self: center;
   font-weight: 500;
   font-size: 16px;
+  color: inherit;
+
   &:visited {
     color: inherit;
-  }
-  &.active {
-    text-decoration: none;
   }
   &:hover {
     background-color: #7a41e0;
@@ -70,53 +51,5 @@ export const Icon = styled.div`
 `;
 
 export const LogoLink = styled(Link)`
-  flex-shrink: 0;
-  position: fixed;
-  top: 43px;
   padding-left: 10px;
-  fill: red;
-`;
-export const Switch = styled.input`
-  position: relative;
-  height: 1.5rem;
-  width: 3rem;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  border-radius: 9999px;
-  background-color: rgba(100, 116, 139, 0.377);
-  transition: all 0.3s ease;
-
-  &:checked {
-    background-color: rgba(236, 72, 153, 1);
-  }
-
-  &::before {
-    position: absolute;
-    content: "";
-    left: calc(1.5rem - 1.6rem);
-    top: calc(1.5rem - 1.6rem);
-    display: block;
-    height: 1.6rem;
-    width: 1.6rem;
-    cursor: pointer;
-    border: 1px solid rgba(100, 116, 139, 0.527);
-    border-radius: 9999px;
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 3px 10px rgba(100, 116, 139, 0.327);
-    transition: all 0.3s ease;
-  }
-
-  &:hover::before {
-    box-shadow: 0 0 0px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  &:checked:hover::before {
-    box-shadow: 0 0 0px 8px rgba(236, 72, 153, 0.15);
-  }
-
-  &:checked::before {
-    transform: translateX(100%);
-    border-color: rgba(236, 72, 153, 1);
-  }
 `;

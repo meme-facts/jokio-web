@@ -1,7 +1,12 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import UserPhoto from "@components/UserPhoto";
 
+import { P } from "@components/shared/text/Paragraph";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsChatLeftText } from "react-icons/bs";
+import { VscSend } from "react-icons/vsc";
+import { useGetAllPosts } from "../../hooks/requests/usePosts";
 import {
   BackdropPhoto,
   Comment,
@@ -17,12 +22,7 @@ import {
   UserContainer,
   UserInfo,
 } from "./styles";
-import { BsChatLeftText } from "react-icons/bs";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { VscSend } from "react-icons/vsc";
-import { P } from "@components/shared/text/Paragraph";
-import { useGetAllPosts } from "../../hooks/requests/usePosts";
-import { useAuthorization } from "../../hooks/store/useAuthorization";
+
 import ModalPost from "@components/utils/Modal/Modal";
 import { postLiked } from "../../requests/posts";
 

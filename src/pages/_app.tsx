@@ -43,9 +43,9 @@ const GlobalStyle = createGlobalStyle`
 const NoLayout = ({ children }: PropsWithChildren<unknown>) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { user } = useAuthorization();
   const [queryClient] = React.useState(() => new QueryClient());
   const router = useRouter();
+
   const CurrentLayout = router.pathname.startsWith("/app") ? Layout : NoLayout;
   return (
     <main className={inter.className}>

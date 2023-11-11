@@ -19,6 +19,17 @@ export async function getPosts(params: IGetAllPostParams) {
   });
   return data;
 }
+
+export async function getPostsByUserId(
+  params: IGetAllPostParams,
+  userId: string
+) {
+  const { data } = await JokioBackend.get(`/post/${userId}`, {
+    params,
+  });
+  return data;
+}
+
 export async function postLiked({ params }: any) {
   const { data } = await JokioBackend.post(`like/${params}`);
   return data;

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { JokioBackend } from "../../services/api";
 
-interface IUser {
+export interface IUser {
   id: string;
   nickname: string;
   email: string;
@@ -11,6 +11,7 @@ interface IUser {
 interface IFilterState {
   user: IUser | null;
   setUser: (params: IUser) => void;
+  logOut: () => void;
 }
 
 const USER_LOCAL_STORAGE = "@jokio_user" as const;

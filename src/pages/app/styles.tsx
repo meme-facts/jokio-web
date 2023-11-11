@@ -21,23 +21,7 @@ export const ActionButtons = styled.div`
   gap: 10px;
   width: 85px;
 `;
-export const DivTab = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 34px;
-  cursor: pointer;
-`;
-export const Tab = styled.div<{ isActive: boolean }>`
-  width: 20%;
-  text-align: center;
-  padding-bottom: 5px;
-  font-weight: 500;
-  @media (max-width: 768px) {
-    font-size: 15px;
-    width: 30%;
-  }
-  border-bottom: ${(props) => (props.isActive ? '2px solid #7a41e0' : 'none')};
-`;
+
 export const SectionContainer = styled.section`
   width: 100%;
   display: flex;

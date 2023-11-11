@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { SectionContainer, Tab, DivTab } from './styles';
-import Posts from '@components/Posts';
-import { JokioBackend } from '../../services/api';
+import Posts from "@components/Posts";
+import { useState } from "react";
+import { SectionContainer } from "./styles";
+import { DivTab, Tab } from "@components/shared/Tabs";
+import { HStack, VStack } from "@components/shared/flex/Stacks";
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState(1);
@@ -11,15 +12,19 @@ export default function Index() {
 
   return (
     <SectionContainer>
-      <DivTab>
-        <Tab onClick={() => handleTabClick(1)} isActive={activeTab === 1}>
-          Para você
-        </Tab>
-        <Tab onClick={() => handleTabClick(2)} isActive={activeTab === 2}>
-          Seguindo
-        </Tab>
-      </DivTab>
-      <Posts />
+      <HStack>
+        <VStack width="740px">
+          <DivTab sx={{ justifyContent: "space-evenly" }}>
+            <Tab onClick={() => handleTabClick(1)} active={activeTab === 1}>
+              Para você
+            </Tab>
+            <Tab onClick={() => handleTabClick(2)} active={activeTab === 2}>
+              Seguindo
+            </Tab>
+          </DivTab>
+          <Posts />
+        </VStack>
+      </HStack>
     </SectionContainer>
   );
 }
