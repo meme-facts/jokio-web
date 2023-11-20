@@ -15,6 +15,13 @@ export const PStyled = styled.p<{ sx?: IParagraph }>`
     })};
 `;
 
+export function XP({
+  children,
+  ...props
+}: PropsWithChildren<{ sx?: IParagraph }>) {
+  return <PStyled sx={{ fontSize: "0.66rem", ...props }}>{children}</PStyled>;
+}
+
 export function P({
   children,
   ...props
