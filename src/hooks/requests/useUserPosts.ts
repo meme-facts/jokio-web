@@ -1,6 +1,5 @@
 import { useQuery, UseQueryResult } from "react-query";
 import {
-  getPosts,
   getPostsByUserId,
   IGetAllPostParams,
   Posts,

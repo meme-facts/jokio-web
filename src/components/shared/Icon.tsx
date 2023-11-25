@@ -8,8 +8,12 @@ export type IIcon = OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
 interface IIconProps {
   icon: IIcon;
   styles?: React.CSSProperties | undefined;
+  hide?: boolean;
 }
-function Icon({ icon, styles }: IIconProps) {
+function Icon({ icon, styles, hide }: IIconProps) {
+  if (hide) {
+    return undefined;
+  }
   return (
     <SvgIcon
       style={{

@@ -14,7 +14,6 @@ const Wrapper = styled.div`
   max-height: 100vh;
 `;
 const Main = styled.main`
-  height: 100vh;
   padding: 1rem;
   flex: 1;
   display: flex;
