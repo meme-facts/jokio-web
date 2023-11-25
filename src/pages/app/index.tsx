@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SectionContainer } from "./styles";
 import { DivTab, Tab } from "@components/shared/Tabs";
 import { HStack, VStack } from "@components/shared/flex/Stacks";
+import { P1 } from "@components/shared/text/Paragraph";
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState(1);
@@ -23,6 +24,25 @@ export default function Index() {
             </Tab>
           </DivTab>
           <Posts />
+        </VStack>
+        <VStack
+          flex="1"
+          justifyContent="center"
+          alignItems="center"
+          height="250px"
+          overflow="hidden"
+        >
+          <VStack
+            width="120px"
+            height="80px"
+            justifyContent="center"
+            alignItems="center"
+            border="1px solid #ccc"
+            borderRadius="4px"
+          >
+            <P1 fontWeight="bold">Hanking</P1>
+            <P1>#21</P1>
+          </VStack>
         </VStack>
       </HStack>
     </SectionContainer>
