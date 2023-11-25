@@ -12,10 +12,12 @@ import {
   Icon,
   LogoLink,
   MenuGroup,
+  MenuWrapper,
   SidebarWrapper,
   StyledLink,
 } from "./styles";
 import { useRouter } from "next/router";
+import { useAuthorization } from "../../hooks/store/useAuthorization";
 import DraweSidebar from "@components/utils/Drawer/Drawer";
 import Logo from "@components/utils/Logo/Logo";
 interface SidebarProps {
@@ -24,58 +26,62 @@ interface SidebarProps {
 }
 const Sidebar = ({ onOpenDrawer, expandSidebar }: SidebarProps) => {
   const router = useRouter();
+  const { user } = useAuthorization();
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [currentMenu, setCurrentMenu] = useState("");
 
   const handleMenuItemClick = (menu: any) => {
-    if (menu.nome === "Mensagens" || menu.nome === "Notificações") {
+    console.log(menu);
+    if (menu.name === "Mensagens" || menu.name === "Notificações") {
       setIsMessagesOpen(!isMessagesOpen);
-      setCurrentMenu(menu.nome);
+      setCurrentMenu(menu.name);
     }
   };
   const handleCloseDrawer = () => {
     setIsMessagesOpen(false);
   };
-  const menus = useMemo(
-    () => [
-      { nome: "Home", icone: <AiOutlineHome />, path: "/app" },
-      { nome: "Criar um meme", icone: <AiOutlinePlusCircle />, path: "#" },
-      { nome: "Explorar", icone: <PiMagnifyingGlassLight />, path: "#" },
-      { nome: "Notificações", icone: <BsBell />, path: "#" },
-      { nome: "Mensagens", icone: <ChatBubbleOutlineIcon />, path: "#" },
-      { nome: "Perfil", icone: <FiUser />, path: "#" },
-      { nome: "Configurações", icone: <AiOutlineSetting />, path: "#" },
-    ],
-    []
-  );
+  const menus = [
+    { name: "Home", icon: <AiOutlineHome />, path: "/app" },
+    { name: "Criar um meme", icon: <AiOutlinePlusCircle />, path: "#" },
+    { name: "Explorar", icon: <PiMagnifyingGlassLight />, path: "#" },
+    { name: "Notificações", icon: <BsBell />, path: "#" },
+    { name: "Mensagens", icon: <ChatBubbleOutlineIcon />, path: "#" },
+    {
+      name: "Perfil",
+      icon: <FiUser />,
+      path: `/app/profile/${user?.nickname}`,
+    },
+    { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
+  ];
   return (
-    <>
-      <SidebarWrapper isOpen={expandSidebar}>
+    <SidebarWrapper>
+      <div>
         <LogoLink href="">
           <Logo />
         </LogoLink>
-        {menus.map((menu, index) => {
-          const isActive = router.pathname === menu.path;
+      </div>
+      <MenuWrapper>
+        {menus.map((menu) => {
+          const isActive = router.asPath === menu.path;
           return (
             <MenuGroup
+              key={menu.name}
               onClick={() => handleMenuItemClick(menu)}
-              isActive={isActive}
-              key={menu.nome}
+              active={isActive}
             >
-              <Icon>{menu.icone}</Icon>
-              <StyledLink href={menu.path}>{menu.nome}</StyledLink>
+              <Icon>{menu.icon}</Icon>
+              <StyledLink href={menu.path}>{menu.name}</StyledLink>
             </MenuGroup>
           );
         })}
-        {isMessagesOpen && (
-          <DraweSidebar
-            onClosed={handleCloseDrawer}
-            menu={currentMenu}
-            opened={isMessagesOpen}
-          />
-        )}
-      </SidebarWrapper>
-    </>
+      </MenuWrapper>
+
+      <DraweSidebar
+        onClosed={handleCloseDrawer}
+        menu={currentMenu}
+        opened={isMessagesOpen}
+      />
+    </SidebarWrapper>
   );
 };
 

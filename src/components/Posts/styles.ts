@@ -15,6 +15,14 @@ export const BackdropPhoto = styled.div`
   border: 1px solid #7a41e0;
 `;
 
+export const Reloader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 20px;
+`;
+
 export const Post = styled.img<{ isOnModal?: boolean }>`
   width: 83%;
   margin: ${({ isOnModal }) => (isOnModal ? "22px" : "")};

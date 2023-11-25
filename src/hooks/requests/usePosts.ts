@@ -1,9 +1,16 @@
-import { useQuery, UseQueryResult } from "react-query";
 import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "react-query";
+import {
+  createLikePost,
+  deleteLikePost,
   getPosts,
   IGetAllPostParams,
-  postDisliked,
-  postLiked,
+  ILikePostsParam,
   Posts,
 } from "../../requests/posts";
 
@@ -16,17 +23,59 @@ export const useGetAllPosts: (
     staleTime: 1000 * 60,
   });
 };
-// export const usePostLiked: (params: {
-//   postId: string;
-// }) => UseQueryResult<unknown, unknown> = (params: { postId: string }) => {
-//   return useQuery(["likes", params], () => postLiked(params), {
-//     staleTime: 1000 * 60,
-//   });
-// };
-// export const usePostDisliked: (params: {
-//   postId: string;
-// }) => UseQueryResult<unknown, unknown> = (params: { postId: string }) => {
-//   return useQuery(["dislikes", params], () => postDisliked(params), {
-//     staleTime: 1000 * 60,
-//   });
-// };
+
+export function useLikePost(): UseMutationResult<
+  void,
+  unknown,
+  ILikePostsParam
+> {
+  const queryClient = useQueryClient();
+  return useMutation(createLikePost, {
+    onSuccess: (data, variables) => {
+      const { postId, ...params } = variables;
+
+      queryClient.setQueriesData<{ posts: Posts[]; count: number } | undefined>(
+        ["posts", params],
+        (oldData) => {
+          if (!oldData) {
+            return undefined;
+          }
+          const postIndex = oldData.posts.findIndex(
+            (post) => post.id === postId
+          );
+          if (postIndex > -1) {
+            oldData.posts[postIndex as number].likedByLoggedUser = true;
+          }
+          return oldData;
+        }
+      );
+    },
+  });
+}
+export function useDislikePost(): UseMutationResult<
+  void,
+  unknown,
+  ILikePostsParam
+> {
+  const queryClient = useQueryClient();
+  return useMutation(deleteLikePost, {
+    onSuccess: (data, variables) => {
+      const { postId, ...params } = variables;
+      queryClient.setQueriesData<{ posts: Posts[]; count: number } | undefined>(
+        ["posts", params],
+        (oldData) => {
+          if (!oldData) {
+            return undefined;
+          }
+          const postIndex = oldData.posts.findIndex(
+            (post) => post.id === postId
+          );
+          if (postIndex > -1) {
+            oldData.posts[postIndex].likedByLoggedUser = false;
+          }
+          return oldData;
+        }
+      );
+    },
+  });
+}

@@ -1,7 +1,19 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+// import React, { Fragment, useCallback, useEffect, useState } from "react";
 
 import UserPhoto from "@components/UserPhoto";
-
+import Icon from "@components/shared/Icon";
+import { VStack } from "@components/shared/flex/Stacks";
+import { P } from "@components/shared/text/Paragraph";
+import ModalPost from "@components/utils/Modal/Modal";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import { Fragment, useEffect, useState } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsChatLeftText } from "react-icons/bs";
+import { VscSend } from "react-icons/vsc";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "react-query";
+import { useDislikePost, useLikePost } from "../../hooks/requests/usePosts";
+import { Posts, getPosts } from "../../requests/posts";
 import {
   BackdropPhoto,
   Comment,
@@ -12,19 +24,14 @@ import {
   Nickname,
   Post,
   ReactionsContainer,
+  Reloader,
   Tags,
   TagsPost,
   UserContainer,
   UserInfo,
 } from "./styles";
-import { BsChatLeftText } from "react-icons/bs";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { VscSend } from "react-icons/vsc";
-import { P } from "@components/shared/text/Paragraph";
-import { useGetAllPosts } from "../../hooks/requests/usePosts";
-import { useAuthorization } from "../../hooks/store/useAuthorization";
-import ModalPost from "@components/utils/Modal/Modal";
-import { postLiked } from "../../requests/posts";
+import { FadeLoader } from "react-spinners";
+// import { postLiked } from "../../requests/posts";
 
 const Posts = () => {
   const [openCommentModal, setOpenCommentModal] = useState(false);
@@ -33,7 +40,45 @@ const Posts = () => {
   const [isBackdrop, setIsBackdrop] = useState<any>();
   const [clickCount, setClickCount] = useState(1);
   const params = { page: 1, limit: 10 };
-  const { data, isError, isLoading } = useGetAllPosts(params);
+  // const { data, isError, isLoading } = useGetAllPosts(params);
+  const { mutateAsync: createLike } = useLikePost();
+  const { mutateAsync: deleteLike } = useDislikePost();
+  const { ref, inView } = useInView();
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery<
+    any,
+    unknown,
+    { posts: Posts[]; count: number; prevPage: number }
+  >({
+    queryKey: ["postsByUserId"],
+    queryFn: ({ pageParam = 1 }) => getPosts({ pageParam, limit: 6 }),
+    getNextPageParam: (lastPage, allPages) => {
+      console.log(lastPage.prevPage * 6, lastPage.count);
+
+      if (lastPage.prevPage * 6 + 1 > lastPage.count) {
+        console.log("acabou");
+        return false;
+      }
+      console.log(lastPage);
+      return lastPage.prevPage + 1;
+    },
+  });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      console.log(1);
+      fetchNextPage();
+      console.log(data);
+    }
+  }, [inView]);
 
   const toggleModal = (post: any) => {
     setDataModal(post);
@@ -70,91 +115,101 @@ const Posts = () => {
   };
   const handleSubmitLogin = async (data: any) => {
     console.log(data);
-    try {
-      const response = await postLiked(data);
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const response = await postLiked(data);
+    //   console.log(response);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
   const toggleReaction = async (idPost: any) => {
-    console.log(idPost);
-
-    handleSubmitLogin(idPost);
+    // handleSubmitLogin(idPost);
 
     setShowReaction(!loveReaction);
   };
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (isError) {
-    return <div>Error loading data</div>;
-  }
+  // if (isError) {
+  //   return <div>Error loading data</div>;
+  // }
+  const posts = (data?.pages || []).reduce<Posts[]>(
+    (acc, next) => [...acc, ...next.posts],
+    []
+  );
   return (
-    <>
-      {data &&
-        data.posts.map((post, index) => {
-          return (
-            <Fragment key={post.id}>
-              <ContainerPosts>
-                <UserPhoto />
-                {isBackdrop >= 1400 ? (
-                  <BackdropPhoto>
-                    <Post
-                      key={index}
-                      alt=""
-                      onClick={toggleReactionPost}
-                      src={post.img_url}
-                    />
-                  </BackdropPhoto>
-                ) : (
+    <VStack>
+      {posts.map((post, index) => {
+        // console.log(post);
+
+        return (
+          <Fragment key={post.id}>
+            <ContainerPosts>
+              <UserPhoto />
+              {isBackdrop >= 1400 ? (
+                <BackdropPhoto>
                   <Post
                     key={index}
                     alt=""
                     onClick={toggleReactionPost}
                     src={post.img_url}
                   />
-                )}
-              </ContainerPosts>
-              <div style={{ marginLeft: "52px" }}>
-                <ReactionsContainer>
-                  {post.likedByLoggedUser ? (
-                    <AiFillHeart
-                      color="red"
-                      onClick={() => toggleReaction(post.id)}
-                    />
-                  ) : loveReaction ? (
-                    <AiFillHeart
-                      color="red"
-                      onClick={() => toggleReaction(post.id)}
-                    />
-                  ) : (
-                    <AiOutlineHeart
-                      color="black"
-                      onClick={() => toggleReaction(post.id)}
-                    />
-                  )}
-                  <BsChatLeftText
-                    onClick={() => toggleModal(post)}
-                    height={"0.8em"}
+                </BackdropPhoto>
+              ) : (
+                <Post
+                  key={index}
+                  alt=""
+                  onClick={toggleReactionPost}
+                  src={post.img_url}
+                />
+              )}
+            </ContainerPosts>
+            <div style={{ marginLeft: "52px" }}>
+              <ReactionsContainer>
+                {post.likedByLoggedUser ? (
+                  <AiFillHeart
+                    color="red"
+                    onClick={() =>
+                      deleteLike({
+                        page: params.page,
+                        limit: params.limit,
+                        postId: post.id,
+                      })
+                    }
                   />
-                  <VscSend />
-                </ReactionsContainer>
-                <div>
-                  <P>{post.postDescription}</P>
-                </div>
-                <TagsPost>
-                  <P>#meme</P>
-                  <P>#legal</P>
-                  <P>#dahora</P>
-                  <P>#euCurtiPakas</P>
-                  <P>#legal</P>
-                </TagsPost>
+                ) : (
+                  <AiOutlineHeart
+                    color="black"
+                    onClick={() =>
+                      createLike({
+                        page: params.page,
+                        limit: params.limit,
+                        postId: post.id,
+                      })
+                    }
+                  />
+                )}
+                <BsChatLeftText
+                  onClick={() => toggleModal(post)}
+                  height={"0.8em"}
+                />
+                <VscSend />
+              </ReactionsContainer>
+              <div ref={ref}>
+                <P>{post.postDescription}</P>
               </div>
-            </Fragment>
-          );
-        })}
+              <TagsPost>
+                <P>#meme</P>
+                <P>#legal</P>
+                <P>#dahora</P>
+                <P>#euCurtiPakas</P>
+                <P>#legal</P>
+              </TagsPost>
+            </div>
+          </Fragment>
+        );
+      })}
       {openCommentModal && (
         <ModalPost onClosed={handleCloseModal} opened={openCommentModal}>
           <ContainerPosts isOnModal={true}>
@@ -192,28 +247,16 @@ const Posts = () => {
           </CommentsContainer>
         </ModalPost>
       )}
-    </>
+      <Reloader ref={ref}>
+        <FadeLoader color="#36d7b7" loading={isFetchingNextPage} />
+        <Icon
+          styles={{ fontSize: "36px", color: "purple" }}
+          icon={CheckCircleOutlinedIcon}
+          hide={hasNextPage}
+        />
+      </Reloader>
+    </VStack>
   );
 };
-//                   <BsChatLeftText />
-//                   <VscSend />
-//                 </ReactionsContainer>
-//                 <div>
-//                   <P>{post.postDescription}</P>
-//                 </div>
-//                 <TagsPost>
-//                   <P>#meme</P>
-//                   <P>#legal</P>
-//                   <P>#dahora</P>
-//                   <P>#euCurtiPakas</P>
-//                   <P>#legal</P>
-//                 </TagsPost>
-//               </div>
-//             </Fragment>
-//           );
-//         })}
-//     </>
-//   );
-// };
 
 export default Posts;

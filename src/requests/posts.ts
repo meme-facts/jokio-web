@@ -10,20 +10,35 @@ export type Posts = {
   likedByLoggedUser: boolean;
 };
 export interface IGetAllPostParams {
-  page: number;
+  pageParam: number;
   limit: number;
 }
-export async function getPosts(params: IGetAllPostParams) {
+export interface ILikePostsParam {
+  page: number;
+  limit: number;
+  postId: string;
+}
+export async function getPosts({ pageParam = 0, limit }: IGetAllPostParams) {
   const { data } = await JokioBackend.get("/post", {
+    params: { page: pageParam, limit },
+  });
+  return { ...data, prevPage: pageParam };
+}
+
+export async function getPostsByUserId(
+  params: IGetAllPostParams,
+  userId: string
+) {
+  const { data } = await JokioBackend.get(`/post/${userId}`, {
     params,
   });
   return data;
 }
-export async function postLiked({ params }: any) {
-  const { data } = await JokioBackend.post(`like/${params}`);
+export async function createLikePost(params: ILikePostsParam) {
+  const { data } = await JokioBackend.post(`/like/${params.postId}`);
   return data;
 }
-export async function postDisliked(params: { postId: string }) {
-  const { data } = await JokioBackend.post("/dislike", params);
+export async function deleteLikePost(params: ILikePostsParam) {
+  const { data } = await JokioBackend.delete(`/like/${params.postId}`);
   return data;
 }

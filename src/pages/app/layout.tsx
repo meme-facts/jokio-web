@@ -1,58 +1,44 @@
 // import Header from "../components/Header";
 import Header from "@components/Header";
 import Sidebar from "@components/Sidebar";
+import { HStack } from "@components/shared/flex/Stacks";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import router from "next/router";
+import { useEffect } from "react";
+import { useAuthorization } from "../../hooks/store/useAuthorization";
+import { isTokenValid } from "../../utils/functions/isTokenValid";
 
-const FlexContainer = styled.div`
+const Wrapper = styled.div`
   display: flex;
-  height: 100vh;
-  overflow: hidden;
-`;
-
-const FlexColumnContainer = styled.div`
-  display: flex;
-  border: 1px red solid;
-  overflow: hidden;
-  height: 100vh;
-`;
-
-const MaxWidthContainer = styled.div`
-  margin: auto;
-  width: 100%;
-  display: flex;
-  padding: 1rem;
-  margin-right: inherit;
-`;
-const Main = styled.main<{ isDrawerOpen?: boolean }>`
-  align-self: center;
-  display: flex;
-  flex: 1;
+  overflow-y: hidden;
   max-height: 100vh;
-  overflow-y: scroll;
-  margin-left: 48px;
-  opacity: ${({ isDrawerOpen }) => (isDrawerOpen ? 0.5 : 1)};
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-left: 0px;
-  }
 `;
-
+const Main = styled.main`
+  height: 100vh;
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+`;
+const MaxWidth = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  padding: 34px;
+`;
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const handleOpenDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  function handleMenuToggle() {
-    setIsMenuOpen(!isMenuOpen);
-  }
+  const { user } = useAuthorization();
+  useEffect(() => {
+    if (!isTokenValid(user)) {
+      router.push("/");
+    }
+  }, []);
   return (
-    <FlexColumnContainer>
-      {/* <Header toggleSidebar={handleMenuToggle} /> */}
-      <Sidebar expandSidebar={isMenuOpen} onOpenDrawer={handleOpenDrawer} />
-      <Main>{children}</Main>
-    </FlexColumnContainer>
+    <Wrapper>
+      <Sidebar />
+      <Main>
+        <MaxWidth>{children}</MaxWidth>
+      </Main>
+    </Wrapper>
   );
 }
