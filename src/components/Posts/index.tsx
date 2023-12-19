@@ -3,7 +3,7 @@
 import UserPhoto from "@components/UserPhoto";
 import Icon from "@components/shared/Icon";
 import { VStack } from "@components/shared/flex/Stacks";
-import { P } from "@components/shared/text/Paragraph";
+import { P, XP } from "@components/shared/text/Paragraph";
 import ModalPost from "@components/utils/Modal/Modal";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { Fragment, useEffect, useState } from "react";
@@ -20,9 +20,11 @@ import {
   Comment,
   CommentPosts,
   CommentsContainer,
+  CommentsContainerMobile,
   ContainerPosts,
   InputComment,
   Nickname,
+  ParagraphComments,
   Post,
   ReactionsContainer,
   Reloader,
@@ -31,6 +33,7 @@ import {
   UserContainer,
   UserInfo,
 } from "./styles";
+import SwipeableEdgeDrawer from "@components/utils/DrawerComment";
 // import { postLiked } from "../../requests/posts";
 
 const Posts = () => {
@@ -44,6 +47,9 @@ const Posts = () => {
   const { mutateAsync: createLike } = useLikePost();
   const { mutateAsync: deleteLike } = useDislikePost();
   const { ref, inView } = useInView();
+  const [openDrawer, setOpenDrawer] = useState<{ [postId: string]: boolean }>(
+    {}
+  );
 
   const {
     data,
@@ -82,7 +88,14 @@ const Posts = () => {
 
   const toggleModal = (post: any) => {
     setDataModal(post);
+
     setOpenCommentModal(!openCommentModal);
+  };
+  const toggleDrawer = (postId: string) => {
+    setOpenDrawer((prevOpenDrawer) => ({
+      ...prevOpenDrawer,
+      [postId]: !prevOpenDrawer[postId],
+    }));
   };
   const handleCloseModal = () => {
     setOpenCommentModal(!openCommentModal);
@@ -121,13 +134,11 @@ const Posts = () => {
   return (
     <VStack>
       {posts.map((post, index) => {
-        // console.log(post);
-
         return (
           <Fragment key={post.id}>
             <ContainerPosts>
               <UserPhoto />
-              {isBackdrop ? (
+              {isBackdrop >= 1400 ? (
                 <BackdropPhoto>
                   <Post
                     key={index}
@@ -160,7 +171,7 @@ const Posts = () => {
                   />
                 ) : (
                   <AiOutlineHeart
-                    color="black"
+                    color="inherit"
                     onClick={() =>
                       createLike({
                         page: params.page,
@@ -171,8 +182,12 @@ const Posts = () => {
                   />
                 )}
                 <BsChatLeftText
-                  onClick={() => toggleModal(post)}
-                  height={"0.8em"}
+                  onClick={() =>
+                    window.innerWidth >= 750
+                      ? toggleModal(post)
+                      : toggleDrawer(post.id)
+                  }
+                  height={"0.7em"}
                 />
                 <VscSend />
               </ReactionsContainer>
@@ -186,6 +201,33 @@ const Posts = () => {
                 <P>#euCurtiPakas</P>
                 <P>#legal</P>
               </TagsPost>
+              <SwipeableEdgeDrawer
+                title="Comentários"
+                opened={openDrawer[post.id]}
+              >
+                <CommentsContainerMobile>
+                  <div id="commentUser">
+                    <UserPhoto size="8px" />
+                    <InputComment
+                      style={{ width: "70%" }}
+                      type="text"
+                      placeholder="Adicionar comentário"
+                    />
+                  </div>
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <div id="commentUsers">
+                      <div style={{ display: "grid" }}>
+                        <UserPhoto size="8px" />
+                        <ParagraphComments>@amigo</ParagraphComments>
+                      </div>
+                      <div style={{ display: "grid", gap: 5 }}>
+                        <p className="timeComment">8 min</p>
+                        <Comment>Comentário teste</Comment>
+                      </div>
+                    </div>
+                  ))}
+                </CommentsContainerMobile>
+              </SwipeableEdgeDrawer>
             </div>
           </Fragment>
         );

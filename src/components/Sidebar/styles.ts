@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { inherits } from "util";
 
 export const SidebarWrapper = styled.div<{ expand: boolean }>`
   width: 13rem;
@@ -17,7 +16,8 @@ export const SidebarWrapper = styled.div<{ expand: boolean }>`
     display: ${(props) => (props.expand ? "flex" : "none")};
     position: absolute;
     background: #1e2730;
-    height: 88.5%;
+    height: 91.3%;
+
     z-index: 100;
   }
 `;
@@ -58,6 +58,7 @@ export const StyledLink = styled(Link)`
 export const Icon = styled.div`
   font-size: 22px;
   align-self: center;
+  align-items: center;
 `;
 
 export const LogoLink = styled(Link)`

@@ -1,14 +1,20 @@
-import React, { useState, useMemo } from "react";
+import DraweSidebar from "@components/utils/Drawer/Drawer";
+import Logo from "@components/utils/Logo/Logo";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import {
-  AiOutlinePlusCircle,
   AiOutlineHome,
+  AiOutlinePlusCircle,
   AiOutlineSetting,
 } from "react-icons/ai";
-import { PiMagnifyingGlassLight } from "react-icons/pi";
 import { FiUser } from "react-icons/fi";
-import { BsBell } from "react-icons/bs";
 import { IoMdArrowBack } from "react-icons/io";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import { VscThreeBars } from "react-icons/vsc";
+import { useAuthorization } from "../../hooks/store/useAuthorization";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import {
   ButtonExpand,
   ButtonHidden,
@@ -19,11 +25,6 @@ import {
   SidebarWrapper,
   StyledLink,
 } from "./styles";
-import { useRouter } from "next/router";
-import { useAuthorization } from "../../hooks/store/useAuthorization";
-import DraweSidebar from "@components/utils/Drawer/Drawer";
-import Logo from "@components/utils/Logo/Logo";
-import { VscThreeBars } from "react-icons/vsc";
 interface SidebarProps {
   onOpenDrawer: () => void;
   expandSidebar: boolean;
@@ -48,12 +49,12 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
   const menus = [
     { name: "Home", icon: <AiOutlineHome />, path: "/app" },
     { name: "Criar um meme", icon: <AiOutlinePlusCircle />, path: "#" },
-    { name: "Explorar", icon: <PiMagnifyingGlassLight />, path: "#" },
-    { name: "Notificações", icon: <BsBell />, path: "#" },
+    { name: "Explorar", icon: <TravelExploreIcon />, path: "#" },
+    { name: "Notificações", icon: <NotificationsNoneIcon />, path: "#" },
     { name: "Mensagens", icon: <ChatBubbleOutlineIcon />, path: "#" },
     {
       name: "Perfil",
-      icon: <FiUser />,
+      icon: <PersonOutlineIcon />,
       path: `/app/profile/${user?.nickname}`,
     },
     { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },

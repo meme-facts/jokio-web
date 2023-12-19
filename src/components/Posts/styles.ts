@@ -59,7 +59,9 @@ export const UserInfo = styled.div`
 export const Nickname = styled.span`
   font-weight: 700;
 `;
-export const Comment = styled.span``;
+export const Comment = styled.span`
+  font-family: var(--inter-font);
+`;
 export const Tags = styled.div`
   display: flex;
   gap: 9px;
@@ -75,8 +77,9 @@ export const UserContainer = styled.div`
 `;
 export const CommentsContainer = styled.div`
   display: grid;
-  width: 100%;
+  width: 30%;
   margin-top: 22px;
+  justify-content: center;
   margin-bottom: 40px;
   gap: 20px;
   height: 89%;
@@ -87,7 +90,10 @@ export const CommentPosts = styled.div`
   gap: 20px;
   height: 90%;
   max-height: 90%;
+  width: 100%;
+  padding-right: 25px;
   overflow: auto;
+  justify-content: right;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -113,4 +119,28 @@ export const InputComment = styled.input`
   color: white;
   height: 25px;
   outline: none;
+`;
+
+export const CommentsContainerMobile = styled.div`
+  #commentUser {
+    display: flex;
+    gap: 15px;
+  }
+  #commentUsers {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    align-items: start;
+    color: #fff;
+  }
+  .timeComment {
+    font-size: 14px !important;
+    opacity: 0.5 !important;
+    margin: 0;
+  }
+`;
+export const ParagraphComments = styled.p`
+  font-size: 14px;
+  margin: 0;
+  font-family: var(--inter-font);
 `;
