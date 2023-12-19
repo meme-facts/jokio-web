@@ -7,8 +7,11 @@ import {
 import { PiMagnifyingGlassLight } from "react-icons/pi";
 import { FiUser } from "react-icons/fi";
 import { BsBell } from "react-icons/bs";
+import { IoMdArrowBack } from "react-icons/io";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import {
+  ButtonExpand,
+  ButtonHidden,
   Icon,
   LogoLink,
   MenuGroup,
@@ -20,15 +23,17 @@ import { useRouter } from "next/router";
 import { useAuthorization } from "../../hooks/store/useAuthorization";
 import DraweSidebar from "@components/utils/Drawer/Drawer";
 import Logo from "@components/utils/Logo/Logo";
+import { VscThreeBars } from "react-icons/vsc";
 interface SidebarProps {
   onOpenDrawer: () => void;
   expandSidebar: boolean;
 }
-const Sidebar = ({ onOpenDrawer, expandSidebar }: SidebarProps) => {
+const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
   const router = useRouter();
   const { user } = useAuthorization();
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [currentMenu, setCurrentMenu] = useState("");
+  const [expandSidebar, setExpandSidebar] = useState(false);
 
   const handleMenuItemClick = (menu: any) => {
     console.log(menu);
@@ -54,34 +59,50 @@ const Sidebar = ({ onOpenDrawer, expandSidebar }: SidebarProps) => {
     { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
   ];
   return (
-    <SidebarWrapper>
+    <>
+      <ButtonExpand
+        expand={expandSidebar}
+        onClick={() => {
+          console.log("teste slci");
+          setExpandSidebar(!expandSidebar);
+        }}
+      >
+        <VscThreeBars />
+      </ButtonExpand>
       <div>
-        <LogoLink href="">
-          <Logo />
-        </LogoLink>
-      </div>
-      <MenuWrapper>
-        {menus.map((menu) => {
-          const isActive = router.asPath === menu.path;
-          return (
-            <MenuGroup
-              key={menu.name}
-              onClick={() => handleMenuItemClick(menu)}
-              active={isActive}
-            >
-              <Icon>{menu.icon}</Icon>
-              <StyledLink href={menu.path}>{menu.name}</StyledLink>
-            </MenuGroup>
-          );
-        })}
-      </MenuWrapper>
+        <SidebarWrapper expand={expandSidebar}>
+          <ButtonHidden onClick={() => setExpandSidebar(!expandSidebar)}>
+            <IoMdArrowBack />
+          </ButtonHidden>
+          <div>
+            <LogoLink href="">
+              <Logo />
+            </LogoLink>
+          </div>
+          <MenuWrapper>
+            {menus.map((menu) => {
+              const isActive = router.asPath === menu.path;
+              return (
+                <MenuGroup
+                  key={menu.name}
+                  onClick={() => handleMenuItemClick(menu)}
+                  active={isActive}
+                >
+                  <Icon>{menu.icon}</Icon>
+                  <StyledLink href={menu.path}>{menu.name}</StyledLink>
+                </MenuGroup>
+              );
+            })}
+          </MenuWrapper>
 
-      <DraweSidebar
-        onClosed={handleCloseDrawer}
-        menu={currentMenu}
-        opened={isMessagesOpen}
-      />
-    </SidebarWrapper>
+          <DraweSidebar
+            onClosed={handleCloseDrawer}
+            menu={currentMenu}
+            opened={isMessagesOpen}
+          />
+        </SidebarWrapper>
+      </div>
+    </>
   );
 };
 

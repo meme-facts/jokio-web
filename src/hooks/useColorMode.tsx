@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
-import { set } from "react-hook-form";
 
 const useColorMode = () => {
   const [colorMode, setColorMode] = useLocalStorage("color-theme", "light");
@@ -10,6 +9,7 @@ const useColorMode = () => {
     const className = "dark";
     const bodyClass = window.document.body.classList;
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    console.log(darkThemeMq);
 
     if (darkThemeMq.matches) {
       setColorMode("dark");

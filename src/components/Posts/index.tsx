@@ -12,6 +12,7 @@ import { BsChatLeftText } from "react-icons/bs";
 import { VscSend } from "react-icons/vsc";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
+import { FadeLoader } from "react-spinners";
 import { useDislikePost, useLikePost } from "../../hooks/requests/usePosts";
 import { Posts, getPosts } from "../../requests/posts";
 import {
@@ -30,7 +31,6 @@ import {
   UserContainer,
   UserInfo,
 } from "./styles";
-import { FadeLoader } from "react-spinners";
 // import { postLiked } from "../../requests/posts";
 
 const Posts = () => {
@@ -61,13 +61,13 @@ const Posts = () => {
     queryKey: ["postsByUserId"],
     queryFn: ({ pageParam = 1 }) => getPosts({ pageParam, limit: 6 }),
     getNextPageParam: (lastPage, allPages) => {
-      console.log(lastPage.prevPage * 6, lastPage.count);
+      // console.log(lastPage.prevPage * 6, lastPage.count);
 
       if (lastPage.prevPage * 6 + 1 > lastPage.count) {
         console.log("acabou");
         return false;
       }
-      console.log(lastPage);
+      // console.log(lastPage);
       return lastPage.prevPage + 1;
     },
   });
@@ -95,11 +95,11 @@ const Posts = () => {
       const handleResize = () => {
         const width = window.innerWidth >= 1400;
         setIsBackdrop(width);
+        console.log(width);
       };
 
       window.addEventListener("resize", handleResize);
 
-      // Clean up the event listener
       return () => {
         window.removeEventListener("resize", handleResize);
       };
@@ -113,27 +113,7 @@ const Posts = () => {
       setClickCount(1);
     }
   };
-  const handleSubmitLogin = async (data: any) => {
-    console.log(data);
-    // try {
-    //   const response = await postLiked(data);
-    //   console.log(response);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
-  const toggleReaction = async (idPost: any) => {
-    // handleSubmitLogin(idPost);
 
-    setShowReaction(!loveReaction);
-  };
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (isError) {
-  //   return <div>Error loading data</div>;
-  // }
   const posts = (data?.pages || []).reduce<Posts[]>(
     (acc, next) => [...acc, ...next.posts],
     []
@@ -147,7 +127,7 @@ const Posts = () => {
           <Fragment key={post.id}>
             <ContainerPosts>
               <UserPhoto />
-              {isBackdrop >= 1400 ? (
+              {isBackdrop ? (
                 <BackdropPhoto>
                   <Post
                     key={index}

@@ -15,7 +15,7 @@ export default function Index() {
     <SectionContainer>
       <HStack>
         <VStack width="740px">
-          <DivTab sx={{ justifyContent: "space-evenly" }}>
+          <DivTab>
             <Tab onClick={() => handleTabClick(1)} active={activeTab === 1}>
               Para você
             </Tab>

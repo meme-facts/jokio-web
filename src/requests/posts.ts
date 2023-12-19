@@ -23,7 +23,7 @@ export interface IGetAllPostByUserIdParams {
   limit: number;
   userId: string;
 }
-export async function getPosts(params: IGetAllPostParams) {
+export async function getPosts({ pageParam = 0, limit }: IGetAllPostParams) {
   const { data } = await JokioBackend.get("/post", {
     params: { page: pageParam, limit },
   });

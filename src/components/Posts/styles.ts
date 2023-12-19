@@ -6,7 +6,7 @@ export const ContainerPosts = styled.div<{ isOnModal?: boolean }>`
   margin-top: 20px;
 `;
 
-export const BackdropPhoto = styled.div`
+export const BackdropPhoto = styled.span`
   background-color: black;
   width: 100%;
   justify-content: center;

@@ -1,11 +1,12 @@
 import { CSSProperties } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 type IDiv = CSSProperties & React.HTMLAttributes<HTMLDivElement>;
 
 export const DivTab = styled.div<{ sx?: IDiv }>`
   display: flex;
   cursor: pointer;
+  justify-content: space-evenly;
   ${(props) =>
     Object.keys(props?.sx ?? []).map((name) => {
       if (props.sx) {

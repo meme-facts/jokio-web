@@ -7,6 +7,7 @@ import { StyleSheetManager, createGlobalStyle } from "styled-components";
 import { useRouter } from "next/router";
 import Layout from "./app/layout";
 import { useAuthorization } from "../hooks/store/useAuthorization";
+import useColorMode from "../hooks/useColorMode";
 
 const inter = Inter({ subsets: ["latin"], variable: "--inter-font" });
 
@@ -45,7 +46,7 @@ const NoLayout = ({ children }: PropsWithChildren<unknown>) => children;
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient());
   const router = useRouter();
-
+  useColorMode();
   const CurrentLayout = router.pathname.startsWith("/app") ? Layout : NoLayout;
   return (
     <main className={inter.className}>
