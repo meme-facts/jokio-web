@@ -67,22 +67,17 @@ const Posts = () => {
     queryKey: ["postsByUserId"],
     queryFn: ({ pageParam = 1 }) => getPosts({ pageParam, limit: 6 }),
     getNextPageParam: (lastPage, allPages) => {
-      // console.log(lastPage.prevPage * 6, lastPage.count);
 
       if (lastPage.prevPage * 6 + 1 > lastPage.count) {
-        console.log("acabou");
         return false;
       }
-      // console.log(lastPage);
       return lastPage.prevPage + 1;
     },
   });
 
   useEffect(() => {
     if (inView && hasNextPage) {
-      console.log(1);
       fetchNextPage();
-      console.log(data);
     }
   }, [inView]);
 
@@ -108,7 +103,6 @@ const Posts = () => {
       const handleResize = () => {
         const width = window.innerWidth >= 1400;
         setIsBackdrop(width);
-        console.log(width);
       };
 
       window.addEventListener("resize", handleResize);

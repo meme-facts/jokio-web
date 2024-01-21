@@ -1,5 +1,7 @@
-import * as React from "react";
+
 import { Global } from "@emotion/react";
+import React, { useEffect, useState } from 'react';
+
 import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { grey } from "@mui/material/colors";
@@ -20,12 +22,12 @@ interface Props {
 }
 
 const SwipeableEdgeDrawer = ({ opened, children, title }: Props) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     setOpen(opened);
   }, [opened]);
 

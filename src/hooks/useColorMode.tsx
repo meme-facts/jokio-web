@@ -9,7 +9,7 @@ const useColorMode = () => {
     const className = "dark";
     const bodyClass = window.document.body.classList;
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-    console.log(darkThemeMq);
+    
 
     if (darkThemeMq.matches) {
       setColorMode("dark");
@@ -18,9 +18,7 @@ const useColorMode = () => {
     } else {
       bodyClass.remove(className);
     }
-    // colorMode === "dark"
-    //   ? bodyClass.add(className)
-    //   : bodyClass.remove(className);
+  
   }, [colorMode]);
 
   return [colorMode, setColorMode];

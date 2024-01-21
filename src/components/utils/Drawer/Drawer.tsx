@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import Drawer from '@mui/material/Drawer';
 import UserPhoto from '@components/UserPhoto';
-import { ContainerMensagens, DrawerContainer, Mensagem, Mensagens, TextMenuDrawer, UserName } from './styles';
 import { Badge } from '@mui/material';
+import Drawer from '@mui/material/Drawer';
+import React, { useEffect } from 'react';
+import { ContainerMessages, DrawerContainer, Mensagem, Message, Messages, TextMenuDrawer, UserName } from './styles';
 
 interface DrawerProps {
   opened: boolean;
@@ -34,13 +34,13 @@ const DrawerSidebar = ({ opened, menu, onClosed }: DrawerProps) => {
             <Badge> 10 Não lidas</Badge>
           </div>
           {Array.from({ length: 10 }).map((_, i) => (
-            <ContainerMensagens key={i}>
+            <ContainerMessages key={i}>
               <UserPhoto />
-              <Mensagens>
+              <Messages>
                 <UserName>@gabrikf</UserName>
-                <Mensagem>olha esse aqui!</Mensagem>
-              </Mensagens>
-            </ContainerMensagens>
+                <Message>olha esse aqui!</Message>
+              </Messages>
+            </ContainerMessages>
           ))}
         </DrawerContainer>
       </Drawer>
