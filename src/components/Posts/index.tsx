@@ -34,7 +34,8 @@ import {
   UserInfo,
 } from "./styles";
 import SwipeableEdgeDrawer from "@components/utils/DrawerComment";
-// import { postLiked } from "../../requests/posts";
+import { Comments, getComments } from "../../requests/comments";
+import { useUserById } from "../../hooks/requests/useUserById";
 
 const Posts = () => {
   const [openCommentModal, setOpenCommentModal] = useState(false);
@@ -43,22 +44,23 @@ const Posts = () => {
   const [isBackdrop, setIsBackdrop] = useState<any>();
   const [clickCount, setClickCount] = useState(1);
   const params = { page: 1, limit: 10 };
-  // const { data, isError, isLoading } = useGetAllPosts(params);
   const { mutateAsync: createLike } = useLikePost();
   const { mutateAsync: deleteLike } = useDislikePost();
   const { ref, inView } = useInView();
+  const { ref: refComment, inView: inViewComment } = useInView();
   const [openDrawer, setOpenDrawer] = useState<{ [postId: string]: boolean }>(
     {}
   );
+  const [openPostComment, setPostComment] = useState<any>();
 
   const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
+    data: postsData,
+    error: postsError,
+    fetchNextPage: fetchNextPagePosts,
+    hasNextPage: hasNextPagePosts,
+    isFetching: isFetchingPosts,
+    isFetchingNextPage: isFetchingNextPagePosts,
+    status: statusPosts,
   } = useInfiniteQuery<
     any,
     unknown,
@@ -73,25 +75,54 @@ const Posts = () => {
         console.log("acabou");
         return false;
       }
-      // console.log(lastPage);
+      return lastPage.prevPage + 1;
+    },
+  });
+
+  const {
+    data: commentsData,
+    fetchNextPage: fetchNextPageComments,
+    hasNextPage: hasNextPageComments,
+    isFetchingNextPage: isFetchingNextPageComments,
+  } = useInfiniteQuery<
+    any,
+    unknown,
+    { comments: Comments[]; count: number; prevPage: number }
+  >({
+    queryKey: ["commentsByUserId"],
+    queryFn: ({ pageParam = 1 }) =>
+      getComments({ pageParam, limit: 9, postId: openPostComment }),
+    getNextPageParam: (lastPage, allPages) => {
+      // console.log(lastPage.prevPage * 6, lastPage.count);
+
+      if (lastPage.prevPage * 6 + 1 > lastPage.count) {
+        console.log("acabou");
+        return false;
+      }
       return lastPage.prevPage + 1;
     },
   });
 
   useEffect(() => {
-    if (inView && hasNextPage) {
-      console.log(1);
-      fetchNextPage();
-      console.log(data);
+    if (inView && hasNextPagePosts) {
+      fetchNextPagePosts();
+      console.log(postsData);
     }
   }, [inView]);
-
+  useEffect(() => {
+    if (inViewComment && hasNextPageComments) {
+      fetchNextPageComments();
+    }
+  }, [inViewComment, openPostComment]);
   const toggleModal = (post: any) => {
     setDataModal(post);
 
     setOpenCommentModal(!openCommentModal);
   };
   const toggleDrawer = (postId: string) => {
+    setPostComment(postId);
+    console.log(postId);
+
     setOpenDrawer((prevOpenDrawer) => ({
       ...prevOpenDrawer,
       [postId]: !prevOpenDrawer[postId],
@@ -127,8 +158,12 @@ const Posts = () => {
     }
   };
 
-  const posts = (data?.pages || []).reduce<Posts[]>(
+  const posts = (postsData?.pages || []).reduce<Posts[]>(
     (acc, next) => [...acc, ...next.posts],
+    []
+  );
+  const comments = (commentsData?.pages || []).reduce<Comments[]>(
+    (acc, next) => [...acc, ...next.comments],
     []
   );
   return (
@@ -214,18 +249,32 @@ const Posts = () => {
                       placeholder="Adicionar comentário"
                     />
                   </div>
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <div id="commentUsers">
-                      <div style={{ display: "grid" }}>
-                        <UserPhoto size="8px" />
-                        <ParagraphComments>@amigo</ParagraphComments>
+                  {comments?.map((comment, index) => {
+                    console.log("teste", post.id);
+                    return (
+                      <div key={index} id="commentUsers">
+                        <div style={{ display: "grid" }}>
+                          <UserPhoto size="8px" />
+                          <ParagraphComments>@amigo</ParagraphComments>
+                        </div>
+                        <div style={{ display: "grid", gap: 5 }}>
+                          <p className="timeComment">8 min</p>
+                          <Comment>{comment.message}</Comment>
+                        </div>
                       </div>
-                      <div style={{ display: "grid", gap: 5 }}>
-                        <p className="timeComment">8 min</p>
-                        <Comment>Comentário teste</Comment>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
+                  <Reloader ref={refComment}>
+                    <FadeLoader
+                      color="#36d7b7"
+                      loading={isFetchingNextPageComments}
+                    />
+                    <Icon
+                      styles={{ fontSize: "36px", color: "purple" }}
+                      icon={CheckCircleOutlinedIcon}
+                      hide={hasNextPageComments}
+                    />
+                  </Reloader>
                 </CommentsContainerMobile>
               </SwipeableEdgeDrawer>
             </div>
@@ -270,11 +319,11 @@ const Posts = () => {
         </ModalPost>
       )}
       <Reloader ref={ref}>
-        <FadeLoader color="#36d7b7" loading={isFetchingNextPage} />
+        <FadeLoader color="#36d7b7" loading={isFetchingNextPagePosts} />
         <Icon
           styles={{ fontSize: "36px", color: "purple" }}
           icon={CheckCircleOutlinedIcon}
-          hide={hasNextPage}
+          hide={hasNextPagePosts}
         />
       </Reloader>
     </VStack>

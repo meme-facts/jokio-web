@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <GlobalStyle />
             <Component {...pageProps} />
           </CurrentLayout>
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </QueryClientProvider>
       </StyleSheetManager>
     </main>

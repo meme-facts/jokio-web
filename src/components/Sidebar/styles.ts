@@ -7,7 +7,7 @@ export const SidebarWrapper = styled.div<{ expand: boolean }>`
   padding: 40px;
   display: flex;
   flex-direction: column;
-  height: 70%;
+  height: 80%;
   overflow-y: hidden;
   gap: 45px;
   transition: width 0.3s, color 0.3s;
@@ -17,7 +17,6 @@ export const SidebarWrapper = styled.div<{ expand: boolean }>`
     position: absolute;
     background: #1e2730;
     height: 91.3%;
-
     z-index: 100;
   }
 `;
@@ -57,6 +56,7 @@ export const StyledLink = styled(Link)`
 `;
 export const Icon = styled.div`
   font-size: 22px;
+  height: 25px !important;
   align-self: center;
   align-items: center;
 `;

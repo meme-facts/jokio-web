@@ -7,9 +7,8 @@ import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 import { FadeLoader } from "react-spinners";
 import { Posts, getPostsByUserId } from "../../../requests/posts";
-import { Grid, GridItem, Photo, Reloader } from "./styles";
-import { LoadingOrErrorScreen } from "@components/shared/feedback/LoadingOrErrorScreen";
 import { UserGridSkeleton } from "./skeleton";
+import { Grid, GridItem, Photo, Reloader } from "./styles";
 
 export function UserGrid() {
   const router = useRouter();

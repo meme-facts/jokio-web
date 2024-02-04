@@ -7,6 +7,7 @@ import router from "next/router";
 import { useEffect } from "react";
 import { useAuthorization } from "../../hooks/store/useAuthorization";
 import { isTokenValid } from "../../utils/functions/isTokenValid";
+import Navbar from "@components/Navbar";
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const MaxWidth = styled.div`
   width: 100%;
   padding: 34px;
 `;
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useAuthorization();
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Main>
         <MaxWidth>{children}</MaxWidth>
       </Main>
+      <Navbar />
     </Wrapper>
   );
 }

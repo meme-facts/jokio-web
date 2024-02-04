@@ -2,19 +2,15 @@ import DraweSidebar from "@components/utils/Drawer/Drawer";
 import Logo from "@components/utils/Logo/Logo";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import TuneIcon from "@mui/icons-material/Tune";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import {
-  AiOutlineHome,
-  AiOutlinePlusCircle,
-  AiOutlineSetting,
-} from "react-icons/ai";
-import { FiUser } from "react-icons/fi";
+import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
 import { VscThreeBars } from "react-icons/vsc";
 import { useAuthorization } from "../../hooks/store/useAuthorization";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import {
   ButtonExpand,
   ButtonHidden,
@@ -26,8 +22,8 @@ import {
   StyledLink,
 } from "./styles";
 interface SidebarProps {
-  onOpenDrawer: () => void;
-  expandSidebar: boolean;
+  onOpenDrawer?: () => void;
+  expandSidebar?: boolean;
 }
 const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
   const router = useRouter();
@@ -57,11 +53,11 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
       icon: <PersonOutlineIcon />,
       path: `/app/profile/${user?.nickname}`,
     },
-    { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
+    { name: "Configurações", icon: <TuneIcon />, path: "#" },
   ];
   return (
     <>
-      <ButtonExpand
+      {/* <ButtonExpand
         expand={expandSidebar}
         onClick={() => {
           console.log("teste slci");
@@ -69,7 +65,7 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
         }}
       >
         <VscThreeBars />
-      </ButtonExpand>
+      </ButtonExpand> */}
       <div>
         <SidebarWrapper expand={expandSidebar}>
           <ButtonHidden onClick={() => setExpandSidebar(!expandSidebar)}>
