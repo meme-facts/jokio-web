@@ -33,7 +33,7 @@ export const TextMenuDrawer = styled.span`
   margin: 1rem;
 `;
 
-export const ContainerMensagens = styled.div`
+export const ContainerMessages = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
@@ -47,7 +47,7 @@ export const ContainerMensagens = styled.div`
   }
 `;
 
-export const Mensagens = styled.div`
+export const Messages = styled.div`
   display: grid;
 `;
 
@@ -58,7 +58,7 @@ export const UserName = styled.p`
   padding: 0px;
 `;
 
-export const Mensagem = styled.p`
+export const Message = styled.p`
   font-size: 12px !important;
   margin: 0px;
 `;

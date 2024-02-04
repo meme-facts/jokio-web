@@ -32,7 +32,7 @@ interface ModalProps {
 export default function ModalPost({ opened, children, onClosed }: ModalProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(!open);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
