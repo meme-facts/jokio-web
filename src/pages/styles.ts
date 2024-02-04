@@ -7,6 +7,9 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #ccd5de;
+  body.dark & {
+    background-color: #27323D; 
+  }
   margin: 0;
   padding: 0;
 `;
@@ -17,6 +20,10 @@ export const Content = styled.div`
   max-width: 400px;
   justify-content: center;
   align-items: center;
+  body.dark & {
+    background-color: #171D24;
+    border:none; 
+  }
   background-color: #ffffff;
   border: solid 2px #ffffff;
   border-radius: 4px;

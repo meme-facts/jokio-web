@@ -18,6 +18,7 @@ import { auth, provider } from "../services/firebase";
 import { Container, Content } from "./styles";
 import { isTokenValid } from "../utils/functions/isTokenValid";
 import { useLoginManagement } from "../hooks/shared/useLoginManagement";
+import Logo from "@components/utils/Logo/Logo";
 
 function SignIn() {
   useLoginManagement();
@@ -50,7 +51,8 @@ function SignIn() {
     <Container>
       <Content>
         <VStack alignItems="center" justifyContent="center" gap="30px">
-          <Image src="/JOKIO.svg" alt="me" width="132" height="50" />
+          {/* <Image src="/JOKIO.svg" alt="me" width="132" height="50" /> */}
+          <Logo />
           <H5>Login</H5>
         </VStack>
         <VStack alignItems="center" justifyContent="center" gap="20px">
@@ -84,7 +86,7 @@ function SignIn() {
             height="44px"
             borderRadius="10px"
             borderColor="#000"
-            color="#000"
+            color="inherit"
             rightIcon={GoogleIcons}
             size="sm"
             onClick={handleGoogleLogin}

@@ -16,6 +16,9 @@ export const StyledButton = styled.button<{ sx: IButtonType }>`
   border-radius: 3px;
   font-family: var(--inter-font);
   cursor: pointer;
+  body.dark & {
+    border: 1px solid #CCD5DE;
+  }
   ${(props) =>
     Object.keys(props.sx).map((name) => {
       return {

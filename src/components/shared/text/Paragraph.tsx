@@ -5,7 +5,7 @@ type IParagraph = CSSProperties & React.HTMLAttributes<HTMLParagraphElement>;
 
 export const PStyled = styled.p<{ sx?: IParagraph }>`
   margin: 0;
-  font-family: var(--inter-font);
+  font-family: var(--inter-font) !important;
   ${(props) =>
     props.sx &&
     Object.keys(props.sx).map((name) => {
