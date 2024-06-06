@@ -14,6 +14,9 @@ const Line = styled.p`
   border-top: solid 1px #000;
   display: flex;
   flex: 0.45;
+  body.dark & {
+    border-top: solid 1px #fff;
+  }
 `;
 
 function InlineText({ children }: PropsWithChildren<unknown>) {
