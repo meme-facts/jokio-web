@@ -15,12 +15,18 @@ export function Button({
   size,
   rightIcon,
   onClick,
+  disabled,
   ...rest
 }: PropsWithChildren<IButtonProps>) {
   switch (size) {
     case "xm":
       return (
-        <StyledButton onClick={onClick} sx={{ height: "28px", ...rest }}>
+        <StyledButton
+          disabled={disabled}
+          onClick={onClick}
+          type={rest.type}
+          sx={{ height: "28px", ...rest }}
+        >
           <HStack
             height="0.75rem"
             gap="5px"
@@ -34,7 +40,12 @@ export function Button({
       );
     case "sm":
       return (
-        <StyledButton onClick={onClick} sx={{ height: "38px", ...rest }}>
+        <StyledButton
+          disabled={disabled}
+          onClick={onClick}
+          type={rest.type}
+          sx={{ height: "38px", ...rest }}
+        >
           <HStack
             height="0.75rem"
             gap="5px"
@@ -49,7 +60,12 @@ export function Button({
 
     case "lg":
       return (
-        <StyledButton onClick={onClick} sx={{ height: "52px", ...rest }}>
+        <StyledButton
+          disabled={disabled}
+          onClick={onClick}
+          type={rest.type}
+          sx={{ height: "52px", ...rest }}
+        >
           <HStack gap="5px" alignItems="center" justifyContent="center">
             {rightIcon && <Icon icon={rightIcon} />}
             <P2>{children}</P2>
@@ -59,7 +75,12 @@ export function Button({
 
     default:
       return (
-        <StyledButton onClick={onClick} sx={{ height: "44px", ...rest }}>
+        <StyledButton
+          disabled={disabled}
+          onClick={onClick}
+          type={rest.type}
+          sx={{ height: "44px", ...rest }}
+        >
           <HStack
             height="0.875rem"
             gap="5px"

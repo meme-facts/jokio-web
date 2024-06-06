@@ -1,4 +1,4 @@
-import { HStack, VStack } from "@components/shared/flex/Stacks";
+import { HStack, VStack, VStackForm } from "@components/shared/flex/Stacks";
 import { Button } from "@components/shared/form/Button";
 import { Input } from "@components/shared/form/Input";
 import { H6 } from "@components/shared/text/Heading";
@@ -53,7 +53,12 @@ const Signup = () => {
           <Image src="/JOKIO.svg" alt="me" width="132" height="50" />
           <H6>Crie sua conta</H6>
         </VStack>
-        <VStack alignItems="center" justifyContent="center" gap="10px">
+        <VStackForm
+          onSubmit={handleSubmit(handleSubmitSignup)}
+          alignItems="center"
+          justifyContent="center"
+          gap="10px"
+        >
           <Input
             label="Usuário"
             placeholder="Usuário"
@@ -79,7 +84,7 @@ const Signup = () => {
             size="lg"
             borderRadius="10px"
             disabled={isLoading}
-            onClick={handleSubmit(handleSubmitSignup)}
+            type="submit"
           >
             CONTINUAR
           </Button>
@@ -93,6 +98,7 @@ const Signup = () => {
             color="#000"
             rightIcon={GoogleIcons}
             size="sm"
+            type="button"
             onClick={handleGoogleLogin}
           >
             ENTRAR COM GOOGLE
@@ -108,7 +114,7 @@ const Signup = () => {
               <P1 color="#7A41E0">Entrar</P1>
             </Link>
           </HStack>
-        </VStack>
+        </VStackForm>
       </Content>
     </Container>
   );

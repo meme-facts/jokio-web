@@ -3,25 +3,71 @@ import styled from "@emotion/styled";
 
 type IDiv = CSSProperties & React.HTMLAttributes<HTMLDivElement>;
 
-export const Div = styled.div<{ sx: IDiv }>`
-  display: flex;
-  width: 100%;
-  height: 100%;
+type IForm = CSSProperties & React.HTMLAttributes<HTMLFormElement>;
+
+export const StyledDiv = styled.div<{ sx: IDiv }>`
   ${(props) =>
     Object.keys(props.sx).map((name) => {
       return {
         [name]: props.sx[name as keyof IDiv],
       };
     })};
-   
 `;
 
+export const Form = styled.form<{ sx: IForm }>`
+  display: flex;
+  ${(props) =>
+    Object.keys(props.sx).map((name) => {
+      return {
+        [name]: props.sx[name as keyof IForm],
+      };
+    })};
+`;
+
+function Div({ children, ...props }: PropsWithChildren<IDiv>) {
+  return (
+    <StyledDiv onClick={props.onClick} sx={{ ...props }}>
+      {children}
+    </StyledDiv>
+  );
+}
+
 function HStack({ children, ...props }: PropsWithChildren<IDiv>) {
-  return <Div sx={{ ...props }}>{children}</Div>;
+  return (
+    <StyledDiv onClick={props.onClick} sx={{ display: "flex", ...props }}>
+      {children}
+    </StyledDiv>
+  );
 }
 
 function VStack({ children, ...props }: PropsWithChildren<IDiv>) {
-  return <Div sx={{ flexDirection: "column", ...props }}>{children}</Div>;
+  return (
+    <StyledDiv
+      onClick={props.onClick}
+      sx={{ display: "flex", flexDirection: "column", ...props }}
+    >
+      {children}
+    </StyledDiv>
+  );
 }
 
-export { HStack, VStack };
+function HStackForm({ children, ...props }: PropsWithChildren<IForm>) {
+  return (
+    <Form onSubmit={props.onSubmit} sx={{ display: "flex", ...props }}>
+      {children}
+    </Form>
+  );
+}
+
+function VStackForm({ children, ...props }: PropsWithChildren<IForm>) {
+  return (
+    <Form
+      onSubmit={props.onSubmit}
+      sx={{ display: "flex", flexDirection: "column", ...props }}
+    >
+      {children}
+    </Form>
+  );
+}
+
+export { HStack, VStack, HStackForm, VStackForm, Div };

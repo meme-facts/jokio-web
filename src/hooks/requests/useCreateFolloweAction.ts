@@ -4,7 +4,8 @@ import {
   IFollowerParameters,
   IGetUserById,
 } from "../../requests/user";
-import { FollowerStatusEnum } from "../../enum/FollowerStatusEnum";
+import { FollowerStatusEnum } from "../../enums/FollowerStatusEnum";
+import { EQueries } from "../../enums/reactQueryTags/queries.enum";
 
 export function useCreateFollowerAction(): UseMutationResult<
   void, // Mutation data type
@@ -15,7 +16,7 @@ export function useCreateFollowerAction(): UseMutationResult<
   return useMutation(createFollowAction, {
     onSuccess: (data, { nickname, isPrivate }) => {
       queryClient.setQueryData<IGetUserById | undefined>(
-        ["userById", nickname],
+        [EQueries.userById, nickname],
         (oldData) =>
           oldData
             ? {

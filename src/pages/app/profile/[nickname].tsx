@@ -7,7 +7,7 @@ export default function Profile() {
   return (
     <VStack>
       <DivTab>
-        <Tab active={true}>Publicações 32</Tab>
+        <Tab $active={true}>Publicações 32</Tab>
       </DivTab>
       <HStack alignItems="start" width="100%" paddingTop="25px">
         <UserGrid />

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { BaseObject } from "styled-components/dist/types";
 
 export type IButtonType = CSSProperties &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
+  ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const StyledButton = styled.button<{ sx: IButtonType }>`
   background: #7a41e0;
@@ -25,6 +25,10 @@ export const StyledButton = styled.button<{ sx: IButtonType }>`
 
   &:hover {
     filter: brightness(0.8);
+  }
+  &:disabled {
+    filter: brightness(0.8);
+    cursor: not-allowed;
   }
   transition: filter 0.2s;
 `;

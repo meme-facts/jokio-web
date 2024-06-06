@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AiOutlinePlusCircle,
   AiOutlineHome,
@@ -9,7 +9,7 @@ import { FiUser } from "react-icons/fi";
 import { BsBell } from "react-icons/bs";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import {
-  Icon,
+  Icon as StyledIcon,
   LogoLink,
   MenuGroup,
   MenuWrapper,
@@ -18,23 +18,47 @@ import {
 } from "./styles";
 import { useRouter } from "next/router";
 import { useAuthorization } from "../../hooks/store/useAuthorization";
+import Icon from "@components/shared/Icon";
+import { LogoutOutlined } from "@mui/icons-material";
+
+interface IMenu {
+  name: string;
+  icon: React.ReactNode;
+  path: string;
+}
 
 const Sidebar = () => {
   const router = useRouter();
-  const { user } = useAuthorization();
-  const menus = [
-    { name: "Home", icon: <AiOutlineHome />, path: "/app" },
-    { name: "Criar um meme", icon: <AiOutlinePlusCircle />, path: "#" },
-    { name: "Explorar", icon: <PiMagnifyingGlassLight />, path: "#" },
-    { name: "Notificações", icon: <BsBell />, path: "#" },
-    { name: "Mensagens", icon: <ChatBubbleOutlineIcon />, path: "#" },
-    {
-      name: "Perfil",
-      icon: <FiUser />,
-      path: `/app/profile/${user?.nickname}`,
-    },
-    { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
-  ];
+  const { user, logOut } = useAuthorization();
+  const [menus, setMenus] = useState<IMenu[]>([]);
+
+  function handleLogout() {
+    try {
+      logOut();
+      router.push("/");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    setMenus([
+      { name: "Home", icon: <AiOutlineHome />, path: "/app" },
+      { name: "Criar um meme", icon: <AiOutlinePlusCircle />, path: "#" },
+      { name: "Explorar", icon: <PiMagnifyingGlassLight />, path: "#" },
+      { name: "Notificações", icon: <BsBell />, path: "#" },
+      {
+        name: "Mensagens",
+        icon: <ChatBubbleOutlineIcon />,
+        path: "/app/messages",
+      },
+      {
+        name: "Perfil",
+        icon: <FiUser />,
+        path: `/app/profile/${user?.nickname}`,
+      },
+      { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
+    ]);
+  }, []);
   return (
     <SidebarWrapper>
       <div>
@@ -57,13 +81,23 @@ const Sidebar = () => {
         {menus.map((menu) => {
           const isActive = router.asPath === menu.path;
           return (
-            <MenuGroup key={menu.name} active={isActive}>
-              <Icon>{menu.icon}</Icon>
+            <MenuGroup key={menu.name} $active={isActive}>
+              <StyledIcon>{menu.icon}</StyledIcon>
               <StyledLink href={menu.path}>{menu.name}</StyledLink>
             </MenuGroup>
           );
         })}
       </MenuWrapper>
+      <Icon
+        onClick={() => handleLogout()}
+        icon={LogoutOutlined}
+        styles={{
+          alignSelf: "center",
+          marginTop: "auto",
+          padding: "10px",
+          cursor: "pointer",
+        }}
+      />
     </SidebarWrapper>
   );
 };
