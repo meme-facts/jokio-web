@@ -1,4 +1,4 @@
-import { HStack, VStack } from "@components/shared/flex/Stacks";
+import { HStack, VStack, VStackForm } from "@components/shared/flex/Stacks";
 import { Button } from "@components/shared/form/Button";
 import { Input } from "@components/shared/form/Input";
 import { H5 } from "@components/shared/text/Heading";
@@ -55,7 +55,12 @@ function SignIn() {
           <Logo />
           <H5>Login</H5>
         </VStack>
-        <VStack alignItems="center" justifyContent="center" gap="20px">
+        <VStackForm
+          onSubmit={handleSubmit(handleSubmitLogin)}
+          alignItems="center"
+          justifyContent="center"
+          gap="20px"
+        >
           <Input
             label="Usuário"
             placeholder="Usuário"
@@ -75,7 +80,6 @@ function SignIn() {
             size="lg"
             borderRadius="10px"
             disabled={isLoading}
-            onClick={handleSubmit(handleSubmitLogin)}
           >
             ENTRAR
           </Button>
@@ -89,27 +93,18 @@ function SignIn() {
             color="inherit"
             rightIcon={GoogleIcons}
             size="sm"
+            type="button"
             onClick={handleGoogleLogin}
           >
             ENTRAR COM GOOGLE
           </Button>
-          {/* <Button
-            background="transparent"
-            width="330px"
-            borderRadius="10px"
-            borderColor="#000"
-            color="#000"
-            rightIcon={AppleIcon}
-          >
-            ENTRAR COM APPLE
-          </Button> */}
           <HStack alignItems="center" justifyContent="center" gap="10px">
             <P1>Primeira vez no Jokio?</P1>{" "}
             <Link href={"/register"}>
               <P1 color="#7A41E0">Crie sua conta</P1>
             </Link>
           </HStack>
-        </VStack>
+        </VStackForm>
       </Content>
     </Container>
   );

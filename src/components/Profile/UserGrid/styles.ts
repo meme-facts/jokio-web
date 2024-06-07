@@ -27,12 +27,12 @@ export const SkeletonGridItem = styled.div`
 
 export const Photo = styled.img`
   width: 100%;
+  max-height: 100%;
 `;
 
 export const Reloader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
   padding: 20px;
 `;

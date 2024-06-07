@@ -12,9 +12,10 @@ import { LoadingOrErrorScreen } from "@components/shared/feedback/LoadingOrError
 import { UserGridSkeleton } from "./skeleton";
 
 export function UserGrid() {
-  const router = useRouter();
+  const { query } = useRouter();
   const { ref, inView } = useInView();
-  const { nickname } = router.query;
+  const { nickname } = query;
+
   const {
     data,
     fetchNextPage,
@@ -28,8 +29,9 @@ export function UserGrid() {
     { posts: Posts[]; count: number; prevPage: number }
   >({
     queryKey: ["postsByUserId"],
+    enabled: !!nickname,
     queryFn: ({ pageParam = 1 }) =>
-      getPostsByUserId({ pageParam, limit: 9, userId: nickname as string }),
+      getPostsByUserId({ pageParam, limit: 9, userName: nickname as string }),
     getNextPageParam: (lastPage) => {
       if (lastPage.prevPage * 9 + 1 > lastPage.count) {
         return false;

@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 export type InputType = CSSProperties &
   React.InputHTMLAttributes<HTMLInputElement>;
 
+export type focus = React.FocusEvent;
+
 export const StyledInput = styled.input<{ sx: InputType }>`
   max-width: calc(100% - 15px);
   height: 100%;
@@ -21,6 +23,10 @@ export const StyledInput = styled.input<{ sx: InputType }>`
         [name]: props.sx[name as keyof InputType],
       };
     })};
+  &:focus {
+    outline: none;
+    box-shadow: 0 1px 0 0 blue;
+  }
 `;
 
 const Container = styled.div<{ sx: InputType }>`

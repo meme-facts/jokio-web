@@ -1,15 +1,26 @@
-import { FollowerStatusEnum } from "../enum/FollowerStatusEnum";
+import { FollowerStatusEnum } from "../enums/FollowerStatusEnum";
 import { JokioBackend } from "../services/api";
+
+export interface UserEntity {
+  id: string;
+  full_name?: string | null;
+  nickname: string;
+  email: string;
+  img_url?: string | null;
+  isPrivate?: boolean | null;
+  created_at?: Date;
+  updated_at?: Date;
+}
 
 export interface IGetUserById {
   id: string;
   full_name: string | null | undefined;
   nickname: string;
   email: string;
-  img_url: string | null | undefined;
   isPrivate: boolean;
   created_at: Date;
   updated_at: Date;
+  img_full_url?: string;
   followersQuantity: number;
   followingQuantity: number;
   relationStatus: FollowerStatusEnum;

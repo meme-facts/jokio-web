@@ -5,9 +5,10 @@ export const SidebarWrapper = styled.div<{ expand: boolean }>`
   width: 13rem;
   color: black;
   padding: 40px;
+  padding-right: 0;
   display: flex;
   flex-direction: column;
-  height: 70%;
+  height: calc(100vh - 80px);
   overflow-y: hidden;
   gap: 45px;
   transition: width 0.3s, color 0.3s;
@@ -26,7 +27,7 @@ export const MenuWrapper = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
-export const MenuGroup = styled.div<{ active: boolean }>`
+export const MenuGroup = styled.div<{ $active: boolean }>`
   gap: 20px;
   text-decoration: none;
   display: flex;
@@ -34,7 +35,7 @@ export const MenuGroup = styled.div<{ active: boolean }>`
   padding: 10px;
   /* color: white; */
   border-radius: 10px;
-  color: ${(props) => (props.active ? "#7A41E0" : "white")};
+  color: ${(props) => (props.$active ? "#7A41E0" : "white")};
   &:hover {
     cursor: pointer;
     color: white;

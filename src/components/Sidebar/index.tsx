@@ -1,10 +1,10 @@
+import React, { useEffect, useState } from "react";
 import DraweSidebar from "@components/utils/Drawer/Drawer";
 import Logo from "@components/utils/Logo/Logo";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import {
   AiOutlineHome,
   AiOutlinePlusCircle,
@@ -16,26 +16,36 @@ import { VscThreeBars } from "react-icons/vsc";
 import { useAuthorization } from "../../hooks/store/useAuthorization";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import {
+  Icon as StyledIcon,
   ButtonExpand,
   ButtonHidden,
-  Icon,
   LogoLink,
   MenuGroup,
   MenuWrapper,
   SidebarWrapper,
   StyledLink,
 } from "./styles";
+import { BsBell } from "react-icons/bs";
+import { LogoutOutlined } from "@mui/icons-material";
+import Icon from "@components/shared/Icon";
+
+interface IMenu {
+  name: string;
+  icon: React.ReactNode;
+  path: string;
+}
+
 interface SidebarProps {
   onOpenDrawer: () => void;
   expandSidebar: boolean;
 }
 const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
   const router = useRouter();
-  const { user } = useAuthorization();
+  const { user, logOut } = useAuthorization();
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [currentMenu, setCurrentMenu] = useState("");
   const [expandSidebar, setExpandSidebar] = useState(false);
-
+  const [menus, setMenus] = useState<IMenu[]>([]);
   const handleMenuItemClick = (menu: any) => {
     console.log(menu);
     if (menu.name === "Mensagens" || menu.name === "Notificações") {
@@ -46,19 +56,34 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
   const handleCloseDrawer = () => {
     setIsMessagesOpen(false);
   };
-  const menus = [
-    { name: "Home", icon: <AiOutlineHome />, path: "/app" },
-    { name: "Criar um meme", icon: <AiOutlinePlusCircle />, path: "#" },
-    { name: "Explorar", icon: <TravelExploreIcon />, path: "#" },
-    { name: "Notificações", icon: <NotificationsNoneIcon />, path: "#" },
-    { name: "Mensagens", icon: <ChatBubbleOutlineIcon />, path: "#" },
-    {
-      name: "Perfil",
-      icon: <PersonOutlineIcon />,
-      path: `/app/profile/${user?.nickname}`,
-    },
-    { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
-  ];
+
+  function handleLogout() {
+    try {
+      logOut();
+      router.push("/");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    setMenus([
+      { name: "Home", icon: <AiOutlineHome />, path: "/app" },
+      { name: "Criar um meme", icon: <AiOutlinePlusCircle />, path: "#" },
+      { name: "Explorar", icon: <TravelExploreIcon />, path: "#" },
+      { name: "Notificações", icon: <BsBell />, path: "#" },
+      {
+        name: "Mensagens",
+        icon: <ChatBubbleOutlineIcon />,
+        path: "/app/messages",
+      },
+      {
+        name: "Perfil",
+        icon: <FiUser />,
+        path: `/app/profile/${user?.nickname}`,
+      },
+      { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
+    ]);
+  }, []);
   return (
     <>
       <ButtonExpand
@@ -87,14 +112,24 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
                 <MenuGroup
                   key={menu.name}
                   onClick={() => handleMenuItemClick(menu)}
-                  active={isActive}
+                  $active={isActive}
                 >
-                  <Icon>{menu.icon}</Icon>
+                  <StyledIcon>{menu.icon}</StyledIcon>
                   <StyledLink href={menu.path}>{menu.name}</StyledLink>
                 </MenuGroup>
               );
             })}
           </MenuWrapper>
+          <Icon
+            onClick={() => handleLogout()}
+            icon={LogoutOutlined}
+            styles={{
+              alignSelf: "center",
+              marginTop: "auto",
+              padding: "10px",
+              cursor: "pointer",
+            }}
+          />
 
           <DraweSidebar
             onClosed={handleCloseDrawer}
