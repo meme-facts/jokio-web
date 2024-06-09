@@ -1,3 +1,4 @@
+import Logo from "@components/utils/Logo/Logo";
 import styled from "@emotion/styled";
 import Link from "next/link";
 
@@ -21,6 +22,7 @@ export const SidebarWrapper = styled.div<{ expand: boolean }>`
     z-index: 100;
   }
 `;
+
 export const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,6 +61,7 @@ export const Icon = styled.div`
   font-size: 22px;
   align-self: center;
   align-items: center;
+  display: flex;
 `;
 
 export const LogoLink = styled(Link)`

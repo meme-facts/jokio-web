@@ -14,7 +14,8 @@ import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 import { FadeLoader } from "react-spinners";
 import { useDislikePost, useLikePost } from "../../hooks/requests/usePosts";
-import { Posts, getPosts } from "../../requests/posts";
+import { Posts as RequestPosts, getPosts } from "../../requests/posts";
+import { getCommentsByPostId } from "../../requests/comments";
 import {
   BackdropPhoto,
   Comment,
@@ -34,6 +35,7 @@ import {
   UserInfo,
 } from "./styles";
 import SwipeableEdgeDrawer from "@components/utils/DrawerComment";
+import { useGetAllPostComments } from "../../hooks/requests/usePostComments";
 // import { postLiked } from "../../requests/posts";
 
 const Posts = () => {
@@ -43,7 +45,9 @@ const Posts = () => {
   const [isBackdrop, setIsBackdrop] = useState<any>();
   const [clickCount, setClickCount] = useState(1);
   const params = { page: 1, limit: 10 };
-  // const { data, isError, isLoading } = useGetAllPosts(params);
+
+  // const { datas, isError, isLoading } = useGetAllPostComments(params);
+
   const { mutateAsync: createLike } = useLikePost();
   const { mutateAsync: deleteLike } = useDislikePost();
   const { ref, inView } = useInView();
@@ -62,12 +66,11 @@ const Posts = () => {
   } = useInfiniteQuery<
     any,
     unknown,
-    { posts: Posts[]; count: number; prevPage: number }
+    { posts: RequestPosts[]; count: number; prevPage: number }
   >({
     queryKey: ["postsByUserId"],
     queryFn: ({ pageParam = 1 }) => getPosts({ pageParam, limit: 6 }),
     getNextPageParam: (lastPage, allPages) => {
-
       if (lastPage.prevPage * 6 + 1 > lastPage.count) {
         return false;
       }
@@ -83,7 +86,7 @@ const Posts = () => {
 
   const toggleModal = (post: any) => {
     setDataModal(post);
-
+    console.log("postt", post);
     setOpenCommentModal(!openCommentModal);
   };
   const toggleDrawer = (postId: string) => {
@@ -121,7 +124,7 @@ const Posts = () => {
     }
   };
 
-  const posts = (data?.pages || []).reduce<Posts[]>(
+  const posts = (data?.pages || []).reduce<RequestPosts[]>(
     (acc, next) => [...acc, ...next.posts],
     []
   );
@@ -226,43 +229,43 @@ const Posts = () => {
           </Fragment>
         );
       })}
-      {openCommentModal && (
-        <ModalPost onClosed={handleCloseModal} opened={openCommentModal}>
-          <ContainerPosts isOnModal={true}>
-            <Post isOnModal={true} alt="" src={dataModal.img_url} />
-          </ContainerPosts>
-          <CommentsContainer>
-            <UserContainer>
-              <UserPhoto />
-              <UserInfo>
-                <Nickname>@{dataModal.users?.nickname}</Nickname>
-                <Comment>{dataModal.postDescription}</Comment>
-                <Tags>
-                  <span>#meme</span>
-                  <span>#postnovo</span>
-                </Tags>
-              </UserInfo>
-            </UserContainer>
-            <CommentPosts>
-              {Array.from({ length: 10 }).map((_, i) => (
-                <UserContainer key={i}>
-                  <UserPhoto />
-                  <UserInfo>
-                    <Nickname>@{dataModal.users?.nickname}</Nickname>
-                    <Comment>{dataModal.postDescription}</Comment>
-                  </UserInfo>
-                </UserContainer>
-              ))}
-            </CommentPosts>
-            <UserContainer>
-              <UserPhoto />
-              <UserInfo>
-                <InputComment type="text" placeholder="Adicionar comentário" />
-              </UserInfo>
-            </UserContainer>
-          </CommentsContainer>
-        </ModalPost>
-      )}
+
+      <ModalPost onClosed={handleCloseModal} opened={openCommentModal}>
+        <ContainerPosts isOnModal={true}>
+          <Post isOnModal={true} alt="" src={dataModal.img_url} />
+        </ContainerPosts>
+        <CommentsContainer>
+          <UserContainer>
+            <UserPhoto />
+            <UserInfo>
+              <Nickname>@{dataModal.users?.nickname}</Nickname>
+              <Comment>{dataModal.postDescription}</Comment>
+              <Tags>
+                <span>#meme</span>
+                <span>#postnovo</span>
+              </Tags>
+            </UserInfo>
+          </UserContainer>
+          <CommentPosts>
+            {Array.from({ length: 10 }).map((_, i) => (
+              <UserContainer key={i}>
+                <UserPhoto />
+                <UserInfo>
+                  <Nickname>@{dataModal.users?.nickname}</Nickname>
+                  <Comment>{dataModal.postDescription}</Comment>
+                </UserInfo>
+              </UserContainer>
+            ))}
+          </CommentPosts>
+          <UserContainer>
+            <UserPhoto />
+            <UserInfo>
+              <InputComment type="text" placeholder="Adicionar comentário" />
+            </UserInfo>
+          </UserContainer>
+        </CommentsContainer>
+      </ModalPost>
+
       <Reloader ref={ref}>
         <FadeLoader color="#36d7b7" loading={isFetchingNextPage} />
         <Icon
