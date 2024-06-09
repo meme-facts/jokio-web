@@ -1,10 +1,16 @@
 import { create } from "zustand";
 import { JokioBackend } from "../../services/api";
+import { socket } from "../../services/socket";
 
 export interface IUser {
   id: string;
   nickname: string;
   email: string;
+  created_at: Date;
+  updated_at: Date;
+  full_name?: string;
+  img_url?: string;
+  isPrivate?: boolean;
   token: string;
 }
 
@@ -22,6 +28,9 @@ const getInitialLoggedIn = () => {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser) as IUser;
       JokioBackend.defaults.headers.common.authorization = `Bearer ${parsedUser.token}`;
+      socket.auth = {
+        token: parsedUser.token,
+      };
       return parsedUser;
     }
     return null;
@@ -33,6 +42,9 @@ export const useAuthorization = create<IFilterState>((set) => ({
   setUser: (user) =>
     set(() => {
       JokioBackend.defaults.headers.common.authorization = `Bearer ${user.token}`;
+      socket.auth = {
+        token: user.token,
+      };
       localStorage.setItem(USER_LOCAL_STORAGE, JSON.stringify(user));
       return {
         user: user,

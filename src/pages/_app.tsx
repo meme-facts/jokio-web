@@ -44,7 +44,7 @@ const GlobalStyle = createGlobalStyle`
 const NoLayout = ({ children }: PropsWithChildren<unknown>) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const queryClient = React.useMemo(() => new QueryClient(), []);
   const router = useRouter();
   useColorMode();
   const CurrentLayout = router.pathname.startsWith("/app") ? Layout : NoLayout;

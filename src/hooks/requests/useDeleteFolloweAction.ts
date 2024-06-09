@@ -5,7 +5,8 @@ import {
   IFollowerParameters,
   IGetUserById,
 } from "../../requests/user";
-import { FollowerStatusEnum } from "../../enum/FollowerStatusEnum";
+import { FollowerStatusEnum } from "../../enums/FollowerStatusEnum";
+import { EQueries } from "../../enums/reactQueryTags/queries.enum";
 
 export function useDeleteFollowerAction(): UseMutationResult<
   void, // Mutation data type
@@ -16,7 +17,7 @@ export function useDeleteFollowerAction(): UseMutationResult<
   return useMutation(deleteFollowAction, {
     onSuccess: (data, { nickname }) => {
       queryClient.setQueryData<IGetUserById | undefined>(
-        ["userById", nickname],
+        [EQueries.userById, nickname],
         (oldData) =>
           oldData
             ? {

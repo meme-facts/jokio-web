@@ -1,5 +1,5 @@
 import { Button } from "@components/shared/form/Button";
-import { FollowerStatusEnum } from "../../../enum/FollowerStatusEnum";
+import { FollowerStatusEnum } from "../../../enums/FollowerStatusEnum";
 import { useCreateFollowerAction } from "../../../hooks/requests/useCreateFolloweAction";
 import { useDeleteFollowerAction } from "../../../hooks/requests/useDeleteFolloweAction";
 import { IGetUserById } from "../../../requests/user";

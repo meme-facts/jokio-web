@@ -1,23 +1,49 @@
-import { PropsWithChildren } from "react";
+import { CSSProperties, PropsWithChildren } from "react";
 import styled from "@emotion/styled";
 
-export const H5Styled = styled.p`
-  font-size: 23px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 34.5px */
+type IHeading = CSSProperties & React.HTMLAttributes<HTMLHeadElement>;
+
+export const HStyled = styled.p<{ sx?: IHeading }>`
   margin: 0;
+  font-family: var(--inter-font);
+  ${(props) =>
+    props.sx &&
+    Object.keys(props.sx).map((name) => {
+      return {
+        [name]: props.sx && props.sx[name as keyof IHeading],
+      };
+    })};
 `;
-export const H6Styled = styled.p`
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 34.5px */
-  margin: 0;
-`;
-export function H5({ children }: PropsWithChildren<unknown>) {
-  return <H5Styled>{children}</H5Styled>;
+
+export function H5({ children, ...props }: PropsWithChildren<IHeading>) {
+  return (
+    <HStyled
+      sx={{
+        fontSize: "23px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "150%",
+        margin: "0",
+        ...props,
+      }}
+    >
+      {children}
+    </HStyled>
+  );
 }
-export function H6({ children }: PropsWithChildren<unknown>) {
-  return <H6Styled>{children}</H6Styled>;
+export function H6({ children, ...props }: PropsWithChildren<IHeading>) {
+  return (
+    <HStyled
+      sx={{
+        fontSize: "18px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "150%",
+        margin: "0",
+        ...props,
+      }}
+    >
+      {children}
+    </HStyled>
+  );
 }

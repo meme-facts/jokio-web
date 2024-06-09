@@ -21,7 +21,7 @@ export interface ILikePostsParam {
 export interface IGetAllPostByUserIdParams {
   pageParam: number;
   limit: number;
-  userId: string;
+  userName: string;
 }
 export async function getPosts({ pageParam = 0, limit }: IGetAllPostParams) {
   const { data } = await JokioBackend.get("/post", {
@@ -33,9 +33,9 @@ export async function getPosts({ pageParam = 0, limit }: IGetAllPostParams) {
 export const getPostsByUserId = async ({
   pageParam = 0,
   limit = 10,
-  userId,
+  userName,
 }: IGetAllPostByUserIdParams) => {
-  const { data } = await JokioBackend.get(`/post/${userId}`, {
+  const { data } = await JokioBackend.get(`/post/${userName}`, {
     params: {
       page: pageParam,
       limit,

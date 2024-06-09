@@ -15,11 +15,11 @@ export default function Index() {
     <SectionContainer>
       <HStack>
         <VStack width="740px">
-          <DivTab>
-            <Tab onClick={() => handleTabClick(1)} active={activeTab === 1}>
+          <DivTab sx={{ justifyContent: "space-evenly" }}>
+            <Tab onClick={() => handleTabClick(1)} $active={activeTab === 1}>
               Para você
             </Tab>
-            <Tab onClick={() => handleTabClick(2)} active={activeTab === 2}>
+            <Tab onClick={() => handleTabClick(2)} $active={activeTab === 2}>
               Seguindo
             </Tab>
           </DivTab>

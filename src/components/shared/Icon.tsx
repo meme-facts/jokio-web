@@ -9,13 +9,15 @@ interface IIconProps {
   icon: IIcon;
   styles?: React.CSSProperties | undefined;
   hide?: boolean;
+  onClick?: () => void;
 }
-function Icon({ icon, styles, hide }: IIconProps) {
+function Icon({ icon, styles, hide, onClick }: IIconProps) {
   if (hide) {
     return undefined;
   }
   return (
     <SvgIcon
+      onClick={onClick}
       style={{
         display: "flex",
         alignItems: "center",
