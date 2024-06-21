@@ -18,6 +18,7 @@ interface IFilterState {
   user: IUser | null;
   setUser: (params: IUser) => void;
   logOut: () => void;
+  changeNickname: (nickname: string) => void;
 }
 
 const USER_LOCAL_STORAGE = "@jokio_user" as const;
@@ -58,4 +59,8 @@ export const useAuthorization = create<IFilterState>((set) => ({
         user: null,
       };
     }),
+  changeNickname: (nickname) =>
+    set((state) =>
+      state.user ? { user: { ...state.user, nickname } } : state
+    ),
 }));

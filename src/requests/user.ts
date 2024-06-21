@@ -32,6 +32,13 @@ export interface IFollowerParameters {
   isPrivate: boolean;
 }
 
+export interface IUpdateUser {
+  full_name: string;
+  nickname: string;
+  email: string;
+  img_url: string;
+}
+
 export async function getUserById(id: string): Promise<IGetUserById> {
   const { data } = await JokioBackend.get(`/users/${id}`);
   return data;
@@ -54,4 +61,37 @@ export async function deleteFollowAction(
   } catch (err) {
     console.log(err);
   }
+}
+
+export async function editUser(params: IUpdateUser): Promise<void> {
+  try {
+    const { img_url, ...rest } = params;
+    await JokioBackend.put(`/users/update`, rest);
+  } catch (err) {
+    console.log(err);
+  }
+}
+export async function editImg(formData: FormData): Promise<void> {
+  try {
+    await JokioBackend.patch(`/users/avatar`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function isEmailAvailable(email: string): Promise<Boolean> {
+  const { data } = await JokioBackend.get(`/users/email/${email}/is-available`);
+  return data;
+}
+
+export async function isNicknameAvailable(nickname: string): Promise<Boolean> {
+  const { data } = await JokioBackend.get(
+    `/users/nickname/${nickname}/is-available`
+  );
+
+  return data;
 }

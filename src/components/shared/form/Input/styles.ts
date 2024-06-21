@@ -6,15 +6,16 @@ export type InputType = CSSProperties &
 
 export type focus = React.FocusEvent;
 
-export const StyledInput = styled.input<{ sx: InputType }>`
+export const StyledInput = styled.input<{ sx: InputType; error: boolean }>`
   max-width: calc(100% - 15px);
   height: 100%;
   border-radius: 10px;
-  border: 1px solid #384757;
+  border: ${(props) => (!props.error ? "1px solid #384757" : "1px solid #red")};
   padding-left: 10px;
   body.dark & {
-    background-color: #171D24; 
-    border: 1px solid #CCD5DE;
+    background-color: #171d24;
+    border: ${(props) =>
+      !props.error ? "1px solid #ccd5de" : "1px solid red"};
     color: #ffffff;
   }
   ${(props) =>
@@ -33,6 +34,7 @@ const Container = styled.div<{ sx: InputType }>`
   width: ${(props) => props.sx.width};
   min-width: ${(props) => props.sx.width};
   min-height: ${(props) => props.sx.height};
+  position: relative;
 `;
 
 export const FormLabel = styled.label`

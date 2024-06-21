@@ -1,33 +1,31 @@
-import React, { useEffect, useState } from "react";
+import Icon from "@components/shared/Icon";
 import DraweSidebar from "@components/utils/Drawer/Drawer";
 import Logo from "@components/utils/Logo/Logo";
+import { LogoutOutlined } from "@mui/icons-material";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import {
   AiOutlineHome,
   AiOutlinePlusCircle,
   AiOutlineSetting,
 } from "react-icons/ai";
+import { BsBell } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
 import { IoMdArrowBack } from "react-icons/io";
 import { VscThreeBars } from "react-icons/vsc";
 import { useAuthorization } from "../../hooks/store/useAuthorization";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import {
-  Icon as StyledIcon,
   ButtonExpand,
   ButtonHidden,
   LogoLink,
   MenuGroup,
   MenuWrapper,
   SidebarWrapper,
+  Icon as StyledIcon,
   StyledLink,
 } from "./styles";
-import { BsBell } from "react-icons/bs";
-import { LogoutOutlined } from "@mui/icons-material";
-import Icon from "@components/shared/Icon";
 
 interface IMenu {
   name: string;
@@ -83,7 +81,7 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
       },
       { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
     ]);
-  }, []);
+  }, [user]);
   return (
     <>
       <ButtonExpand

@@ -6,11 +6,17 @@ import { useUserById } from "../../../hooks/requests/useUserById";
 import { ProfileButton } from "../ProfileButton";
 import { UserInfoSkeleton } from "./skeleton";
 import { GridUserInfo } from "./styles";
+import { useEffect, useState } from "react";
 
 export function UserInfo() {
   const router = useRouter();
   const { nickname } = router.query;
-  const { data, error, isLoading, isError } = useUserById(nickname as string);
+  const { data, error, isLoading, isError, refetch } = useUserById(
+    nickname as string
+  );
+  // useEffect(() => {
+  //   refetch();
+  // }, [nickname]);
 
   if (error || isLoading || !data) {
     return <UserInfoSkeleton />;

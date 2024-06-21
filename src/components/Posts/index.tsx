@@ -4,7 +4,7 @@ import UserPhoto from "@components/UserPhoto";
 import Icon from "@components/shared/Icon";
 import { VStack } from "@components/shared/flex/Stacks";
 import { P, XP } from "@components/shared/text/Paragraph";
-import ModalPost from "@components/utils/Modal/Modal";
+import Modal from "@components/utils/Modal/Modal";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { Fragment, useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -67,7 +67,6 @@ const Posts = () => {
     queryKey: ["postsByUserId"],
     queryFn: ({ pageParam = 1 }) => getPosts({ pageParam, limit: 6 }),
     getNextPageParam: (lastPage, allPages) => {
-
       if (lastPage.prevPage * 6 + 1 > lastPage.count) {
         return false;
       }
@@ -209,7 +208,7 @@ const Posts = () => {
                     />
                   </div>
                   {Array.from({ length: 10 }).map((_, i) => (
-                    <div id="commentUsers">
+                    <div key={i} id="commentUsers">
                       <div style={{ display: "grid" }}>
                         <UserPhoto size="8px" />
                         <ParagraphComments>@amigo</ParagraphComments>
@@ -227,7 +226,7 @@ const Posts = () => {
         );
       })}
       {openCommentModal && (
-        <ModalPost onClosed={handleCloseModal} opened={openCommentModal}>
+        <Modal onClosed={handleCloseModal} opened={openCommentModal}>
           <ContainerPosts isOnModal={true}>
             <Post isOnModal={true} alt="" src={dataModal.img_url} />
           </ContainerPosts>
@@ -261,7 +260,7 @@ const Posts = () => {
               </UserInfo>
             </UserContainer>
           </CommentsContainer>
-        </ModalPost>
+        </Modal>
       )}
       <Reloader ref={ref}>
         <FadeLoader color="#36d7b7" loading={isFetchingNextPage} />

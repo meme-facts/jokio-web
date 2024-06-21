@@ -24,6 +24,7 @@ export function useCreateFollowerAction(): UseMutationResult<
                 relationStatus: isPrivate
                   ? FollowerStatusEnum.Pending
                   : FollowerStatusEnum.Accepted,
+                followersQuantity: oldData.followersQuantity + 1,
               }
             : oldData
       );

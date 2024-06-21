@@ -23,6 +23,7 @@ export function useDeleteFollowerAction(): UseMutationResult<
             ? {
                 ...oldData,
                 relationStatus: FollowerStatusEnum.UNKNOWN,
+                followersQuantity: oldData.followersQuantity - 1,
               }
             : oldData
       );
