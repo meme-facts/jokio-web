@@ -3,6 +3,8 @@ import { FollowerStatusEnum } from "../../../enums/FollowerStatusEnum";
 import { useCreateFollowerAction } from "../../../hooks/requests/useCreateFolloweAction";
 import { useDeleteFollowerAction } from "../../../hooks/requests/useDeleteFolloweAction";
 import { IGetUserById } from "../../../requests/user";
+import { useState } from "react";
+import { EditUserModal } from "../EditUser";
 
 interface IProfileButtonProps {
   user: IGetUserById;
@@ -11,6 +13,7 @@ interface IProfileButtonProps {
 export function ProfileButton({ user }: IProfileButtonProps) {
   const { mutateAsync: createFollowerRequest } = useCreateFollowerAction();
   const { mutateAsync: deleteFollowerRequest } = useDeleteFollowerAction();
+  const [isOpen, setIsOpen] = useState(false);
   switch (user.relationStatus) {
     case FollowerStatusEnum.Accepted:
       return (
@@ -40,9 +43,27 @@ export function ProfileButton({ user }: IProfileButtonProps) {
 
     case FollowerStatusEnum.OWNER:
       return (
-        <Button borderRadius="10px" padding="5px" width="auto" size="xm">
-          Editar Perfil
-        </Button>
+        <>
+          <Button
+            onClick={() => setIsOpen(true)}
+            borderRadius="10px"
+            padding="5px"
+            width="auto"
+            size="xm"
+          >
+            Editar Perfil
+          </Button>
+          <EditUserModal
+            defaultValues={{
+              email: user.email,
+              img_url: user.img_full_url,
+              full_name: user.full_name ?? "",
+              nickname: user.nickname,
+            }}
+            isOpen={isOpen}
+            handleCloseModal={() => setIsOpen(false)}
+          />
+        </>
       );
 
     case FollowerStatusEnum.Pending:
