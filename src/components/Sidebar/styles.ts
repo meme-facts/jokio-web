@@ -37,7 +37,8 @@ export const MenuGroup = styled.div<{ $active: boolean }>`
   padding: 10px;
   /* color: white; */
   border-radius: 10px;
-  color: ${(props) => (props.$active ? "#7A41E0" : "white")};
+  color: #000;
+
   &:hover {
     cursor: pointer;
     color: white;
@@ -49,7 +50,7 @@ export const StyledLink = styled(Link)`
   align-self: center;
   font-weight: 500;
   font-size: 16px;
-  color: inherit;
+  color: #000;
 
   &:visited {
     color: inherit;

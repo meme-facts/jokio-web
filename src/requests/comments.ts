@@ -7,7 +7,10 @@ export type Comment = {
     created_at: Date;
     updated_at: Date;
 };
-
+export interface ICommentPostParam {
+    message: string;
+    postId: string;
+  }
 
 export interface IGetAllCommentsByPostIdParams {
     pageParam: number;
@@ -20,7 +23,7 @@ export const getCommentsByPostId = async ({
     limit = 10,
     postId,
 }: IGetAllCommentsByPostIdParams) => {
-    const { data } = await JokioBackend.get(`/post/${postId}`, {
+    const { data } = await JokioBackend.get(`/comments/${postId}`, {
         params: {
             page: pageParam,
             limit,
@@ -28,3 +31,10 @@ export const getCommentsByPostId = async ({
     });
     return { ...data, prevPage: pageParam };
 };
+
+export async function createComment(params: { postId: string; message: string }) {
+    const { data } = await JokioBackend.post(`/comments/${params.postId}`, {
+        message: params.message,
+    });
+    return data;
+}

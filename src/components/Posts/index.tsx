@@ -36,6 +36,7 @@ import {
 } from "./styles";
 import SwipeableEdgeDrawer from "@components/utils/DrawerComment";
 import { useGetAllPostComments } from "../../hooks/requests/usePostComments";
+import Comments from "@components/Comments";
 // import { postLiked } from "../../requests/posts";
 
 const Posts = () => {
@@ -231,39 +232,7 @@ const Posts = () => {
       })}
 
       <ModalPost onClosed={handleCloseModal} opened={openCommentModal}>
-        <ContainerPosts isOnModal={true}>
-          <Post isOnModal={true} alt="" src={dataModal.img_url} />
-        </ContainerPosts>
-        <CommentsContainer>
-          <UserContainer>
-            <UserPhoto />
-            <UserInfo>
-              <Nickname>@{dataModal.users?.nickname}</Nickname>
-              <Comment>{dataModal.postDescription}</Comment>
-              <Tags>
-                <span>#meme</span>
-                <span>#postnovo</span>
-              </Tags>
-            </UserInfo>
-          </UserContainer>
-          <CommentPosts>
-            {Array.from({ length: 10 }).map((_, i) => (
-              <UserContainer key={i}>
-                <UserPhoto />
-                <UserInfo>
-                  <Nickname>@{dataModal.users?.nickname}</Nickname>
-                  <Comment>{dataModal.postDescription}</Comment>
-                </UserInfo>
-              </UserContainer>
-            ))}
-          </CommentPosts>
-          <UserContainer>
-            <UserPhoto />
-            <UserInfo>
-              <InputComment type="text" placeholder="Adicionar comentário" />
-            </UserInfo>
-          </UserContainer>
-        </CommentsContainer>
+        <Comments dataModal={dataModal} />
       </ModalPost>
 
       <Reloader ref={ref}>

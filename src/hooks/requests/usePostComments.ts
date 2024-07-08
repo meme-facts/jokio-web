@@ -1,11 +1,16 @@
 import {
+  useMutation,
+  UseMutationResult,
   useQuery,
+  useQueryClient,
   UseQueryResult,
 } from "react-query";
 import {
   getCommentsByPostId,
   Comment,
   IGetAllCommentsByPostIdParams,
+  createComment,
+  ICommentPostParam,
 } from "../../requests/comments";
 
 export const useGetAllPostComments: (
@@ -18,4 +23,24 @@ export const useGetAllPostComments: (
     });
   };
 
+export function usePostComment(): UseMutationResult<void, unknown, ICommentPostParam> {
+  const queryClient = useQueryClient();
+  return useMutation(createComment,{
+    onSuccess: (data, variables) => {
+      const { postId, ...params } = variables;
+      queryClient.setQueriesData<{ comments: Comment[]; count: number } | undefined>(
+        ["comments", params],
+        (oldData) => {
+          if (!oldData) {
+            return undefined;
+          }
+         
+         
+          return oldData;
+        }
+      );
+    },
+  
+    });
+}
 
