@@ -19,6 +19,7 @@ import { Container, Content } from "./styles";
 import { isTokenValid } from "../utils/functions/isTokenValid";
 import { useLoginManagement } from "../hooks/shared/useLoginManagement";
 import Logo from "@components/utils/Logo/Logo";
+import { colors } from "../styles/colors";
 
 function SignIn() {
   useLoginManagement();
@@ -89,7 +90,7 @@ function SignIn() {
             width="330px"
             height="44px"
             borderRadius="10px"
-            borderColor="#000"
+            darkThemeProps={{ borderColor: colors.gray[200] }}
             color="inherit"
             rightIcon={GoogleIcons}
             size="sm"

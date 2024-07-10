@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Layout from "./app/layout";
 import { useAuthorization } from "../hooks/store/useAuthorization";
 import useColorMode from "../hooks/useColorMode";
+import { colors } from "@styles/colors";
 
 const inter = Inter({ subsets: ["latin"], variable: "--inter-font" });
 
@@ -15,30 +16,17 @@ const GlobalStyle = createGlobalStyle`
   body, html {
     margin: 0;
     padding: 0;
-
-    
+    * {
+      scrollbar-width: thin; 
+    }
     font-family: var(--inter-font);
     &.dark {
       background-color: #171D24;
       color: #CCD5DE;
+      * {  
+      scrollbar-color: ${colors.gray[600]} #171D24; /* thumb color and track color */
+      }
     } 
-    
-    /* &::-webkit-scrollbar {
-      width: 8px;
-    }
-  
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: #11151a;
-      border-radius: 20px;
-    }
-  
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: #555;
-    } */
   }
 `;
 const NoLayout = ({ children }: PropsWithChildren<unknown>) => children;

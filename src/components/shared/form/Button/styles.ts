@@ -5,7 +5,10 @@ import { BaseObject } from "styled-components/dist/types";
 export type IButtonType = CSSProperties &
   ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const StyledButton = styled.button<{ sx: IButtonType }>`
+export const StyledButton = styled.button<{
+  sx: IButtonType;
+  darkTheme?: IButtonType;
+}>`
   background: #7a41e0;
   color: #ffffff;
   width: 100%;
@@ -13,18 +16,24 @@ export const StyledButton = styled.button<{ sx: IButtonType }>`
   margin: 0;
   padding: 0;
   border: 1px solid #7a41e0;
-  border-radius: 3px;
+  border-radius: 10px;
   font-family: var(--inter-font);
   cursor: pointer;
-  body.dark & {
-    border: 1px solid #CCD5DE;
-  }
   ${(props) =>
     Object.keys(props.sx).map((name) => {
       return {
         [name]: props.sx[name as keyof IButtonType],
       };
     })};
+  body.dark & {
+    ${(props) =>
+      props.darkTheme &&
+      Object.keys(props.darkTheme).map((name) => {
+        return {
+          [name]: props.darkTheme?.[name as keyof IButtonType],
+        };
+      })};
+  }
 
   &:hover {
     filter: brightness(0.8);

@@ -12,18 +12,25 @@ export const StyledInput = styled.input<{ sx: InputType; error: boolean }>`
   border-radius: 10px;
   border: ${(props) => (!props.error ? "1px solid #384757" : "1px solid #red")};
   padding-left: 10px;
-  body.dark & {
-    background-color: #171d24;
-    border: ${(props) =>
-      !props.error ? "1px solid #ccd5de" : "1px solid red"};
-    color: #ffffff;
-  }
+  background-color: inherit;
   ${(props) =>
     Object.keys(props.sx).map((name) => {
       return {
         [name]: props.sx[name as keyof InputType],
       };
     })};
+  body.dark & {
+    border: ${(props) =>
+      !props.error ? "1px solid #ccd5de" : "1px solid red"};
+    color: #ffffff;
+    ${(props) =>
+      Object.keys(props.sx).map((name) => {
+        return {
+          [name]: props.sx[name as keyof InputType],
+        };
+      })};
+  }
+
   &:focus {
     outline: none;
     box-shadow: 0 1px 0 0 blue;

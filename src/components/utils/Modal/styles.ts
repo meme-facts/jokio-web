@@ -24,4 +24,9 @@ export const CustomizedBox = styled(Box)<CustomizedBoxProps>`
   body.dark & {
     background-color: #1e2730;
   }
+
+  @media (max-width: 1100px) {
+    width: 100vw;
+    height: 100vh;
+  }
 `;

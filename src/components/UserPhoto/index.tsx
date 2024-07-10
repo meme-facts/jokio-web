@@ -5,24 +5,15 @@ import User from "../../../public/no-photo.png";
 interface IUserPhoto {
   size?: string;
   imgUrl?: string;
+  onClick?: () => void;
+  cursor?: "pointer" | "auto" | "not-allowed";
 }
-const PhotoForm = styled.div<IUserPhoto>`
-  display: flex;
-  width: ${(props) => props.size};
-  justify-content: center;
-  height: ${(props) => props.size};
-  border-radius: 50%;
-  background-color: green;
-  overflow: hidden;
-  border: 2px solid var(--Primary-600, #652dcc);
-  padding: 15px;
-  align-items: center;
-`;
 
 const PhotoDiv = styled.div<IUserPhoto>`
   width: ${(props) => props.size};
   min-width: ${(props) => props.size};
   height: ${(props) => props.size};
+  cursor: ${(props) => props.cursor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,12 +25,15 @@ const PhotoDiv = styled.div<IUserPhoto>`
 const StyledImage = styled(Image)`
   object-fit: cover; /* Ensures the image covers the entire container */
 `;
-const UserPhoto = ({ size = "30px", imgUrl }: IUserPhoto) => {
-  console.log(imgUrl);
-
+const UserPhoto = ({
+  size = "30px",
+  imgUrl,
+  onClick,
+  cursor = "auto",
+}: IUserPhoto) => {
   return (
     <>
-      <PhotoDiv size={size}>
+      <PhotoDiv cursor={cursor} onClick={onClick} size={size}>
         <StyledImage
           layout="responsive"
           src={imgUrl ?? User}

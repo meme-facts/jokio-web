@@ -7,6 +7,7 @@ export interface UserEntity {
   nickname: string;
   email: string;
   img_url?: string | null;
+  img_full_url?: string;
   isPrivate?: boolean | null;
   created_at?: Date;
   updated_at?: Date;

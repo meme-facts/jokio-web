@@ -6,7 +6,6 @@ export function useMutationEditUser(currentNickName: string) {
   const queryClient = useQueryClient();
   return useMutation(editUser, {
     onSuccess: (data, { nickname, email, full_name, img_url }, context) => {
-      console.log(context, data, "123123");
       nickname === currentNickName &&
         queryClient.setQueryData<IGetUserById | undefined>(
           [EQueries.userById, nickname],

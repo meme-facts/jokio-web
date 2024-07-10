@@ -8,6 +8,7 @@ type Size = "xm" | "sm" | "md" | "lg";
 interface IButtonProps extends IButtonType {
   size?: Size;
   rightIcon?: IIcon;
+  darkThemeProps?: IButtonProps;
 }
 
 export function Button({
@@ -16,12 +17,14 @@ export function Button({
   rightIcon,
   onClick,
   disabled,
+  darkThemeProps,
   ...rest
 }: PropsWithChildren<IButtonProps>) {
   switch (size) {
     case "xm":
       return (
         <StyledButton
+          darkTheme={darkThemeProps}
           disabled={disabled}
           onClick={onClick}
           type={rest.type}
@@ -41,6 +44,7 @@ export function Button({
     case "sm":
       return (
         <StyledButton
+          darkTheme={darkThemeProps}
           disabled={disabled}
           onClick={onClick}
           type={rest.type}
@@ -61,6 +65,7 @@ export function Button({
     case "lg":
       return (
         <StyledButton
+          darkTheme={darkThemeProps}
           disabled={disabled}
           onClick={onClick}
           type={rest.type}
@@ -76,6 +81,7 @@ export function Button({
     default:
       return (
         <StyledButton
+          darkTheme={darkThemeProps}
           disabled={disabled}
           onClick={onClick}
           type={rest.type}

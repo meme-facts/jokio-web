@@ -18,6 +18,7 @@ import { ISignup } from "../../requests/signup";
 import { auth, provider } from "../../services/firebase";
 import { Container, Content } from "../styles";
 import { useLoginManagement } from "../../hooks/shared/useLoginManagement";
+import { colors } from "@styles/colors";
 
 const Signup = () => {
   useLoginManagement();
@@ -95,7 +96,8 @@ const Signup = () => {
             height="44px"
             borderRadius="10px"
             borderColor="#000"
-            color="#000"
+            darkThemeProps={{ borderColor: colors.gray[200] }}
+            color="inhered"
             rightIcon={GoogleIcons}
             size="sm"
             type="button"

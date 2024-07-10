@@ -1,4 +1,4 @@
-import Icon from "@components/shared/Icon";
+import Icon, { IIcon } from "@components/shared/Icon";
 import DraweSidebar from "@components/utils/Drawer/Drawer";
 import Logo from "@components/utils/Logo/Logo";
 import { LogoutOutlined } from "@mui/icons-material";
@@ -26,10 +26,12 @@ import {
   Icon as StyledIcon,
   StyledLink,
 } from "./styles";
+import { P1, P2 } from "@components/shared/text/Paragraph";
+import { IconType } from "react-icons";
 
 interface IMenu {
   name: string;
-  icon: React.ReactNode;
+  icon: IIcon | IconType;
   path: string;
 }
 
@@ -37,20 +39,14 @@ interface SidebarProps {
   onOpenDrawer: () => void;
   expandSidebar: boolean;
 }
-const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
+const Sidebar = () => {
   const router = useRouter();
   const { user, logOut } = useAuthorization();
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [currentMenu, setCurrentMenu] = useState("");
   const [expandSidebar, setExpandSidebar] = useState(false);
   const [menus, setMenus] = useState<IMenu[]>([]);
-  const handleMenuItemClick = (menu: any) => {
-    console.log(menu);
-    if (menu.name === "Mensagens" || menu.name === "Notificações") {
-      setIsMessagesOpen(!isMessagesOpen);
-      setCurrentMenu(menu.name);
-    }
-  };
+
   const handleCloseDrawer = () => {
     setIsMessagesOpen(false);
   };
@@ -65,31 +61,28 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
   }
   useEffect(() => {
     setMenus([
-      { name: "Home", icon: <AiOutlineHome />, path: "/app" },
-      { name: "Criar um meme", icon: <AiOutlinePlusCircle />, path: "#" },
-      { name: "Explorar", icon: <TravelExploreIcon />, path: "#" },
-      { name: "Notificações", icon: <BsBell />, path: "#" },
+      { name: "Home", icon: AiOutlineHome, path: "/app" },
+      { name: "Criar um meme", icon: AiOutlinePlusCircle, path: "#" },
+      { name: "Explorar", icon: TravelExploreIcon, path: "#" },
+      { name: "Notificações", icon: BsBell, path: "#" },
       {
         name: "Mensagens",
-        icon: <ChatBubbleOutlineIcon />,
+        icon: ChatBubbleOutlineIcon,
         path: "/app/messages",
       },
       {
         name: "Perfil",
-        icon: <FiUser />,
+        icon: FiUser,
         path: `/app/profile/${user?.nickname}`,
       },
-      { name: "Configurações", icon: <AiOutlineSetting />, path: "#" },
+      { name: "Configurações", icon: AiOutlineSetting, path: "#" },
     ]);
   }, [user]);
   return (
     <>
       <ButtonExpand
         expand={expandSidebar}
-        onClick={() => {
-          console.log("teste slci");
-          setExpandSidebar(!expandSidebar);
-        }}
+        onClick={() => setExpandSidebar(!expandSidebar)}
       >
         <VscThreeBars />
       </ButtonExpand>
@@ -109,11 +102,11 @@ const Sidebar = ({ onOpenDrawer }: SidebarProps) => {
               return (
                 <MenuGroup
                   key={menu.name}
-                  onClick={() => handleMenuItemClick(menu)}
+                  onClick={() => router.push(menu.path)}
                   $active={isActive}
                 >
-                  <StyledIcon>{menu.icon}</StyledIcon>
-                  <StyledLink href={menu.path}>{menu.name}</StyledLink>
+                  <Icon icon={menu.icon} />
+                  <P2 textAlign="center">{menu.name}</P2>
                 </MenuGroup>
               );
             })}

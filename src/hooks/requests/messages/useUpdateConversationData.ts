@@ -1,14 +1,13 @@
 import { useQueryClient } from "react-query";
-import { IAllMessages, MessagesEntity } from "../../../requests/messages";
 import { EQueries } from "../../../enums/reactQueryTags/queries.enum";
-import { Updater } from "react-query/types/core/utils";
-import { useAuthorization } from "../../store/useAuthorization";
+import { IAllMessages, MessagesEntity } from "../../../requests/messages";
 import { UserEntity } from "../../../requests/user";
+import { useAuthorization } from "../../store/useAuthorization";
 
 export function useUpdateConversationData() {
   const queryClient = useQueryClient();
   const { user } = useAuthorization();
-  function updateData(data: MessagesEntity, chattingWith: UserEntity) {
+  function updateAll(data: MessagesEntity, chattingWith: UserEntity) {
     queryClient.setQueryData(
       [EQueries.conversation, chattingWith.id],
       (prev: any) => {
@@ -45,7 +44,7 @@ export function useUpdateConversationData() {
         const { fromUser, ...message } = data;
         const newConversation = {
           ...message,
-          chattingWith: chattingWith,
+          chattingWith,
         };
         const index = previous.findIndex(
           (conversation) => conversation.chattingWith.id === conversationWith
@@ -58,5 +57,6 @@ export function useUpdateConversationData() {
       }
     );
   }
-  return { updateData };
+
+  return { updateAll };
 }

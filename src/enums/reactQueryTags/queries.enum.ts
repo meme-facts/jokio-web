@@ -4,4 +4,6 @@ export enum EQueries {
   posts = "posts",
   users = "users",
   userById = "userById",
+  getFollowing = "getFollowing",
+  postsByUserId = "postsByUserId",
 }

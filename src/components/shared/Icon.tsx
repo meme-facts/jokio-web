@@ -1,12 +1,13 @@
 import { SvgIcon, SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import React from "react";
+import { IconType } from "react-icons";
 
 export type IIcon = OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
   muiName: string;
 };
 interface IIconProps {
-  icon: IIcon;
+  icon: IIcon | IconType;
   styles?: React.CSSProperties | undefined;
   hide?: boolean;
   onClick?: () => void;

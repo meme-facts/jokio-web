@@ -19,7 +19,7 @@ export function XP({
   children,
   ...props
 }: PropsWithChildren<{ sx?: IParagraph }>) {
-  return <PStyled sx={{ fontSize: "0.50rem", ...props }}>{children}</PStyled>;
+  return <PStyled sx={{ fontSize: "0.56rem", ...props }}>{children}</PStyled>;
 }
 
 export function P({ children, ...props }: PropsWithChildren<IParagraph>) {

@@ -14,16 +14,19 @@ export function UserInfo() {
   const { data, error, isLoading, isError, refetch } = useUserById(
     nickname as string
   );
-  // useEffect(() => {
-  //   refetch();
-  // }, [nickname]);
 
   if (error || isLoading || !data) {
     return <UserInfoSkeleton />;
   }
 
   return (
-    <VStack width="100%" justifyContent="start" alignItems="center" gap="10px">
+    <VStack
+      padding="47px 0"
+      width="100%"
+      justifyContent="start"
+      alignItems="center"
+      gap="10px"
+    >
       <VStack
         gap="20px"
         justifyContent="start"
@@ -36,7 +39,7 @@ export function UserInfo() {
           justifyContent="center"
           alignItems="center"
         >
-          <UserPhoto imgUrl={data.img_full_url} size="70px" />
+          <UserPhoto imgUrl={data.img_full_url} size="90px" />
           <P2 fontWeight="500">@{data.nickname}</P2>
         </VStack>
         <GridUserInfo>
