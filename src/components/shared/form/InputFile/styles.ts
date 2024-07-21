@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import styled from "styled-components";
-import { colors } from "../../../../style/colors";
+import { colors } from "../../../../styles/colors";
 
 export type InputType = CSSProperties &
   React.InputHTMLAttributes<HTMLInputElement>;

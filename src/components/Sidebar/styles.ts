@@ -13,7 +13,7 @@ export const SidebarWrapper = styled.div<{ expand: boolean }>`
   gap: 45px;
   transition: width 0.3s, color 0.3s;
 
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 1100px) {
     display: ${(props) => (props.expand ? "flex" : "none")};
     position: absolute;
     background: #1e2730;
@@ -31,7 +31,7 @@ export const MenuGroup = styled.div<{ $active: boolean }>`
   gap: 20px;
   text-decoration: none;
   display: flex;
-
+  align-items: center;
   padding: 10px;
   /* color: white; */
   border-radius: 10px;
@@ -58,8 +58,6 @@ export const StyledLink = styled(Link)`
 `;
 export const Icon = styled.div`
   font-size: 22px;
-  align-self: center;
-  align-items: center;
 `;
 
 export const LogoLink = styled(Link)`
@@ -73,7 +71,7 @@ export const ButtonExpand = styled.button<{ expand: boolean }>`
   color: white;
   margin: 10px 10px;
   font-size: 19px;
-  @media screen and (min-width: 751px) {
+  @media screen and (min-width: 1100px) {
     display: none;
   }
   position: absolute;
@@ -81,7 +79,7 @@ export const ButtonExpand = styled.button<{ expand: boolean }>`
   z-index: 10000;
 `;
 export const ButtonHidden = styled.button`
-  @media screen and (min-width: 751px) {
+  @media screen and (min-width: 1100px) {
     display: none;
   }
   display: flex;

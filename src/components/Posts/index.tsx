@@ -14,7 +14,7 @@ import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 import { FadeLoader } from "react-spinners";
 import { useDislikePost, useLikePost } from "../../hooks/requests/usePosts";
-import { Posts, getPosts } from "../../requests/posts";
+import { Posts as PostType, getPosts } from "../../requests/posts";
 import {
   BackdropPhoto,
   Comment,
@@ -62,7 +62,7 @@ const Posts = () => {
   } = useInfiniteQuery<
     any,
     unknown,
-    { posts: Posts[]; count: number; prevPage: number }
+    { posts: PostType[]; count: number; prevPage: number }
   >({
     queryKey: ["postsByUserId"],
     queryFn: ({ pageParam = 1 }) => getPosts({ pageParam, limit: 6 }),
@@ -120,7 +120,7 @@ const Posts = () => {
     }
   };
 
-  const posts = (data?.pages || []).reduce<Posts[]>(
+  const posts = (data?.pages || []).reduce<PostType[]>(
     (acc, next) => [...acc, ...next.posts],
     []
   );

@@ -28,7 +28,8 @@
       "@utils/*": ["./src/utils/*"],
       "@requests/*": ["./src/requests/*"],
       "@enums/*": ["./src/enums/*"],
-      "@constants/*": ["./src/constants/*"]
+      "@constants/*": ["./src/constants/*"],
+      "@styles/*": ["./src/styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

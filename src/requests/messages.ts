@@ -13,7 +13,7 @@ export interface MessagesEntity {
 
 export interface IAllMessages {
   id: string;
-  message: string;
+  message?: string;
   isRead: boolean;
   fromUserId: string;
   toUserId: string;
@@ -25,6 +25,12 @@ export interface IGetAllPostByUserIdParams {
   pageParam: number;
   limit: number;
   userId: string;
+}
+
+export interface IGetFollowing {
+  pageParam: number;
+  limit: number;
+  user_reference: string;
 }
 
 export async function getAllMessages(): Promise<IAllMessages[]> {
@@ -41,8 +47,6 @@ export async function getConversation({
   messagesBetweenUsers: MessagesEntity[];
   prevPage: number;
 }> {
-  console.log(pageParam, "pageParam");
-
   const { data } = await JokioBackend.get(`/messages/${userId}`, {
     params: {
       offset: pageParam,
@@ -51,3 +55,18 @@ export async function getConversation({
   });
   return { ...data, offset: pageParam };
 }
+
+export const getFollowing = async ({
+  pageParam = 0,
+  limit = 10,
+  user_reference,
+}: IGetFollowing) => {
+  const { data } = await JokioBackend.get(`/users/following`, {
+    params: {
+      page: pageParam,
+      limit,
+      user_reference,
+    },
+  });
+  return { ...data, prevPage: pageParam };
+};

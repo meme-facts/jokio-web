@@ -5,8 +5,8 @@ type IDiv = CSSProperties & React.HTMLAttributes<HTMLDivElement>;
 
 export const DivTab = styled.div<{ sx?: IDiv }>`
   display: flex;
+  width: 100%;
   cursor: pointer;
-  justify-content: space-evenly;
   ${(props) =>
     Object.keys(props?.sx ?? []).map((name) => {
       if (props.sx) {
@@ -17,9 +17,10 @@ export const DivTab = styled.div<{ sx?: IDiv }>`
     })};
 `;
 export const Tab = styled.div<{ $active: boolean }>`
-  width: 20%;
+  width: 150px;
   text-align: center;
   padding-bottom: 5px;
   font-weight: 500;
-  border-bottom: ${(props) => (props.active ? "2px solid #7a41e0" : "none")};
+  white-space: nowrap;
+  border-bottom: ${(props) => (props.$active ? "2px solid #7a41e0" : "none")};
 `;

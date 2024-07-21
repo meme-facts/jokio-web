@@ -5,7 +5,12 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 7px;
-  padding: 20px;
+  @media (max-width: 780px) {
+    min-width: 0;
+  }
+  @media (max-width: 650px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export const GridItem = styled.div`
@@ -16,6 +21,10 @@ export const GridItem = styled.div`
   background-color: #171d24;
   display: flex;
   align-items: center;
+  @media (max-width: 780px) {
+    width: 160px;
+    height: 160px;
+  }
 `;
 export const SkeletonGridItem = styled.div`
   width: 240px;

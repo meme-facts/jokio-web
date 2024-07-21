@@ -18,7 +18,7 @@ import {
 } from "../../../schema/messege.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
-import { colors } from "../../../style/colors";
+import { colors } from "../../../styles/colors";
 import { IconButton } from "@components/shared/form/IconButton";
 import { Form } from "@components/shared/form/Form";
 import Icon from "@components/shared/Icon";
@@ -33,7 +33,7 @@ interface TextingAreaProps {
 export function TextingArea({ selectedUser, updateRef }: TextingAreaProps) {
   const { user } = useAuthorization();
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
-  const { updateData } = useUpdateConversationData();
+  const { updateAll } = useUpdateConversationData();
 
   const {
     register,
@@ -64,7 +64,7 @@ export function TextingArea({ selectedUser, updateRef }: TextingAreaProps) {
           },
         };
         updateRef(selectedUser.id);
-        updateData(message, selectedUser);
+        updateAll(message, selectedUser);
         socket.emit("message", message);
         reset();
       }
@@ -79,7 +79,7 @@ export function TextingArea({ selectedUser, updateRef }: TextingAreaProps) {
     setIsEmojiOpen(false);
   }
   return (
-    <Form height="100px" onSubmit={handleSubmit(handleSubmitMessage)}>
+    <Form height="auto" onSubmit={handleSubmit(handleSubmitMessage)}>
       <MessagesArea>
         <Input
           placeholder="Digite uma mensagem"
@@ -106,7 +106,7 @@ export function TextingArea({ selectedUser, updateRef }: TextingAreaProps) {
           styles={{
             position: "absolute",
             left: "15px",
-            bottom: "22px",
+            bottom: "26px",
             cursor: "pointer",
           }}
           icon={SentimentSatisfiedAltIcon}

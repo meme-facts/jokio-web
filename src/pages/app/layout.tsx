@@ -26,6 +26,9 @@ const MaxWidth = styled.div`
   max-width: 1200px;
   width: 100%;
   padding: 34px;
+  @media (max-width: 1100px) {
+    padding: 30px 0;
+  }
 `;
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useAuthorization();
