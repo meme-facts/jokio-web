@@ -16,7 +16,7 @@ export const DivTab = styled.div<{ sx?: IDiv }>`
       }
     })};
 `;
-export const Tab = styled.div<{ $active: boolean }>`
+export const Tab = styled.div<{ active: boolean }>`
   width: 20%;
   text-align: center;
   padding-bottom: 5px;
