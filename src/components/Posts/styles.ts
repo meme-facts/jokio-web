@@ -24,7 +24,8 @@ export const Reloader = styled.div`
 `;
 
 export const Post = styled.img<{ isOnModal?: boolean }>`
-  width: 83%;
+  width: ${({ isOnModal }) => (isOnModal ? "70%" : "83%")};
+  flex: ${({ isOnModal }) => (isOnModal ? "0 1 70%" : "0 1 auto")};
   margin: ${({ isOnModal }) => (isOnModal ? "22px" : "")};
   border-radius: 11px;
   border: 1px solid #7a41e0;
@@ -79,11 +80,12 @@ export const CommentsContainer = styled.div`
   display: grid;
   width: 30%;
   margin-top: 22px;
-  justify-content: center;
   margin-bottom: 40px;
   gap: 20px;
   height: 89%;
   max-height: 89%;
+  align-content: start;
+  justify-content: stretch;
 `;
 export const CommentPosts = styled.div`
   display: grid;
@@ -93,7 +95,7 @@ export const CommentPosts = styled.div`
   width: 100%;
   padding-right: 25px;
   overflow: auto;
-  justify-content: right;
+  justify-content: start;
 
   &::-webkit-scrollbar {
     width: 8px;
