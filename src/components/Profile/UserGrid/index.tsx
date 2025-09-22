@@ -34,8 +34,14 @@ export function UserGrid() {
     queryKey: [EQueries.postsByUserId],
     staleTime: 1000 * 60 * 5,
     enabled: !!nickname,
-    queryFn: ({ pageParam = 1 }) =>
-      getPostsByUserId({ pageParam, limit: 9, userName: nickname as string }),
+    queryFn: ({ pageParam = 1 }) => {
+      console.log("Fetching posts for user:", nickname);
+      return getPostsByUserId({
+        pageParam,
+        limit: 9,
+        userName: nickname as string,
+      });
+    },
     getNextPageParam: (lastPage) => {
       if (lastPage.prevPage * 9 + 1 > lastPage.count) {
         return false;

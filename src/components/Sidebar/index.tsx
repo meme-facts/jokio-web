@@ -25,13 +25,23 @@ import {
   SidebarWrapper,
   Icon as StyledIcon,
   StyledLink,
+  Wrapper,
 } from "./styles";
 import { P1, P2 } from "@components/shared/text/Paragraph";
 import { IconType } from "react-icons";
+import {
+  Bell,
+  Home,
+  MessageCircle,
+  Settings,
+  SquarePlus,
+  Telescope,
+  User,
+} from "lucide-react";
 
 interface IMenu {
   name: string;
-  icon: IIcon | IconType;
+  icon: React.ComponentType;
   path: string;
 }
 
@@ -61,25 +71,25 @@ const Sidebar = () => {
   }
   useEffect(() => {
     setMenus([
-      { name: "Home", icon: AiOutlineHome, path: "/app" },
-      { name: "Criar um meme", icon: AiOutlinePlusCircle, path: "#" },
-      { name: "Explorar", icon: TravelExploreIcon, path: "#" },
-      { name: "Notificações", icon: BsBell, path: "#" },
+      { name: "Home", icon: Home, path: "/app" },
+      { name: "Criar um meme", icon: SquarePlus, path: "#" },
+      { name: "Explorar", icon: Telescope, path: "#" },
+      { name: "Notificações", icon: Bell, path: "#" },
       {
         name: "Mensagens",
-        icon: ChatBubbleOutlineIcon,
+        icon: MessageCircle,
         path: "/app/messages",
       },
       {
         name: "Perfil",
-        icon: FiUser,
+        icon: User,
         path: `/app/profile/${user?.nickname}`,
       },
-      { name: "Configurações", icon: AiOutlineSetting, path: "#" },
+      { name: "Configurações", icon: Settings, path: "#" },
     ]);
   }, [user]);
   return (
-    <>
+    <Wrapper>
       <ButtonExpand
         expand={expandSidebar}
         onClick={() => setExpandSidebar(!expandSidebar)}
@@ -105,7 +115,8 @@ const Sidebar = () => {
                   onClick={() => router.push(menu.path)}
                   $active={isActive}
                 >
-                  <Icon icon={menu.icon} />
+                  <menu.icon size={22} />
+
                   <P2 textAlign="center">{menu.name}</P2>
                 </MenuGroup>
               );
@@ -129,7 +140,7 @@ const Sidebar = () => {
           />
         </SidebarWrapper>
       </div>
-    </>
+    </Wrapper>
   );
 };
 

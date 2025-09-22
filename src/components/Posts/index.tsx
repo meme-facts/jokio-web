@@ -4,7 +4,7 @@ import UserPhoto from "@components/UserPhoto";
 import Icon from "@components/shared/Icon";
 import { VStack } from "@components/shared/flex/Stacks";
 import { P, XP } from "@components/shared/text/Paragraph";
-import Modal from "@components/utils/Modal/Modal";
+import ModalPost from "@components/utils/Modal/Modal";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { Fragment, useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -14,7 +14,8 @@ import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 import { FadeLoader } from "react-spinners";
 import { useDislikePost, useLikePost } from "../../hooks/requests/usePosts";
-import { Posts as PostType, getPosts } from "../../requests/posts";
+import { Posts as RequestPosts, getPosts } from "../../requests/posts";
+import { getCommentsByPostId } from "../../requests/comments";
 import {
   BackdropPhoto,
   Comment,
@@ -34,6 +35,9 @@ import {
   UserInfo,
 } from "./styles";
 import SwipeableEdgeDrawer from "@components/utils/DrawerComment";
+import { useGetAllPostComments } from "../../hooks/requests/usePostComments";
+import Comments from "@components/Comments";
+import { MessageCircle } from "lucide-react";
 // import { postLiked } from "../../requests/posts";
 
 const Posts = () => {
@@ -43,7 +47,9 @@ const Posts = () => {
   const [isBackdrop, setIsBackdrop] = useState<any>();
   const [clickCount, setClickCount] = useState(1);
   const params = { page: 1, limit: 10 };
-  // const { data, isError, isLoading } = useGetAllPosts(params);
+
+  // const { datas, isError, isLoading } = useGetAllPostComments(params);
+
   const { mutateAsync: createLike } = useLikePost();
   const { mutateAsync: deleteLike } = useDislikePost();
   const { ref, inView } = useInView();
@@ -62,7 +68,7 @@ const Posts = () => {
   } = useInfiniteQuery<
     any,
     unknown,
-    { posts: PostType[]; count: number; prevPage: number }
+    { posts: RequestPosts[]; count: number; prevPage: number }
   >({
     queryKey: ["postsByUserId"],
     queryFn: ({ pageParam = 1 }) => getPosts({ pageParam, limit: 6 }),
@@ -82,7 +88,7 @@ const Posts = () => {
 
   const toggleModal = (post: any) => {
     setDataModal(post);
-
+    console.log("postt", post);
     setOpenCommentModal(!openCommentModal);
   };
   const toggleDrawer = (postId: string) => {
@@ -120,7 +126,7 @@ const Posts = () => {
     }
   };
 
-  const posts = (data?.pages || []).reduce<PostType[]>(
+  const posts = (data?.pages || []).reduce<RequestPosts[]>(
     (acc, next) => [...acc, ...next.posts],
     []
   );
@@ -174,13 +180,13 @@ const Posts = () => {
                     }
                   />
                 )}
-                <BsChatLeftText
+                <MessageCircle
                   onClick={() =>
                     window.innerWidth >= 750
                       ? toggleModal(post)
                       : toggleDrawer(post.id)
                   }
-                  height={"0.7em"}
+                  // height={"0.7em"}
                 />
                 <VscSend />
               </ReactionsContainer>
@@ -225,43 +231,11 @@ const Posts = () => {
           </Fragment>
         );
       })}
-      {openCommentModal && (
-        <Modal onClosed={handleCloseModal} opened={openCommentModal}>
-          <ContainerPosts isOnModal={true}>
-            <Post isOnModal={true} alt="" src={dataModal.img_url} />
-          </ContainerPosts>
-          <CommentsContainer>
-            <UserContainer>
-              <UserPhoto />
-              <UserInfo>
-                <Nickname>@{dataModal.users?.nickname}</Nickname>
-                <Comment>{dataModal.postDescription}</Comment>
-                <Tags>
-                  <span>#meme</span>
-                  <span>#postnovo</span>
-                </Tags>
-              </UserInfo>
-            </UserContainer>
-            <CommentPosts>
-              {Array.from({ length: 10 }).map((_, i) => (
-                <UserContainer key={i}>
-                  <UserPhoto />
-                  <UserInfo>
-                    <Nickname>@{dataModal.users?.nickname}</Nickname>
-                    <Comment>{dataModal.postDescription}</Comment>
-                  </UserInfo>
-                </UserContainer>
-              ))}
-            </CommentPosts>
-            <UserContainer>
-              <UserPhoto />
-              <UserInfo>
-                <InputComment type="text" placeholder="Adicionar comentário" />
-              </UserInfo>
-            </UserContainer>
-          </CommentsContainer>
-        </Modal>
-      )}
+
+      <ModalPost onClosed={handleCloseModal} opened={openCommentModal}>
+        <Comments dataModal={dataModal} />
+      </ModalPost>
+
       <Reloader ref={ref}>
         <FadeLoader color="#36d7b7" loading={isFetchingNextPage} />
         <Icon

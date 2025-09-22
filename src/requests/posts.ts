@@ -27,6 +27,7 @@ export async function getPosts({ pageParam = 0, limit }: IGetAllPostParams) {
   const { data } = await JokioBackend.get("/post", {
     params: { page: pageParam, limit },
   });
+  console.log('data', data);
   return { ...data, prevPage: pageParam };
 }
 
@@ -41,6 +42,9 @@ export const getPostsByUserId = async ({
       limit,
     },
   });
+
+  console.log('data useer', data);
+
   return { ...data, prevPage: pageParam };
 };
 export async function createLikePost(params: ILikePostsParam) {

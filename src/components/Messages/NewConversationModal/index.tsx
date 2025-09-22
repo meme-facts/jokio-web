@@ -130,7 +130,7 @@ export function NewConversationModal({
           padding="5px"
           color={colors.gray[200]}
           value={search}
-          onChange={(e) => debouncedSearch(e.target.value)}
+          onChange={(e: any) => debouncedSearch(e.target.value)}
         />
         <VStack maxHeight="100%" overflow="auto">
           {users.map((user, i) => (

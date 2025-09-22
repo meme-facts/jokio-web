@@ -1,11 +1,12 @@
+import Logo from "@components/utils/Logo/Logo";
 import styled from "@emotion/styled";
 import Link from "next/link";
 
 export const SidebarWrapper = styled.div<{ expand: boolean }>`
-  width: 13rem;
+
   color: black;
-  padding: 40px;
-  padding-right: 0;
+padding: 15px;
+
   display: flex;
   flex-direction: column;
   height: calc(100vh - 80px);
@@ -22,6 +23,10 @@ export const SidebarWrapper = styled.div<{ expand: boolean }>`
     z-index: 100;
   }
 `;
+export const Wrapper = styled.div`
+background-color: #2f3b4a;
+width: 14%;
+`;
 export const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,7 +40,12 @@ export const MenuGroup = styled.div<{ $active: boolean }>`
   padding: 10px;
   /* color: white; */
   border-radius: 10px;
-  color: ${(props) => (props.$active ? "#7A41E0" : "white")};
+  color: #000;
+  body.dark & {
+    color: #fff;
+   
+  }
+  background-color: ${(props) => (props.$active ? "#7a41e0" : "transparent")};
   &:hover {
     cursor: pointer;
     color: white;
@@ -47,7 +57,7 @@ export const StyledLink = styled(Link)`
   align-self: center;
   font-weight: 500;
   font-size: 16px;
-  color: inherit;
+  color: #000;
 
   &:visited {
     color: inherit;
@@ -58,6 +68,9 @@ export const StyledLink = styled(Link)`
 `;
 export const Icon = styled.div`
   font-size: 22px;
+  align-self: center;
+  align-items: center;
+  display: flex;
 `;
 
 export const LogoLink = styled(Link)`
